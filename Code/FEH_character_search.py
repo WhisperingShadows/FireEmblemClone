@@ -1,6 +1,7 @@
 from typing import Iterable
 import difflib
-from Code.FireEmblemCombatV2 import players_data
+if __name__ == '__main__':
+    from Code.FireEmblemCombatV2 import players_data
 import logging
 
 FORMAT = "%(asctime)-15s| %(message)s"
@@ -103,8 +104,9 @@ extra_specs = [
 
 extra_specs = {*flatten([i.split(" ") for i in extra_specs])}
 
-name_set = players_data[2]
-parted_name_set = flatten([i.split(" ") for i in name_set])
+if __name__ == '__main__':
+    name_set = players_data[2]
+    parted_name_set = flatten([i.split(" ") for i in name_set])
 
 
 class DoesNotContainNameError(Exception):
@@ -244,7 +246,8 @@ def split_and_correct(name: str):
     return corrected_name.strip(), ' '.join(corrected_prefixes).title(), ' '.join(corrected_suffixes).title()
 
 
-words = [remove_prefix(i, ["PID_", "EID_"]) for i in players_data[0].keys()]
+if __name__ == '__main__':
+    words = [remove_prefix(i, ["PID_", "EID_"]) for i in players_data[0].keys()]
 
 
 def get_character(name: str):

@@ -1,4 +1,5 @@
-from Code.FireEmblemLoadJsonFilesBetterV2 import load_files
+if __name__ == '__main__':
+    from Code.FireEmblemLoadJsonFilesBetterV2 import load_files
 from Code.FEH_definitions import STAT_dict
 from math import trunc
 from math import floor
@@ -8,8 +9,10 @@ from Code.ZanyLuaOpShenanigans.LuaListUtil import *
 DEBUG = False
 
 # growth_data contains a list of growth vectors in decimal format
-skills_data, players_data, enemies_data, weapons_data, english_data, growth_data, move_data, stage_encount_data, \
-terrain_data = load_files(None, None, None, None, False, False, False, False, False, True, False, False, False)
+if __name__ == '__main__':
+    skills_data, players_data, enemies_data, weapons_data, english_data, growth_data, \
+    move_data, stage_encount_data, terrain_data = \
+        load_files(None, None, None, None, False, False, False, False, False, True, False, False, False)
 
 StatOffset = {"hp": -35, "atk": -28, "spd": -21, "def": -14, "res": -7}
 

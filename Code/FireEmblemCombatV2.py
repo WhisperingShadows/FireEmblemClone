@@ -1312,10 +1312,12 @@ class Player(Character):
 
 
 # load all necessary data from JSON files
-skills_data, players_data, enemies_data, weapons_data, english_data, growth_data, move_data, stage_encount_data, \
-terrain_data = load_files(Skill, Player, Enemy, Weapon, output_as_class=False, get_simple_names=True)
+if __name__ == '__main__':
+    skills_data, players_data, enemies_data, weapons_data, english_data, growth_data, move_data, \
+    stage_encount_data, terrain_data = \
+        load_files(Skill, Player, Enemy, Weapon, output_as_class=False, get_simple_names=True)
 
-weapon_data_by_index = {v["index"]: v for v in weapons_data[1].values()}
+    weapon_data_by_index = {v["index"]: v for v in weapons_data[1].values()}
 
 colors_by_weapon_index = [1, 2, 3, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 0, 1, 2, 3, 0, 1, 2, 3, 0]
 weapon_index_to_color_dict = {k: v for k, v in zip([i for i in range(24)], colors_by_weapon_index)}
@@ -1843,7 +1845,7 @@ def neighborhood(unit: Character, skill: Skill) -> List[Character]:
 
 
 def neighborhood_ex(unit: Character, skill: Optional[Skill], range_shape_override: str = "") -> List[Character]:
-    nearby = within_range_ex_abstract(unit, skill, range_shape_override)
+    nearby = within_range_ex_abstract(unit, skill, range_shape_override=range_shape_override)
 
     return allies(nearby, unit) + [unit]
 
@@ -1992,7 +1994,7 @@ def neutralize_penalties(unit: Character):
 
 
 def spectrum_buff(units: Union[Character, Iterable[Character]], buff: int):
-    if issubclass(units, Iterable):
+    if issubclass(type(units), Iterable):
         pass
     elif isinstance(units, Character):
         units = [units]
@@ -2005,7 +2007,7 @@ def spectrum_buff(units: Union[Character, Iterable[Character]], buff: int):
 
 
 def spectrum_debuff(units: Union[Character, Iterable[Character]], debuff: int):
-    if issubclass(units, Iterable):
+    if issubclass(type(units), Iterable):
         pass
     elif isinstance(units, Character):
         units = [units]
