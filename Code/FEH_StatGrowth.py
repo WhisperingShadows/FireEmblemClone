@@ -1,10 +1,9 @@
-from FireEmblemLoadJsonFilesBetterV2 import load_files
-from pprint import pprint
-from FEH_definitions import STAT_dict
+from Code.FireEmblemLoadJsonFilesBetterV2 import load_files
+from Code.FEH_definitions import STAT_dict
 from math import trunc
 from math import floor
-from ZanyLuaOpShenanigans.LuaBase import *
-from ZanyLuaOpShenanigans.LuaListUtil import *
+from LuaBase import *
+from LuaListUtil import *
 
 DEBUG = False
 

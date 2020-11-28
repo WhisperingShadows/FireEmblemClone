@@ -1,7 +1,7 @@
 from math import floor
 
 if __name__ == "main":
-    from FireEmblemCombatV2 import Character
+    from Code.FireEmblemCombatV2 import Character
 
 weapon_index_dict = {k: v for k, v in zip([i for i in range(24)], [
     "Sword", "Lance", "Axe", "Red bow", "Blue bow", "Green bow", "Colorless bow", "Red Dagger", "Blue Dagger",

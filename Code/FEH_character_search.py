@@ -1,8 +1,7 @@
 from typing import Iterable
 import difflib
-from FireEmblemCombatV2 import players_data
+from Code.FireEmblemCombatV2 import players_data
 import logging
-from datetime import datetime
 
 FORMAT = "%(asctime)-15s| %(message)s"
 logging.basicConfig(format=FORMAT, level="DEBUG")

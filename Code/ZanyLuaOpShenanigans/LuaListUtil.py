@@ -1,7 +1,6 @@
-from ZanyLuaOpShenanigans.LuaBase import LuaList
+from LuaBase import LuaList
 
-from typing import Union, Any
-from types import FunctionType, LambdaType
+from typing import Any
 from pprint import pprint
 
 FuncOrLamb = Any

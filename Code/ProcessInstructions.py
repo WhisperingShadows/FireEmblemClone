@@ -1,4 +1,4 @@
-import FEH_character_search as char_search
+from Code import FEH_character_search as char_search
 
 
 def process_instruction(self, instruction: str):
@@ -48,7 +48,7 @@ def process_instruction(self, instruction: str):
 
 
 if __name__ == '__main__':
-    from FireEmblemCombatV2 import *
+    from Code.FireEmblemCombatV2 import *
 
     while True:
         stdin = input(">>> ")

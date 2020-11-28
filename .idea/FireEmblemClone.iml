@@ -2,7 +2,7 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/ZanyLuaOpShenanigans" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Code/ZanyLuaOpShenanigans" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/HertzDevil_JSON_assets" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.mypy_cache" />

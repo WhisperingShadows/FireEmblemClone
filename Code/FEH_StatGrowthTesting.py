@@ -1,4 +1,4 @@
-from FEH_StatGrowth import *
+from Code.FEH_StatGrowth import *
 import unittest
 
 from forbiddenfruit import curse
@@ -147,5 +147,4 @@ class TestFullLv1Stats(unittest.TestCase):
 
 # unittest.main()
 
-from pprint import pprint
 # pprint(full_lv40_stats([50, 60, 55, 40, 45], full_lv1_stats([17, 7, 8, 8, 6])))

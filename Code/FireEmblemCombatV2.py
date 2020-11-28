@@ -3,10 +3,9 @@ Updated combat logic for FireEmblemClone
 """
 
 from DijkstraAlgorithm_Speedy_Custom import *
-from typing import Union, List
 # from FEH_definitions import *
-import FEH_StatGrowth
-from FireEmblemLoadJsonFilesBetterV2 import *
+from Code import FEH_StatGrowth
+from Code.FireEmblemLoadJsonFilesBetterV2 import *
 from math import trunc, floor
 from metaproperties import properties, self_properties
 from types import SimpleNamespace as sn

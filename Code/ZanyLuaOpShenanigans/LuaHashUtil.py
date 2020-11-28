@@ -1,4 +1,4 @@
-from ZanyLuaOpShenanigans.LuaBase import *
+from LuaBase import *
 
 
 def invert(t):
