@@ -1324,24 +1324,58 @@ weapon_index_to_color_dict = {k: v for k, v in zip([i for i in range(24)], color
 # GENERAL DEFINITIONS START
 
 def tuple_add(tup1, tup2):
+    """
+    Simple utility function that adds 2 (X,Y) tuples and returns the result.
+
+    :param tup1:
+    :param tup2:
+    :return:
+    """
     return (tup1[0] + tup2[0], tup1[1] + tup2[1])
 
 
 def scale_tuple(tup, scale):
+    """
+    Simple utility function that scales an (X,Y) tuple by an integer value and returns the result.
+
+    :param tup:
+    :param scale:
+    :return:
+    """
     return (tup[0] * scale, tup[1] * scale)
 
 
 def get_distance_from_tuples(self: tuple, enemy: tuple):
+    """
+    Simple utility function that returns the distance between 2 (X,Y) tuples. Distance is not the
+    minimal diagonal distance as given by the standard distance function, but rather the tile-based
+    distance used to navigate grids. For example, if an object A is at position (1,1) and an object B
+    is at position (3,4), the distance is 5 (as opposed to the shortest-route diagonal distance of
+    3.60555...)
+
+    :param self:
+    :param enemy:
+    :return:
+    """
     return abs(enemy[0] - self[0]) + abs(enemy[1] - self[1])
 
 
 def get_distance(self: Character, enemy: Character):
+    """
+    Simple utility function that returns the distance between 2 (X,Y) :class:`Character` units.
+    Uses the same logic as in :func:`get_distance_from_tuples`.
+
+    :param self:
+    :param enemy:
+    :return:
+    """
     return abs(enemy.pos[0] - self.pos[0]) + abs(enemy.pos[1] - self.pos[1])
 
 
 def convert_to_bitmask_list(int_bitmask: int) -> list:
     """
-    Converts integer bitmask to list bitmask, e.g if 'int_bitmask' is 571, returns [1, 1, 0, 1, 1, 1, 0, 0, 0, 1]
+    Converts integer bitmask to list of 1's and 0's, e.g if 'int_bitmask' is 571,
+    returns [1, 1, 0, 1, 1, 1, 0, 0, 0, 1]
 
     :param int_bitmask:
     :return:
@@ -1376,6 +1410,7 @@ def in_bitmask(nums: Union[int, Iterable[int]], bitmask: int) -> Union[bool, Dic
     :param bitmask:
     :return:
     """
+
     bitmask_list = convert_to_bitmask_list(bitmask)
 
     in_bitmask_dict = dict()
@@ -1404,18 +1439,37 @@ def in_bitmask(nums: Union[int, Iterable[int]], bitmask: int) -> Union[bool, Dic
 
 
 def pos(expr: int) -> int:
+    """
+    Simple utility function that returns 0 for all input values below 0, or the input value otherwise.
+
+    :param expr:
+    :return:
+    """
     if expr < 0:
         return 0
     return expr
 
 
 def neg(expr: int) -> int:
+    """
+    Simple utility function that returns 0 for all input values above 0, or the input value otherwise.
+
+    :param expr:
+    :return:
+    """
     if expr > 0:
         return 0
     return expr
 
 
 def print_grid(input_grid: Graph):
+    """
+    Prints the current field grid. Empty nodes are represented by spaces, nodes containing players
+    by O's, and nodes containing enemies by X's.
+
+    :param input_grid:
+    :return:
+    """
     x, y = input_grid.get_grid_width_height()
 
     for iy in reversed(range(0, y)):
@@ -1425,13 +1479,19 @@ def print_grid(input_grid: Graph):
             if held is None:
                 row.append("  ")
             elif held.__class__ == Enemy:
-                row.append("x ")
+                row.append("X ")
             elif held.__class__ == Player:
                 row.append("O ")
         print(row)
 
 
 def find_inconsistencies():
+    """
+    Function intended to search character data files for skills in incorrect categories.
+
+    :return:
+    """
+
     for index in [9, 10, 11, 12, 13]:
         skill_list = []
         cat = None
@@ -1469,26 +1529,60 @@ def find_inconsistencies():
 # I mean, I suppose the below would work with floats, but floating-point arithmetic can lead to rounding
 # issues and stuff that I don't feel like dealing with
 def ones(x: int) -> int:
+    """
+    Simple utility function to return the one's place digit of a number.
+
+    :param x:
+    :return:
+    """
     return x % 10
 
 
 def tens(x: int) -> int:
+    """
+    Simple utility function to return the ten's place digit of a number.
+
+    :param x:
+    :return:
+    """
     return floor(x / 10) % 10
 
 
 def hundreds(x: int) -> int:
+    """
+    Simple utility function to return the hundreds' place digit of a number.
+
+    :param x:
+    :return:
+    """
     return floor(x / 100) % 10
 
 
 def tens_ones(x: int) -> int:
+    """
+    Simple utility function to return a number composed of the one's and ten's place digits
+    of the input number.
+
+    :param x:
+    :return:
+    """
     return x % 100
 
 
 # could work with floats, but that's not what it's used for here
 def in_range(away: Point, origin: Point, distance: int):
+    """
+    Returns boolean denoting whether `away` coordinate is within `distance` spaces of `origin`
+    coordinates or not.
+
+    :param away:
+    :param origin:
+    :param distance:
+    :return:
+    """
     if get_distance_from_tuples(away, origin) > distance:
-        return 0
-    return 1
+        return False
+    return True
 
 
 condition_dict = {
@@ -1504,8 +1598,11 @@ condition_dict = {
 def within_range_abstracted(unit: Character, skill: Optional[Skill], condition: str,
                             grid: Graph = GRID, distance_override=0):
     """
-    Returns a list of Character instances whose position is within skill.skill_range spaces of unit
-    (Note: excludes 'unit')
+    Returns a list of Character instances whose position is within :attr:`Skill.skill_range`
+    spaces of unit
+
+    .. note::
+       **Excludes 'unit'**
 
     """
 
