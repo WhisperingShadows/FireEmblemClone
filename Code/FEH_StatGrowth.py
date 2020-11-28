@@ -2,8 +2,8 @@ from Code.FireEmblemLoadJsonFilesBetterV2 import load_files
 from Code.FEH_definitions import STAT_dict
 from math import trunc
 from math import floor
-from LuaBase import *
-from LuaListUtil import *
+from Code.ZanyLuaOpShenanigans.LuaBase import *
+from Code.ZanyLuaOpShenanigans.LuaListUtil import *
 
 DEBUG = False
 

@@ -65,7 +65,7 @@
 
                 <p class="caption"><span class="caption-text">Contents:</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../modules.html">FireEmblemClone</a></li>
+                    <li class="toctree-l1"><a class="reference internal" href="../modules.html">Code</a></li>
                 </ul>
 
 
@@ -121,12 +121,11 @@
 
 <span class="kn">from</span> <span class="nn">DijkstraAlgorithm_Speedy_Custom</span> <span
                                 class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span
-                                class="n">Union</span><span class="p">,</span> <span class="n">List</span>
 <span class="c1"># from FEH_definitions import *</span>
-<span class="kn">import</span> <span class="nn">FEH_StatGrowth</span>
-<span class="kn">from</span> <span class="nn">FireEmblemLoadJsonFilesBetterV2</span> <span
-                                class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">Code</span> <span class="kn">import</span> <span
+                                class="n">FEH_StatGrowth</span>
+<span class="kn">from</span> <span class="nn">Code.FireEmblemLoadJsonFilesBetterV2</span> <span class="kn">import</span> <span
+                                class="o">*</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span
                                 class="n">trunc</span><span class="p">,</span> <span class="n">floor</span>
 <span class="kn">from</span> <span class="nn">metaproperties</span> <span class="kn">import</span> <span class="n">properties</span><span
@@ -497,18 +496,19 @@
 
         <span class="c1">#: A set of extra parameters that are used only for skill effects common to weapon classes</span>
         <span class="c1">#: for which is_staff, is_dagger, is_breath, or is_beast is true:</span>
-        <span class="c1">#:   - is_staff: If class_params.hp = 1, calculates damage from staff like other weapons.;</span>
-        <span class="c1">#:     If class_params.hp = 2, foe cannot counterattack.</span>
-        <span class="c1">#:   - is_dagger: After combat, if unit attacked, inflicts stat+class_params on target and foes within</span>
-        <span class="c1">#:     class_params.hp spaces of target through their next actions.</span>
-        <span class="c1">#:   - is_breath: If class_params.hp = 1, and if target_mov foe uses target_wep, calculates damage</span>
-        <span class="c1">#:     using the lower of foe&#39;s Def or Res.</span>
-        <span class="c1">#:   - is_beast: If class_params.hp = 1, at start of turn, if unit is adjacent to only beast or</span>
-        <span class="c1">#:     dragon allies or if unit is not adjacent to any ally, unit transforms (otherwise, unit reverts);</span>
-        <span class="c1">#:     if unit transforms, grants stat+class_params.</span>
+        <span class="c1">#: - is_staff: If class_params.hp = 1, calculates damage from staff like other weapons.;</span>
+        <span class="c1">#:   If class_params.hp = 2, foe cannot counterattack.</span>
+        <span class="c1">#: - is_dagger: After combat, if unit attacked, inflicts stat+class_params on target and foes within</span>
+        <span class="c1">#:   class_params.hp spaces of target through their next actions.</span>
+        <span class="c1">#: - is_breath: If class_params.hp = 1, and if target_mov foe uses target_wep, calculates damage</span>
+        <span class="c1">#:   using the lower of foe&#39;s Def or Res.</span>
+        <span class="c1">#: - is_beast: If class_params.hp = 1, at start of turn, if unit is adjacent to only beast or</span>
+        <span class="c1">#:   dragon allies or if unit is not adjacent to any ally, unit transforms (otherwise, unit reverts);</span>
+        <span class="c1">#:   if unit transforms, grants stat+class_params.</span>
         <span class="c1">#: .. note::</span>
         <span class="c1">#:    is_staff, is_dagger, is_breath, and is_beast are currently implemented as</span>
         <span class="c1">#:    Character attributes, not as Weapon attributes or methods</span>
+        <span class="c1">#:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">class_params</span> <span class="o">=</span> <span
             class="kc">None</span>
 
@@ -675,10 +675,10 @@
             class="o">=</span> <span class="kc">None</span>
         <span class="c1">#: Indicates whether random units can equip this skill. This affects Training Tower and Allegiance Battles.</span>
         <span class="c1">#: It has 3 possible values:</span>
-        <span class="c1">#:   - 0: This skill may not be equipped on random units.</span>
-        <span class="c1">#:   - 10: This skill may be equipped on random units.</span>
-        <span class="c1">#:   - 20: Purpose unknown. Same effect as 10. Used by basic non-staff weapons</span>
-        <span class="c1">#:     (e.g. Iron Sword, Flametongue+, Adult (Cavalry)) and basic staff Assists.</span>
+        <span class="c1">#: - 0: This skill may not be equipped on random units.</span>
+        <span class="c1">#: - 10: This skill may be equipped on random units.</span>
+        <span class="c1">#: - 20: Purpose unknown. Same effect as 10. Used by basic non-staff weapons</span>
+        <span class="c1">#:   (e.g. Iron Sword, Flametongue+, Adult (Cavalry)) and basic staff Assists.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">random_allowed</span> <span
             class="o">=</span> <span class="kc">None</span>
         <span class="c1">#: If non-zero, represent the lowest and highest levels respectively that allow random units</span>
@@ -905,7 +905,7 @@
         class="k">def</span> <span class="nf">set_attribute_values</span><span class="p">(</span><span
         class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Calls :method:`get_base_weapon_class` if weapon does not already have a :class:`WeaponClass`</span>
+<span class="sd">        Calls :meth:`get_base_weapon_class` if weapon does not already have a :class:`WeaponClass`</span>
 
 <span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1544,13 +1544,13 @@
         <span class="k">pass</span></div>
 
     <span class="c1"># TODO: Add in support for automatic skill/weapon generation for TT and the like</span>
-    <span class="c1"># checks whether character may possess weapon</span>
 <div class="viewcode-block" id="Character.validate_weapon"><a class="viewcode-back"
                                                               href="../FireEmblemCombatV2.html#FireEmblemCombatV2.Character.validate_weapon">[docs]</a>    <span
         class="k">def</span> <span class="nf">validate_weapon</span><span class="p">(</span><span class="bp">self</span><span
         class="p">,</span> <span class="n">weapon</span><span class="p">:</span> <span class="n">Weapon</span><span
         class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks whether unit may possess weapon</span>
 
 <span class="sd">        :type weapon: Weapon</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -2215,6 +2215,7 @@
 <span class="sd">        :param distance: Integer value by which direction tuple is scaled. Defaults to one.</span>
 <span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span
             class="n">tuple_add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span
             class="n">pos</span><span class="p">,</span> <span class="n">scale_tuple</span><span class="p">(</span><span

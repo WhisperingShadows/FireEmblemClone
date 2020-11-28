@@ -155,7 +155,7 @@ def load_files(skill_class, player_class, enemy_class, weapon_class, output_as_c
     english_data = {}
 
     if get_english_data:
-        os.chdir(r"/USEN/Message/Data")
+        os.chdir(r"C:\Users\admin\PycharmProjects\FireEmblemClone\HertzDevil_JSON_assets\USEN\Message\Data")
 
         total = int()
         for file in os.listdir():
@@ -410,7 +410,7 @@ def load_files(skill_class, player_class, enemy_class, weapon_class, output_as_c
             output = my_merger2(dict_values_list, output_class)
         return output
 
-    os.chdir(r"/Common/SRPG")
+    os.chdir(r"C:\Users\admin\PycharmProjects\FireEmblemClone\HertzDevil_JSON_assets\Common\SRPG")
     # dprint(os.listdir())
     # dictionary of json files converted to dicts
     # keys are json file names strings, values are lists of dictionaries which contain FEH skills

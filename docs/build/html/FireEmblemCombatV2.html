@@ -30,8 +30,8 @@
 
     <link rel="index" title="Index" href="genindex.html"/>
     <link rel="search" title="Search" href="search.html"/>
-    <link rel="next" title="FireEmblemLoadJsonDataFiles module" href="FireEmblemLoadJsonDataFiles.html"/>
-    <link rel="prev" title="FireEmblemCombat module" href="FireEmblemCombat.html"/>
+    <link rel="next" title="FireEmblemLoadJsonFilesBetterV2 module" href="FireEmblemLoadJsonFilesBetterV2.html"/>
+    <link rel="prev" title="FEH_character_search module" href="FEH_character_search.html"/>
 </head>
 
 <body class="wy-body-for-nav">
@@ -67,7 +67,7 @@
 
                 <p class="caption"><span class="caption-text">Contents:</span></p>
                 <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal" href="modules.html">FireEmblemClone</a>
+                    <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Code</a>
                         <ul class="current">
                             <li class="toctree-l2"><a class="reference internal" href="AutoCorrect.html">AutoCorrect
                                 module</a></li>
@@ -77,21 +77,10 @@
                                 module</a></li>
                             <li class="toctree-l2"><a class="reference internal" href="FEH_character_search.html">FEH_character_search
                                 module</a></li>
-                            <li class="toctree-l2"><a class="reference internal" href="FireEmblemCombat.html">FireEmblemCombat
-                                module</a></li>
                             <li class="toctree-l2 current"><a class="current reference internal" href="#">FireEmblemCombatV2
                                 module</a></li>
                             <li class="toctree-l2"><a class="reference internal"
-                                                      href="FireEmblemLoadJsonDataFiles.html">FireEmblemLoadJsonDataFiles
-                                module</a></li>
-                            <li class="toctree-l2"><a class="reference internal"
-                                                      href="FireEmblemLoadJsonFilesBetter.html">FireEmblemLoadJsonFilesBetter
-                                module</a></li>
-                            <li class="toctree-l2"><a class="reference internal"
                                                       href="FireEmblemLoadJsonFilesBetterV2.html">FireEmblemLoadJsonFilesBetterV2
-                                module</a></li>
-                            <li class="toctree-l2"><a class="reference internal"
-                                                      href="JSONdataloader_withdebugstuff.html">JSONdataloader_withdebugstuff
                                 module</a></li>
                             <li class="toctree-l2"><a class="reference internal" href="ProcessInstructions.html">ProcessInstructions
                                 module</a></li>
@@ -131,7 +120,7 @@
 
                         <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
 
-                        <li><a href="modules.html">FireEmblemClone</a> &raquo;</li>
+                        <li><a href="modules.html">Code</a> &raquo;</li>
 
                         <li>FireEmblemCombatV2 module</li>
 
@@ -899,7 +888,7 @@
                                                                                             href="#FireEmblemCombatV2.Character.validate_weapon"
                                                                                             title="Permalink to this definition">¶</a>
                                         </dt>
-                                        <dd>
+                                        <dd><p>Checks whether unit may possess weapon</p>
                                             <dl class="field-list simple">
                                             </dl>
                                         </dd>
@@ -1919,28 +1908,27 @@
                                         </dt>
                                         <dd><p>A set of extra parameters that are used only for skill effects common to
                                             weapon classes
-                                            for which is_staff, is_dagger, is_breath, or is_beast is true:</p>
+                                            for which is_staff, is_dagger, is_breath, or is_beast is true:
+                                            - is_staff: If class_params.hp = 1, calculates damage from staff like other
+                                            weapons.;</p>
                                             <blockquote>
-                                                <div>
-                                                    <ul class="simple">
-                                                        <li><p>is_staff: If class_params.hp = 1, calculates damage from
-                                                            staff like other weapons.;
-                                                            If class_params.hp = 2, foe cannot counterattack.</p></li>
-                                                        <li><p>is_dagger: After combat, if unit attacked, inflicts
-                                                            stat+class_params on target and foes within
-                                                            class_params.hp spaces of target through their next
-                                                            actions.</p></li>
-                                                        <li><p>is_breath: If class_params.hp = 1, and if target_mov foe
-                                                            uses target_wep, calculates damage
-                                                            using the lower of foe’s Def or Res.</p></li>
-                                                        <li><p>is_beast: If class_params.hp = 1, at start of turn, if
-                                                            unit is adjacent to only beast or
-                                                            dragon allies or if unit is not adjacent to any ally, unit
-                                                            transforms (otherwise, unit reverts);
-                                                            if unit transforms, grants stat+class_params.</p></li>
-                                                    </ul>
+                                                <div><p>If class_params.hp = 2, foe cannot counterattack.</p>
                                                 </div>
                                             </blockquote>
+                                            <ul class="simple">
+                                                <li><p>is_dagger: After combat, if unit attacked, inflicts
+                                                    stat+class_params on target and foes within
+                                                    class_params.hp spaces of target through their next actions.</p>
+                                                </li>
+                                                <li><p>is_breath: If class_params.hp = 1, and if target_mov foe uses
+                                                    target_wep, calculates damage
+                                                    using the lower of foe’s Def or Res.</p></li>
+                                                <li><p>is_beast: If class_params.hp = 1, at start of turn, if unit is
+                                                    adjacent to only beast or
+                                                    dragon allies or if unit is not adjacent to any ally, unit
+                                                    transforms (otherwise, unit reverts);
+                                                    if unit transforms, grants stat+class_params.</p></li>
+                                            </ul>
                                             <div class="admonition note">
                                                 <p class="admonition-title">Note</p>
                                                 <p>is_staff, is_dagger, is_breath, and is_beast are currently
@@ -2231,18 +2219,14 @@
                                         </dt>
                                         <dd><p>Indicates whether random units can equip this skill. This affects
                                             Training Tower and Allegiance Battles.
-                                            It has 3 possible values:</p>
+                                            It has 3 possible values:
+                                            - 0: This skill may not be equipped on random units.
+                                            - 10: This skill may be equipped on random units.
+                                            - 20: Purpose unknown. Same effect as 10. Used by basic non-staff
+                                            weapons</p>
                                             <blockquote>
-                                                <div>
-                                                    <ul class="simple">
-                                                        <li><p>0: This skill may not be equipped on random units.</p>
-                                                        </li>
-                                                        <li><p>10: This skill may be equipped on random units.</p></li>
-                                                        <li><p>20: Purpose unknown. Same effect as 10. Used by basic
-                                                            non-staff weapons
-                                                            (e.g. Iron Sword, Flametongue+, Adult (Cavalry)) and basic
-                                                            staff Assists.</p></li>
-                                                    </ul>
+                                                <div><p>(e.g. Iron Sword, Flametongue+, Adult (Cavalry)) and basic staff
+                                                    Assists.</p>
                                                 </div>
                                             </blockquote>
                                         </dd>
@@ -2650,7 +2634,10 @@
                                                                                             href="#FireEmblemCombatV2.Weapon.set_attribute_values"
                                                                                             title="Permalink to this definition">¶</a>
                                         </dt>
-                                        <dd><p>Calls <a href="#id1"><span class="problematic" id="id2">:method:`get_base_weapon_class`</span></a>
+                                        <dd><p>Calls <a class="reference internal"
+                                                        href="#FireEmblemCombatV2.Weapon.get_base_weapon_class"
+                                                        title="FireEmblemCombatV2.Weapon.get_base_weapon_class"><code
+                                                class="xref py py-meth docutils literal notranslate"><span class="pre">get_base_weapon_class()</span></code></a>
                                             if weapon does not already have a <a class="reference internal"
                                                                                  href="#FireEmblemCombatV2.WeaponClass"
                                                                                  title="FireEmblemCombatV2.WeaponClass"><code
@@ -8108,13 +8095,13 @@
 
                     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
 
-                        <a href="FireEmblemLoadJsonDataFiles.html" class="btn btn-neutral float-right"
-                           title="FireEmblemLoadJsonDataFiles module" accesskey="n" rel="next">Next <span
+                        <a href="FireEmblemLoadJsonFilesBetterV2.html" class="btn btn-neutral float-right"
+                           title="FireEmblemLoadJsonFilesBetterV2 module" accesskey="n" rel="next">Next <span
                                 class="fa fa-arrow-circle-right"></span></a>
 
 
-                        <a href="FireEmblemCombat.html" class="btn btn-neutral float-left"
-                           title="FireEmblemCombat module" accesskey="p" rel="prev"><span
+                        <a href="FEH_character_search.html" class="btn btn-neutral float-left"
+                           title="FEH_character_search module" accesskey="p" rel="prev"><span
                                 class="fa fa-arrow-circle-left"></span> Previous</a>
 
                     </div>

@@ -912,9 +912,9 @@ class Character(ArbitraryAttributeClass):
         pass
 
     # TODO: Add in support for automatic skill/weapon generation for TT and the like
-    # checks whether character may possess weapon
     def validate_weapon(self, weapon: Weapon):
         """
+        Checks whether unit may possess weapon
 
         :type weapon: Weapon
         """
