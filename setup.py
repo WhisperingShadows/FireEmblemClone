@@ -5,5 +5,6 @@ setup(name='FireEmblemClone',
       description='A Python Fire Emblem Heroes clone',
       author='Dania M.',
       url='https://fireemblemclone.readthedocs.io/',
-      packages=find_packages(include=["FireEmblemClone", "FireEmblemClone.*"])
+      packages=find_packages(include=["FireEmblemClone", "FireEmblemClone.*"]),
+      py_modules=['FireEmblemCombatV2']
       )
