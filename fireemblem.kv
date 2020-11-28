@@ -1,0 +1,124 @@
+#:import Window kivy.core.window.Window
+#:import Factory kivy.factory.Factory
+#:import Image kivy.core.image.Image
+
+<Screen>
+
+<Widget>
+    font_name: 'Resources/Fire_Emblem_Heroes_Font.ttf'
+
+<TransformedImage>
+    width: self.width
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: self.angle
+            origin: self.center
+        Scale:
+            x: self.scaleX if self.scaleX != 1 else self.scaleXY
+            y: self.scaleY if self.scaleY != 1 else self.scaleXY
+            origin: self.center
+    canvas.after:
+        PopMatrix
+
+<TitleMenuButton@Button>
+    size_hint: 0.8, 0.15
+    background_normal: 'atlas://FireEmblem.atlas/BlueButton2'
+
+<MenuPopup>
+    title: ""
+    title_size: 0
+    size_hint: 0.9, 0.7
+    background_color: (0,0,0,0)
+    background: 'atlas://FireEmblem.atlas/WindowBg1'
+    separator_color: (0,0,0,0)
+    separator_height: 0
+    RelativeLayout:
+        FloatLayout:
+            orientation: 'vertical'
+
+            TitleMenuButton:
+                text: "Clear Cache"
+                pos_hint: {'center_x': 0.5, 'center_y': (0.8/6)*6+0.05}
+
+            TitleMenuButton:
+                text: "FAQ"
+                pos_hint: {'center_x': 0.5, 'center_y': (0.8/6)*5+0.05}
+
+            TitleMenuButton:
+                text: "Customer Support"
+                pos_hint: {'center_x': 0.5, 'center_y': (0.8/6)*4+0.05}
+
+            TitleMenuButton:
+                text: "Account Management"
+                pos_hint: {'center_x': 0.5, 'center_y': (0.8/6)*3+0.05}
+
+            TitleMenuButton:
+                text: "Complete Purchase"
+                pos_hint: {'center_x': 0.5, 'center_y': (0.8/6)*2+0.05}
+
+            TitleMenuButton:
+                text: "Complete Subscription"
+                pos_hint: {'center_x': 0.5, 'center_y': (0.8/6)*1+0.05}
+
+<TitleScreen>:
+    id: Title_Screen
+    ScatterLayout:
+        id: myscatter
+        on_size: self.center = Window.center
+        size: root.size
+        scale: 1.5
+        auto_bring_to_front: False
+
+        do_translation: False
+        do_rotation: False
+        do_scale: False
+
+        Image:
+            id: myimage_title_bg
+            on_size: self.center = Window.center
+            on_touch_down: root.manager.current = 'loading_main'
+            source: 'Resources/Backgrounds/Bg_Title.png'
+            pos: self.pos
+            size: root.size
+            allow_stretch: True
+            keep_ratio: True
+
+        TransformedImage:
+            id: FireEmblemLogo
+            texture: Image('Resources/UI/Plist.png').texture.get_region(14, 13, 192, 983)
+            angle: 90
+            scaleXY: 0.85*(Window.width / self.texture_size[1] if ((self.angle // 90)+1) % 2 == 0 else self.texture_size[0])
+
+            pos_hint: {'center_x': 0.5, 'center_y': 0.42}
+            size: self.texture_size
+            allow_stretch: False
+            keep_ratio: False
+
+    RelativeLayout:
+        id: TitleButtonLayout
+        Label:
+            text: 'START'
+            size_hint: .1, .03
+            pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+
+        TitleMenu:
+            id: TitleMenuButton
+            text: 'Menu'
+            size_hint: .1, .03
+            pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+            on_press: Factory.MenuPopup().open()
+
+        TransformedImage:
+            texture: Image('atlas://FireEmblem.atlas/Button1').texture
+            scaleX: 1
+            pos: root.ids.TitleMenuButton.pos
+            size: root.ids.TitleMenuButton.size
+
+
+
+<LoadingMainScreen>:
+    BoxLayout:
+        Button:
+            text: "This ain't done, get outta here"
+            on_press: root.manager.current = 'title'

@@ -1,0 +1,11 @@
+docutils
+pygments
+pypiwin32
+kivy_deps.sdl2==0.1.*
+kivy_deps.glew==0.1.*
+kivy_deps.gstreamer==0.1.*
+kivy==1.11.1
+Pillow~=5.4.1
+numpy~=1.16.2
+jsonschema
+forbiddenfruit~=0.1.3
