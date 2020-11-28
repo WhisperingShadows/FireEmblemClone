@@ -1,0 +1,56 @@
+{
+  "Resources/UI/Common_Button.png": {
+    "BlueButton1": [
+      1054,
+      1278,
+      846,
+      168
+    ],
+    "BlueButton2": [
+      971,
+      299,
+      771,
+      163
+    ],
+    "BlueButton3": [
+      0,
+      1798,
+      178,
+      845
+    ],
+    "BlueButton4": [
+      0,
+      110,
+      178,
+      845
+    ],
+    "BlueButton5": [
+      180,
+      16,
+      160,
+      765
+    ],
+    "BlueButton6": [
+      340,
+      16,
+      160,
+      765
+    ]
+  },
+  "Resources/UI/Common_Window.png": {
+    "WindowBg1": [
+      0,
+      1601,
+      1483,
+      375
+    ]
+  },
+  "Resources/UI/Common.png": {
+    "Button1": [
+      459,
+      348,
+      153,
+      134
+    ]
+  }
+}
