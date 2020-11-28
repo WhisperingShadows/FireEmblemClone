@@ -273,18 +273,19 @@ class Skill(ArbitraryAttributeClass):
 
         #: A set of extra parameters that are used only for skill effects common to weapon classes
         #: for which is_staff, is_dagger, is_breath, or is_beast is true:
-        #:   - is_staff: If class_params.hp = 1, calculates damage from staff like other weapons.;
-        #:     If class_params.hp = 2, foe cannot counterattack.
-        #:   - is_dagger: After combat, if unit attacked, inflicts stat+class_params on target and foes within
-        #:     class_params.hp spaces of target through their next actions.
-        #:   - is_breath: If class_params.hp = 1, and if target_mov foe uses target_wep, calculates damage
-        #:     using the lower of foe's Def or Res.
-        #:   - is_beast: If class_params.hp = 1, at start of turn, if unit is adjacent to only beast or
-        #:     dragon allies or if unit is not adjacent to any ally, unit transforms (otherwise, unit reverts);
-        #:     if unit transforms, grants stat+class_params.
+        #: - is_staff: If class_params.hp = 1, calculates damage from staff like other weapons.;
+        #:   If class_params.hp = 2, foe cannot counterattack.
+        #: - is_dagger: After combat, if unit attacked, inflicts stat+class_params on target and foes within
+        #:   class_params.hp spaces of target through their next actions.
+        #: - is_breath: If class_params.hp = 1, and if target_mov foe uses target_wep, calculates damage
+        #:   using the lower of foe's Def or Res.
+        #: - is_beast: If class_params.hp = 1, at start of turn, if unit is adjacent to only beast or
+        #:   dragon allies or if unit is not adjacent to any ally, unit transforms (otherwise, unit reverts);
+        #:   if unit transforms, grants stat+class_params.
         #: .. note::
         #:    is_staff, is_dagger, is_breath, and is_beast are currently implemented as
         #:    Character attributes, not as Weapon attributes or methods
+        #:
         self.class_params = None
 
         #: Various skill parameters packed into a stat tuple. These do not necessarily represent stat values.
@@ -408,10 +409,10 @@ class Skill(ArbitraryAttributeClass):
         self.timestamp = None
         #: Indicates whether random units can equip this skill. This affects Training Tower and Allegiance Battles.
         #: It has 3 possible values:
-        #:   - 0: This skill may not be equipped on random units.
-        #:   - 10: This skill may be equipped on random units.
-        #:   - 20: Purpose unknown. Same effect as 10. Used by basic non-staff weapons
-        #:     (e.g. Iron Sword, Flametongue+, Adult (Cavalry)) and basic staff Assists.
+        #: - 0: This skill may not be equipped on random units.
+        #: - 10: This skill may be equipped on random units.
+        #: - 20: Purpose unknown. Same effect as 10. Used by basic non-staff weapons
+        #:   (e.g. Iron Sword, Flametongue+, Adult (Cavalry)) and basic staff Assists.
         self.random_allowed = None
         #: If non-zero, represent the lowest and highest levels respectively that allow random units
         #: to equip the given skill.
@@ -546,7 +547,7 @@ class Weapon(Skill):
 
     def set_attribute_values(self):
         """
-        Calls :method:`get_base_weapon_class` if weapon does not already have a :class:`WeaponClass`
+        Calls :meth:`get_base_weapon_class` if weapon does not already have a :class:`WeaponClass`
 
         :return: None
         """
@@ -1241,6 +1242,7 @@ class Character(ArbitraryAttributeClass):
         :param distance: Integer value by which direction tuple is scaled. Defaults to one.
         :return: None
         """
+
         self.move(tuple_add(self.pos, scale_tuple(direction, distance)))
 
     def die(self):
