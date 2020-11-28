@@ -175,66 +175,67 @@ class ArbitraryAttributeClass:
         return self.__dict__
 
 
-class Switch:
-    @classmethod
-    def validate_character_attribute(cls, key, value, verbose=False):
-
-        # Create default return function
-        # *args consumes "value" argument
-        def default(input_value):
-            if verbose:
-                print("Could not validate value {0} as no validation method exists for {0}, "
-                      "defaulting to valid".format(input_value, key))
-
-        # Select validation method
-        method_name = 'validate_' + str(key)
-        # Get the method from 'self'. Defaults to default method.
-        method = getattr(cls, method_name, default)
-        # Call the method and return result, if no
-        output = method(value)
-        if output == 1 or output == 0:
-            return output
-        else:
-            return 1
-
-    @staticmethod
-    def validate_rarity(value):
-        if isinstance(value, int):
-            if 1 <= value <= 5:
-                return 1
-        elif value is None:
-            return 1
-        return 0
-
-    # TODO: Implement merged and high level unit support
-    @staticmethod
-    def validate_level(value):
-        if isinstance(value, int):
-            if 1 <= value <= 40:
-                return 1
-        elif value is None:
-            return 1
-        return 0
-
-    @staticmethod
-    def validate_pos(value):
-        grid_size = GRID.get_grid_width_height()
-        if isinstance(value, tuple):
-            if 1 <= value[0] <= grid_size[0] and 1 <= value[1] <= grid_size[1]:
-                return 1
-        elif value is None:
-            return 1
-        return 0
-
-    @staticmethod
-    def validate_move_range(value):
-        if isinstance(value, int):
-            if 1 <= value <= 3:
-                return 1
-        elif value is None:
-            return 1
-        return 0
-        pass
+# I don't believe this class is necessary
+# class Switch:
+#     @classmethod
+#     def validate_character_attribute(cls, key, value, verbose=False):
+#
+#         # Create default return function
+#         # *args consumes "value" argument
+#         def default(input_value):
+#             if verbose:
+#                 print("Could not validate value {0} as no validation method exists for {0}, "
+#                       "defaulting to valid".format(input_value, key))
+#
+#         # Select validation method
+#         method_name = 'validate_' + str(key)
+#         # Get the method from 'self'. Defaults to default method.
+#         method = getattr(cls, method_name, default)
+#         # Call the method and return result, if no
+#         output = method(value)
+#         if output == 1 or output == 0:
+#             return output
+#         else:
+#             return 1
+#
+#     @staticmethod
+#     def validate_rarity(value):
+#         if isinstance(value, int):
+#             if 1 <= value <= 5:
+#                 return 1
+#         elif value is None:
+#             return 1
+#         return 0
+#
+#     # TODO: Implement merged and high level unit support
+#     @staticmethod
+#     def validate_level(value):
+#         if isinstance(value, int):
+#             if 1 <= value <= 40:
+#                 return 1
+#         elif value is None:
+#             return 1
+#         return 0
+#
+#     @staticmethod
+#     def validate_pos(value):
+#         grid_size = GRID.get_grid_width_height()
+#         if isinstance(value, tuple):
+#             if 1 <= value[0] <= grid_size[0] and 1 <= value[1] <= grid_size[1]:
+#                 return 1
+#         elif value is None:
+#             return 1
+#         return 0
+#
+#     @staticmethod
+#     def validate_move_range(value):
+#         if isinstance(value, int):
+#             if 1 <= value <= 3:
+#                 return 1
+#         elif value is None:
+#             return 1
+#         return 0
+#         pass
 
 
 class Skill(ArbitraryAttributeClass):
@@ -454,6 +455,7 @@ class Skill(ArbitraryAttributeClass):
         """
 
         if self.target_either:
+            # CHECK: Should i.target_mov and i.target_wep be mov and wep? (Or whatever the equivalent)
             return [i for i in items if i.target_mov == self.target_mov or i.target_wep == self.target_wep]
         else:
             return [i for i in items if i.target_mov == self.target_mov and i.target_wep == self.target_wep]
@@ -725,18 +727,32 @@ class Character(ArbitraryAttributeClass):
             return self._hp
 
     def hp_change(self, prop, old, new):
+        """
+        Listener function for changes in a :class:`Character`'s hp. Checks whether hp change resulted
+        in death.
+
+        :param prop:
+        :param old:
+        :param new:
+        :return:
+        """
         self.check_is_dead()
 
-    # sets default values for character attributes
     def set_attribute_values(self):
+        """
+        Sets default values for character attributes
+
+        :return:
+        """
+
         # if character's position is defined, sets "node" attribute to a Node object in the map grid and
         # sets node's "holds" attribute to character
         if self.pos:
             self.node = GRID.nodes[GRID.get_index_from_xy(self.pos)]
             self.node.holds = self
 
-        # for all attributes below, checks whether attribute is already set, and if not, sets to default value
-        # sets movement range based on movement type
+        # for all attributes below, checks whether attribute is already set, and if not, sets to
+        # default value; sets movement range based on movement type
         if not self.move_range:
             self.move_range = move_data[self.move_type]["range"]
         # sets rarity to 3 stars by default
@@ -938,8 +954,13 @@ class Character(ArbitraryAttributeClass):
                 skills_data[1][weapon]["category"]) + " skill instead"))
         pass
 
-    # handles equipping a weapon to a character
     def equip_weapon(self, weapon: str):
+        """
+        Handles equipping a weapon to a character
+
+        :param weapon:
+        :return:
+        """
         if weapon is not None:
             # create weapon object from weapon id
             weapon = Weapon.from_dict(skills_data[1][weapon])
@@ -970,6 +991,11 @@ class Character(ArbitraryAttributeClass):
             self.unequip_weapon()
 
     def unequip_weapon(self):
+        """
+        Handles unequipping a weapon
+
+        :return:
+        """
         if self.weapon is not None:
             if isinstance(self.weapon, Weapon):
                 self.stats["atk"] -= self.weapon.might
@@ -981,9 +1007,23 @@ class Character(ArbitraryAttributeClass):
             self.weapon = None
 
     def get_distance_to(self, enemy: "Character"):
-        get_distance(self, enemy)
+        """
+        Returns distance from unit to `enemy`
+
+        :param enemy:
+        :return:
+        """
+        return get_distance(self, enemy)
 
     def calc_weapon_triangle(self, enemy: "Character"):
+        """
+        Checks whether unit has weapon advantage/disadvantage against `enemy` and returns
+        corresponding attack multiplier value as a percent (i.e., 0.2, -0.2, or 0)
+
+        :param enemy:
+        :return:
+        """
+
         # if character has weapon triangle advantage, increase attack by 20%
         if enemy.color == weapon_advantage[self.color]:
             return 0.2
@@ -996,8 +1036,14 @@ class Character(ArbitraryAttributeClass):
         elif self.color == enemy.color or self.color == "gray" or enemy.color == "gray":
             return 0
 
-    # calculates whether unit has weapon effectiveness against enemy
     def calc_effectiveness(self, enemy: "Character"):
+        """
+        Checks whether unit has weapon effectiveness against `enemy` and returns
+        corresponding attack multiplier value (i.e., 1.5 or 1)
+
+        :param enemy:
+        :return:
+        """
         # assertions used to force IDE autocompletion
         assert isinstance(enemy.weapon, Weapon)
         assert isinstance(self.weapon, Weapon)
@@ -1029,12 +1075,23 @@ class Character(ArbitraryAttributeClass):
         # TODO: add functionality
 
     def set_stats_to_stats_for_level(self):
+        """
+        Gets stats for unit at current level and sets stats to corresponding values
+
+        :return: None
+        """
         stat_increases = FEH_StatGrowth.get_all_stat_increases_for_level(self)
         for stat in stat_increases:
             self.stats[stat] = self.base_stats[stat] + stat_increases[stat]
         # should I put self.hp in here too? Or will that mess with levelling up?
 
     def attack_enemy(self, enemy: "Character"):
+        """
+        Handles attacking an `enemy`
+
+        :param enemy:
+        :return: None
+        """
         assert isinstance(self.weapon, Weapon)
         assert isinstance(enemy.weapon, Weapon)
 
@@ -1069,6 +1126,12 @@ class Character(ArbitraryAttributeClass):
             print("Enemy has already been defeated")
 
     def attack_node(self, node: Node):
+        """
+        Attacks a designated node using :meth:`attack_enemy`
+
+        :param node:
+        :return: None
+        """
         enemy = GRID.nodes[GRID.get_index_from_xy(node)].holds
         if enemy is not None:
             self.attack_enemy(enemy)
@@ -1076,12 +1139,25 @@ class Character(ArbitraryAttributeClass):
             print("There is no enemy at position", node)
 
     def move(self, new_pos: tuple):
+        """
+        Handles character movement
+
+        :param new_pos:
+        :return: None
+        """
         print(self.name, "moved", get_distance_from_tuples(self.pos, new_pos), "spaces from", self.pos, "to", new_pos)
         GRID.nodes[GRID.get_index_from_xy(self.pos)].holds = None
         self.pos = new_pos
         GRID.nodes[GRID.get_index_from_xy(new_pos)].holds = self
 
     def fight(self, enemy: "Character"):
+        """
+        Handles a fight between unit and `enemy`. Uses :meth:`attack_enemy` for both sides and
+        calculates whether either side doubles.
+
+        :param enemy:
+        :return: None
+        """
         self.is_initiating = True
         # TODO: Add check for vantage skill
         self.attack_enemy(enemy)
@@ -1100,6 +1176,13 @@ class Character(ArbitraryAttributeClass):
         self.is_initiating = False
 
     def move_to_attack(self, enemy: "Character"):
+        """
+        Intended for use by AI (or lazy players I guess). Moves unit using :meth:`move_towards` and
+        then attacks `enemy` using :meth:`fight`
+
+        :param enemy:
+        :return: None
+        """
         endpoints = GRID.dijkstra(enemy.pos, eval_to_length=self.weapon.range)
 
         endpoints = [i for i in [points[-1] if get_distance_from_tuples(enemy.pos, points[-1].data) ==
@@ -1124,6 +1207,13 @@ class Character(ArbitraryAttributeClass):
             self.fight(enemy)
 
     def move_towards(self, enemy: "Character"):
+        """
+        Utilizes dijkstra algorithm to find valid spaces from which unit can attack `enemy`
+        and moves unit to closest.
+
+        :param enemy:
+        :return: None
+        """
         weight, nodes = GRID.dijkstra(self.pos, enemy.pos, only_end=True)[0]
 
         distance = get_distance_from_tuples(self.pos, enemy.pos)
@@ -1143,33 +1233,75 @@ class Character(ArbitraryAttributeClass):
             print(self.name, "is too close and moves further away")
 
     def move_direction(self, direction: Tuple, distance: int = 1):
+        """
+        Moves unit in the specified direction.
+
+        :param direction: X,Y tuple specifying the individual distances to move in the
+        X and Y directions
+        :param distance: Integer value by which direction tuple is scaled. Defaults to one.
+        :return: None
+        """
         self.move(tuple_add(self.pos, scale_tuple(direction, distance)))
 
     def die(self):
+        """
+        Handles unit death. Removes unit from the field and :data:`char_list`.
+
+        :return:
+        """
         if self.pos:
             GRID.nodes[GRID.get_index_from_xy(self.pos)].holds = None
         char_list.remove(self)
 
     def stat(self, stat_num):
+        """
+        Takes in number between 0 and 4 and translates to corresponding stat, then returns
+        unit's value for this stat.
+
+        :param stat_num: Integer between 0 and 4
+        :return:
+        """
         return self.stats[stat_num_to_name_dict[stat_num]]
 
     def stat2(self, stat_num):
+        """
+        Takes in number between 0 and 4 and translates to corresponding stat, then returns sum of
+        unit's value for this stat and this stat's current buff.
+
+        :param stat_num: Integer between 0 and 4
+        :return:
+        """
         stat_name = stat_num_to_name_dict[stat_num]
         return self.stats[stat_name] + self.buffs[stat_name]
 
-    def stat_difference(self, stat_num, unit: "Character"):
+    def stat_difference(self, stat_num, other: "Character"):
+        """
+        Returns difference between given stat for unit and `other` unit.
+
+        :param stat_num: Integer between 0 and 4
+        :param other:
+        :return:
+        """
         # TODO: Include phantom skills in calculation
         # CHECK: Should I wrap this in abs()?
-        return self.stat(stat_num) - unit.stat(stat_num)
+        return self.stat(stat_num) - other.stat(stat_num)
         pass
 
 
 class Enemy(Character):
+    """
+    Enemy class. Defines behaviors and characteristics for enemy units.
+    """
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
 
 class Player(Character):
+    """
+    Player class. Defines behaviors and characteristics for player units.
+    """
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
