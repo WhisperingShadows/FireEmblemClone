@@ -579,7 +579,121 @@ class Weapon(Skill):
 
 class Character(ArbitraryAttributeClass):
     def __init__(self, **kwargs):
-        self.init_self_attributes()
+
+        #: internal identifier tag
+        self.id_tag = None
+        #: romanized name
+        self.roman = None
+        #: stores reference to face file
+        self.face_name = None
+        self.face_name2 = None
+        #: character legendary status; boolean
+        self.legendary = None
+        #: number of dragon flowers added
+        self.dragonflowers = None
+        #: release date
+        self.timestamp = None
+        # internal identifier number (higher the more recent a unit is)
+        self.id_num = None
+        #: sort priority
+        self.sort_value = None
+        #
+        self.origins = None
+        #: weapon type; integer
+        self.weapon_type = None
+        #: tome's magic type; 0 for non-magic characters
+        self.tome_class = None
+        #: movement type (flier, infantry, armor, cavalry)
+        self.move_type = None
+        #
+        self.series = None
+        #
+        self.regular_hero = None
+        #
+        self.permanent_hero = None
+        #: value used to construct stat growth vectors
+        self.base_vector_id = None
+        #: dancer/singer status; boolean
+        self.refresher = None
+        #: base stat values at 3 star rarity, level 1
+        self.base_stats = None
+        #: percent growth rates for each stat
+        self.growth_rates = None
+        #: for given rarity, first 6 values (0-5) are default (already learned), remaining 8 (6-13) are unlockable
+        #: index 0 and index 6 are weapons
+        #: index 1 and index 7 are assists
+        #: index 2 and index 8 are specials
+        #: index 3 and index 9 are A slot (except for Drag Back on Gwendolyn)
+        #: index 4 and index 10 are B slot (Except Defiant Attack on Ogma)
+        #: index 5 and index 11 are C slot (Except HP+ on Abel)
+        #: index 12 is empty
+        #: index 13 is empty
+        self.skills = None
+
+        #: position; tuple (x, y)
+        self.pos = None
+        #: node at character's position
+        self.node = None
+        #: movement range; integer
+        self.move_range = None
+        #: current rarity; integer
+        self.rarity = None
+        #: current level; integer
+        self.level = None
+        #: affinity bonus (bonus granted by skills like gem weapons or triangle adept)
+        self.affinity = None
+        #: currently equipped weapon
+        self.weapon: Union[Weapon, None] = None
+        #: base weapon class (kinda useless right now?)
+        self.weapon_class = None
+        #: unit color; integer
+        self.color = None
+        #: translated unit name
+        self.name = None
+        #: currently equipped skills
+        self.equipped_skills = None
+        #: stats scaled to current level
+        self.stats = None
+        #: visible buffs applied to unit; integer
+        self.buffs = None
+        #: visible debuffs applied to unit; integer
+        self.debuffs = None
+        #: sum of invisible in-combat buffs/debuffs applied to unit; integer
+        self.combat_boosts = None
+        #: current hp value; integer
+        self._hp = None
+        #: unit can counterattack regardless of opponent’s range; boolean
+        self.counter = None
+        #: unit cannot counterattack; boolean
+        self.no_counter = None
+        #: can unit make a follow-up (1 = guaranteed, 0 = normal, -1 = no follow-up); integer
+        self.follow_up = None
+        #: does unit have vantage; boolean
+        self.vantage = None
+        #: does unit have desperation; boolean
+        self.desperation = None
+        #: does unit have brave effect; boolean
+        self.brave = None
+        #: does unit have raven effect; boolean
+        self.raven = None
+        #: does unit have adaptive damage; boolean
+        self.adaptive = None
+        #: does unit have adaptive special damage; boolean
+        self.adaptive_aoe = None
+        #: does unit calculate damage from staff like normal weapons; boolean
+        self.wrathful_staff = None
+        #: dictionary of status effects on unit; string keys and boolean values
+        self.status_effects = None
+        #: is unit the one initiating combat; boolean
+        self.is_initiating = None
+        # TODO: Make equipping a special skill affect this value
+        #: Current special cooldown value; int
+        self.special_cd = None
+        #: Maximum special cooldown value; int
+        self.max_special_cd = None
+        #: has unit acted already; boolean
+        self.has_acted = None
+
         super().__init__(**kwargs)
         scope = self.__dict__.copy()
 
@@ -603,122 +717,6 @@ class Character(ArbitraryAttributeClass):
 
     def __repr__(self):
         return "{0}, {1} ({2} object with id {3})".format(self.id_tag, self.roman, self.__class__, id(self))
-
-    def init_self_attributes(self):
-
-        # internal identifier tag
-        self.id_tag = None
-        # romanized name
-        self.roman = None
-        # stores reference to face file
-        self.face_name = None
-        self.face_name2 = None
-        # character legendary status; boolean
-        self.legendary = None
-        # number of dragon flowers added
-        self.dragonflowers = None
-        # release date
-        self.timestamp = None
-        #
-        self.id_num = None
-        # sort priority
-        self.sort_value = None
-        #
-        self.origins = None
-        # weapon type; integer
-        self.weapon_type = None
-        # tome's magic type; 0 for non-magic characters
-        self.tome_class = None
-        # movement type (flier, infantry, armor, cavalry)
-        self.move_type = None
-        #
-        self.series = None
-        #
-        self.regular_hero = None
-        #
-        self.permanent_hero = None
-        # value used to construct stat growth vectors
-        self.base_vector_id = None
-        # dancer/singer status; boolean
-        self.refresher = None
-        # base stat values at 3 star rarity, level 1
-        self.base_stats = None
-        # percent growth rates for each stat
-        self.growth_rates = None
-        # for given rarity, first 6 values (0-5) are default (already learned), remaining 8 (6-13) are unlockable
-        # index 0 and index 6 are weapons
-        # index 1 and index 7 are assists
-        # index 2 and index 8 are specials
-        # index 3 and index 9 are A slot (except for Drag Back on Gwendolyn)
-        # index 4 and index 10 are B slot (Except Defiant Attack on Ogma)
-        # index 5 and index 11 are C slot (Except HP+ on Abel)
-        # index 12 is empty
-        # index 13 is empty
-        self.skills = None
-
-        # position; tuple (x, y)
-        self.pos = None
-        # node at character's position
-        self.node = None
-        # movement range; integer
-        self.move_range = None
-        # current rarity; integer
-        self.rarity = None
-        # current level; integer
-        self.level = None
-        # affinity bonus (bonus granted by skills like gem weapons or triangle adept)
-        self.affinity = None
-        # currently equipped weapon
-        self.weapon: Union[Weapon, None] = None
-        # base weapon class (kinda useless right now?)
-        self.weapon_class = None
-        # unit color; integer
-        self.color = None
-        # translated unit name
-        self.name = None
-        # currently equipped skills
-        self.equipped_skills = None
-        # stats scaled to current level
-        self.stats = None
-        # visible buffs applied to unit; integer
-        self.buffs = None
-        # visible debuffs applied to unit; integer
-        self.debuffs = None
-        # sum of invisible in-combat buffs/debuffs applied to unit; integer
-        self.combat_boosts = None
-        # current hp value; integer
-        self._hp = None
-        # unit can counterattack regardless of opponent’s range; boolean
-        self.counter = None
-        # unit cannot counterattack; boolean
-        self.no_counter = None
-        # can unit make a follow-up (1 = guaranteed, 0 = normal, -1 = no follow-up); integer
-        self.follow_up = None
-        # does unit have vantage; boolean
-        self.vantage = None
-        # does unit have desperation; boolean
-        self.desperation = None
-        # does unit have brave effect; boolean
-        self.brave = None
-        # does unit have raven effect; boolean
-        self.raven = None
-        # does unit have adaptive damage; boolean
-        self.adaptive = None
-        # does unit have adaptive special damage; boolean
-        self.adaptive_aoe = None
-        # does unit calculate damage from staff like normal weapons; boolean
-        self.wrathful_staff = None
-        # dictionary of status effects on unit; string keys and boolean values
-        self.status_effects = None
-        # is unit the one initiating combat; boolean
-        self.is_initiating = None
-        # TODO: Make equipping a special skill affect this value
-        # Current special cooldown value; int
-        self.special_cd = None
-        # Maximum special cooldown value; int
-        self.max_special_cd = None
-        # has unit acted already; boolean
-        self.has_acted = None
 
     with properties(locals(), 'meta') as meta:
         @meta.prop(listener='hp_change')
