@@ -452,6 +452,11 @@ class Skill(ArbitraryAttributeClass):
         # self.ss_badge = ss_badge
         # self.ss_great_badge = ss_great_badge
 
+        # CHECK: What should the second value be here? Does this even work properly?
+        # CHECK: Move after super() call?
+        #: unit's :class:`Slid`
+        self.slid = find(self, None)
+
         super().__init__(**kwargs)
 
     def activate(self, **kwargs):
@@ -475,13 +480,15 @@ class Skill(ArbitraryAttributeClass):
         # gets the ability function
         ability = getattr(eval(f"stid{self.timing_id}"), f"said{self.ability_id}")
 
+        char = kwargs["unit"]
+
         # tests whether the ability activates for each character
         # if so, activates ability with that character as the target
-
-        for char in char_list:
-            # print(f"    {char}: {(limit1(skill=self, target=char), limit2(skill=self, target=char))}")
-            if limit1(skill=self, target=char) and limit2(skill=self, target=char):
-                call_with(ability, dict(kwargs, unit=char, target=char))
+        # for char in char_list:
+        # print(f"    {char}: {(limit1(skill=self, target=char), limit2(skill=self, target=char))}")
+        if limit1(skill=self, target=char) and limit2(skill=self, target=char):
+            # print(f"Calling for {char}")
+            call_with(ability, dict(kwargs, unit=char, target=char))
 
     def targeted(self, items: Iterable['Character']):
         """
@@ -852,8 +859,8 @@ class Character(ArbitraryAttributeClass):
         if not self.weapon_class:
             self.weapon_class = WeaponClass.from_dict(weapon_data_by_index[self.weapon_type])
 
-        # equips weapon to unit; defaults to None
-        self.equip_weapon(weapon=self.weapon)
+        # equips weapon to unit; defaults to None (recently added id_tag part, check it)
+        self.equip_weapon(weapon=self.weapon.id_tag)
 
         # sets character's name
         if not self.name:
@@ -861,7 +868,6 @@ class Character(ArbitraryAttributeClass):
 
         # sets character's equipped skill for each category to None
         if not self.equipped_skills:
-
             self.equipped_skills = {
 
                 "assist": None,
@@ -1651,8 +1657,8 @@ condition_dict = {
 }
 
 
-def within_range_abstracted(unit: Character, skill: Optional[Skill], condition: str,
-                            grid: Graph = GRID, distance_override=0):
+def within_range_abstracted(unit: Character, skill: Optional[Skill], condition: str = "within_range",
+                            grid: Graph = GRID, distance_override=0) -> List[Character]:
     """
     Returns a list of Character instances whose position is within :attr:`Skill.skill_range`
     spaces of unit
@@ -1985,7 +1991,6 @@ def neighborhood_ex(unit: Character, skill: Optional[Skill], range_shape_overrid
 
 
 def cooldown(cooldown: int, unit: Character):
-    print("Changing CD by:", cooldown)
     unit.special_cd += cooldown
 
     # if special_cd is below 0, set to 0
@@ -3145,8 +3150,18 @@ class stid6(sn):
 
 
 class stid8(sn):
-    def slid3(self):
-        pass
+    def slid3(skill: Skill, unit: Character):
+        """
+        At start of turn, if hp_between(param1; param2; unit)
+
+        :param unit:
+        :return:
+        """
+
+        slid = find(skill, 3)
+        if hp_between(slid.param1, slid.param2, unit):
+            return True
+        return False
 
     def slid4(skill: Skill, **kwargs):
         """
@@ -3160,64 +3175,210 @@ class stid8(sn):
 
         slid = find(skill, 4)
         if slid.param1 == 0:
-            return 1
+            return True
 
         elif slid.param1 > 0:
             return
 
         pass
 
-    def slid7(self):
-        pass
+    def slid7(skill: Skill, unit: Character, target: Character):
+        """
+        At start of turn, if stat_difference(param1; target) ≥ param2
+
+        :param unit:
+        :param target:
+        :return:
+        """
+        slid = find(skill, 7)
+
+        if unit.stat_difference(slid.param1, target) >= slid.param2:
+            return True
+        return False
 
     def slid9(skill: Skill, target: Character):
+        """
+        If skill_targets(target)
+
+        :param target:
+        :return:
+        """
 
         if skill.skill_targets(target):
             return 1
         return 0
 
+    def slid10(skill: Skill, target: Character):
+
         pass
 
-    def slid10(self):
+    def slid14(skill: Skill, unit: Character):
+        """
+        At start of turn, if count_around(unit; allies) ≥ param2
+
+        :param unit:
+        :return:
+        """
+
+        if count_around(unit, allies, skill.slid) >= skill.slid.param2:
+            return True
+        return False
+
         pass
 
-    def slid14(self):
+    def slid19(skill: Skill, unit: Character):
+        """
+        At start of turn, if count_around(unit; allies) ≤ param2
+
+        :param unit:
+        :return:
+        """
+
+        if count_around(unit, allies, skill.slid) <= skill.slid.param2:
+            return True
+        return False
+
         pass
 
-    def slid19(self):
+    def slid30(skill: Skill, unit: Character):
+        """
+        At start of turn, if count_around(unit; allies (excluding dragon allies)) ≤ param2
+
+        :param unit:
+        :return:
+        """
+
+        if count_around(unit, lambda chars, u: not_dragon(allies(chars, u)),
+                        skill.slid) <= skill.slid.param2:
+            return True
+        return False
+
+    def slid31(skill: Skill, unit: Character):
+        """
+        At start of turn, if count_around(unit; dragon or beast allies) ≥ param2
+
+        :param unit:
+        :return:
+        """
+
+        if count_around(unit, lambda chars, u: dragon(chars) + beast(chars),
+                        skill.slid) >= skill.slid.param2:
+            return True
+        return False
+
         pass
 
-    def slid30(self):
+    def slid35(unit: Character):
+        """
+        At start of turn, if special cooldown count is at its maximum value
+
+        :return:
+        """
+
+        if unit.special_cd == unit.max_special_cd:
+            return True
+        return False
+
         pass
 
-    def slid31(self):
+    def said22(skill: Skill, unit: Character):
+        """
+        At start of turn, map_add_hp(skill_params.hp; neighborhood(unit)).
+
+        :param unit:
+        :return:
+        """
+
+        for char in neighborhood(unit, skill):
+            map_add_hp(skill.skill_params["hp"], char)
+
+    def said23(skill: Skill, unit: Character):
+        """
+        At start of turn, buff(neighborhood(unit)).
+
+        :param unit:
+        :return:
+        """
+
+        for char in neighborhood(unit, skill):
+            buff(skill, char)
+
+    def said50(skill: Skill, unit: Character):
+        """
+        At start of turn, map_add_hp(skill_params.hp; allies within_range(unit)).
+
+        :param unit:
+        :return:
+        """
+
+        for char in allies(within_range_abstracted(unit, skill), unit):
+            map_add_hp(skill.skill_params["hp"], char)
+
         pass
 
-    def slid35(self):
+    def said51(skill: Skill, unit: Character):
+        """
+        At start of turn, map_add_hp(skill_params.hp; foes within_range(unit)).
+
+        :param unit:
+        :return:
+        """
+
+        for char in foes(within_range_abstracted(unit, skill), unit):
+            map_add_hp(skill.skill_params["hp"], char)
+
         pass
 
-    def said22(self):
+    def said52(skill: Skill, unit: Character):
+        """
+        At start of turn, buff(targeted(allies within_range(unit))).
+
+        :param unit:
+        :return:
+        """
+
+        for char in skill.targeted(allies(within_range_abstracted(unit, skill), unit)):
+            buff(skill, char)
+
         pass
 
-    def said23(self):
+    def said53(skill: Skill, unit: Character):
+        """
+        At start of turn, buff(targeted(foes within_range(unit))).
+
+        :param unit:
+        :return:
+        """
+
+        for char in skill.targeted(foes(within_range_abstracted(unit, skill), unit)):
+            buff(skill, char)
+
         pass
 
-    def said50(self):
+    def said67(skill: Skill, unit: Character):
+        """
+        At start of turn, map_add_hp(skill_params.atk; unit) and cooldown(skill_params.hp; unit).
+
+        :param unit:
+        :return:
+        """
+
+        map_add_hp(skill.skill_params["atk"], unit)
+        cooldown(skill.skill_params["hp"], unit)
+
         pass
 
-    def said51(self):
-        pass
+    def said68(skill: Skill, unit: Character):
+        """
+        At start of turn, buff(foes in cardinal directions of unit).
 
-    def said52(self):
-        pass
+        :param unit:
+        :return:
+        """
 
-    def said53(self):
-        pass
+        within_range_abstracted()
+        within_range_ex_abstract()
 
-    def said67(self):
-        pass
-
-    def said68(self):
         pass
 
     def said69(self):
@@ -3504,14 +3665,14 @@ class GameLoop:
     def start_of_turn(self, characters):
         print("Starting turn")
         for character in characters:
-            print("Character:", character)
+            # print("Character:", character)
             assert isinstance(character, Character)
 
             # TODO: Determine SAID order
             for category, skill in dict(character.equipped_skills, weapon=character.weapon).items():
                 # print(f"Category: {category}; Skill: {skill}")
                 if not skill is None:
-                    print("Skill:", skill)
+                    # print("Skill:", skill)
                     assert isinstance(skill, Skill)
                     if skill.timing_id in [8, 12, 13, 22, 25, 27]:
                         # do skill stuff here; skill.activate() or whatever

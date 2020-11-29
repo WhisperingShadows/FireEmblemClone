@@ -1,12 +1,15 @@
 try:
-    import os
+    import sys
 
-    os.environ["PYTHONPATH"] = r"C:\Users\admin\AppData\Local\Programs\Python\Python36\lib\site-packages"
+    sys.path.insert(0, r"C:\Users\admin\AppData\Local\Programs\Python\Python36\Lib\site-packages")
+    # os.environ["PYTHONPATH"] =
     import ujson as json
 
     print("Using UJSON")
-except:
+except ImportError:
     import json
+
+    print("Using JSON")
 
 import os
 from time import time
@@ -476,7 +479,7 @@ def load_files(skill_class, player_class, enemy_class, weapon_class, output_as_c
         print("{0}/{1} enemy entries translated".format(len(enemies[0]), len(enemies[1])))
 
     stop = time()
-    print("Time elapsed:", stop - start, "secs")
+    print("Time elapsed during file loading:", stop - start, "secs")
     return skills, players, enemies, weapons, english_data, growth, move, stage_encount, terrain
 
 # if __name__ == "__main__":
