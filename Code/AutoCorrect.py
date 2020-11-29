@@ -4,7 +4,10 @@
 # CHECK: Do I really need a singleton class? Couldn't I just use only class methods and prevent instances?
 
 import difflib
-from utility_functions import flatten
+try:
+    from utility_functions import flatten
+except ImportError:
+    from Tools.utility_functions import flatten
 
 
 # import string

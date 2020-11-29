@@ -7,7 +7,10 @@ from Code.FEH_DijkstraAlgorithm import *
 from Code import FEH_StatGrowth
 from Code.FireEmblemLoadJsonFilesBetterV2 import *
 from math import trunc, floor
-from metaproperties import properties, self_properties
+try:
+    from metaproperties import properties, self_properties
+except ImportError:
+    from Tools.metaproperties import properties, self_properties
 from types import SimpleNamespace as sn
 from typing import Iterable, Union, Optional, List, Dict, Any, Tuple, NamedTuple, Callable
 

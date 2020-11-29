@@ -1,13 +1,14 @@
-# Folders
+# Folders:
 HertzDevil_JSON_assets
 Resources
 Testing
-Tools
+#Tools
 venv
 ExtraFiles
 .mypy_cache
 
-# Files
+
+# Files:
 Code/JSONdataloader_withdebugstuff.py
 Code/FEH_definitions.py
 Code/FireEmblemCombat.py
