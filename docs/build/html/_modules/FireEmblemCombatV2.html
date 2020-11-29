@@ -2329,21 +2329,24 @@
 
 
 <span class="c1"># load all necessary data from JSON files</span>
-<span class="n">skills_data</span><span class="p">,</span> <span class="n">players_data</span><span
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span
+                                class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">skills_data</span><span class="p">,</span> <span class="n">players_data</span><span
                                 class="p">,</span> <span class="n">enemies_data</span><span class="p">,</span> <span
                                 class="n">weapons_data</span><span class="p">,</span> <span
                                 class="n">english_data</span><span class="p">,</span> <span class="n">growth_data</span><span
-                                class="p">,</span> <span class="n">move_data</span><span class="p">,</span> <span
-                                class="n">stage_encount_data</span><span class="p">,</span> \
-<span class="n">terrain_data</span> <span class="o">=</span> <span class="n">load_files</span><span
-                                class="p">(</span><span class="n">Skill</span><span class="p">,</span> <span class="n">Player</span><span
-                                class="p">,</span> <span class="n">Enemy</span><span class="p">,</span> <span class="n">Weapon</span><span
+                                class="p">,</span> <span class="n">move_data</span><span class="p">,</span> \
+    <span class="n">stage_encount_data</span><span class="p">,</span> <span class="n">terrain_data</span> <span
+                                class="o">=</span> \
+        <span class="n">load_files</span><span class="p">(</span><span class="n">Skill</span><span
+                                class="p">,</span> <span class="n">Player</span><span class="p">,</span> <span
+                                class="n">Enemy</span><span class="p">,</span> <span class="n">Weapon</span><span
                                 class="p">,</span> <span class="n">output_as_class</span><span class="o">=</span><span
                                 class="kc">False</span><span class="p">,</span> <span
                                 class="n">get_simple_names</span><span class="o">=</span><span
                                 class="kc">True</span><span class="p">)</span>
 
-<span class="n">weapon_data_by_index</span> <span class="o">=</span> <span class="p">{</span><span
+    <span class="n">weapon_data_by_index</span> <span class="o">=</span> <span class="p">{</span><span
                                 class="n">v</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span
                                 class="p">]:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span
                                 class="ow">in</span> <span class="n">weapons_data</span><span class="p">[</span><span
@@ -3314,7 +3317,8 @@
         class="n">List</span><span class="p">[</span><span class="n">Character</span><span class="p">]:</span>
     <span class="n">nearby</span> <span class="o">=</span> <span class="n">within_range_ex_abstract</span><span
             class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">skill</span><span
-            class="p">,</span> <span class="n">range_shape_override</span><span class="p">)</span>
+            class="p">,</span> <span class="n">range_shape_override</span><span class="o">=</span><span class="n">range_shape_override</span><span
+            class="p">)</span>
 
     <span class="k">return</span> <span class="n">allies</span><span class="p">(</span><span
             class="n">nearby</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span> <span
@@ -3655,7 +3659,8 @@
         class="n">Character</span><span class="p">]],</span> <span class="n">buff</span><span class="p">:</span> <span
         class="nb">int</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span
-            class="n">units</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+            class="nb">type</span><span class="p">(</span><span class="n">units</span><span class="p">),</span> <span
+            class="n">Iterable</span><span class="p">):</span>
         <span class="k">pass</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span
             class="n">units</span><span class="p">,</span> <span class="n">Character</span><span class="p">):</span>
@@ -3686,7 +3691,8 @@
         class="p">]],</span> <span class="n">debuff</span><span class="p">:</span> <span class="nb">int</span><span
         class="p">):</span>
     <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span
-            class="n">units</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+            class="nb">type</span><span class="p">(</span><span class="n">units</span><span class="p">),</span> <span
+            class="n">Iterable</span><span class="p">):</span>
         <span class="k">pass</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span
             class="n">units</span><span class="p">,</span> <span class="n">Character</span><span class="p">):</span>

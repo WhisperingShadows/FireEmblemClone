@@ -115,8 +115,10 @@
 
                         <h1>Source code for FEH_StatGrowth</h1>
                         <div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">Code.FireEmblemLoadJsonFilesBetterV2</span> <span class="kn">import</span> <span
-                                class="n">load_files</span>
+<span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span
+                                class="p">:</span>
+    <span class="kn">from</span> <span class="nn">Code.FireEmblemLoadJsonFilesBetterV2</span> <span
+                                class="kn">import</span> <span class="n">load_files</span>
 <span class="kn">from</span> <span class="nn">Code.FEH_definitions</span> <span class="kn">import</span> <span
                                 class="n">STAT_dict</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">trunc</span>
@@ -129,22 +131,25 @@
 <span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="c1"># growth_data contains a list of growth vectors in decimal format</span>
-<span class="n">skills_data</span><span class="p">,</span> <span class="n">players_data</span><span
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span
+                                class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">skills_data</span><span class="p">,</span> <span class="n">players_data</span><span
                                 class="p">,</span> <span class="n">enemies_data</span><span class="p">,</span> <span
                                 class="n">weapons_data</span><span class="p">,</span> <span
                                 class="n">english_data</span><span class="p">,</span> <span class="n">growth_data</span><span
-                                class="p">,</span> <span class="n">move_data</span><span class="p">,</span> <span
-                                class="n">stage_encount_data</span><span class="p">,</span> \
-<span class="n">terrain_data</span> <span class="o">=</span> <span class="n">load_files</span><span
-                                class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span
+                                class="p">,</span> \
+    <span class="n">move_data</span><span class="p">,</span> <span class="n">stage_encount_data</span><span
+                                class="p">,</span> <span class="n">terrain_data</span> <span class="o">=</span> \
+        <span class="n">load_files</span><span class="p">(</span><span class="kc">None</span><span
                                 class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span
-                                class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span
+                                class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span
                                 class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span
                                 class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span
                                 class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span
-                                class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span
+                                class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span
                                 class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span
-                                class="kc">False</span><span class="p">)</span>
+                                class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span
+                                class="p">)</span>
 
 <span class="n">StatOffset</span> <span class="o">=</span> <span class="p">{</span><span
                                 class="s2">&quot;hp&quot;</span><span class="p">:</span> <span class="o">-</span><span
