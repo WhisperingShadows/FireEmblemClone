@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SkillTimingContexts.stid8 &mdash; FireEmblemClone documentation</title>
+
+
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css"/>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css"/>
+    <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css"/>
+
+
+    <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+    <![endif]-->
+
+
+    <script type="text/javascript" id="documentation_options" data-url_root="../../"
+            src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+
+    <link rel="index" title="Index" href="../../genindex.html"/>
+    <link rel="search" title="Search" href="../../search.html"/>
+</head>
+
+<body class="wy-body-for-nav">
+
+
+<div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+        <div class="wy-side-scroll">
+            <div class="wy-side-nav-search">
+
+
+                <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> FireEmblemClone
+
+
+                </a>
+
+
+                <div role="search">
+                    <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+                        <input type="text" name="q" placeholder="Search docs"/>
+                        <input type="hidden" name="check_keywords" value="yes"/>
+                        <input type="hidden" name="area" value="default"/>
+                    </form>
+                </div>
+
+
+            </div>
+
+
+            <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+
+
+                <p class="caption"><span class="caption-text">Contents:</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../modules.html">Code</a></li>
+                </ul>
+
+
+            </div>
+
+        </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+
+        <nav class="wy-nav-top" aria-label="top navigation">
+
+            <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+            <a href="../../index.html">FireEmblemClone</a>
+
+        </nav>
+
+
+        <div class="wy-nav-content">
+
+            <div class="rst-content">
+
+
+                <div role="navigation" aria-label="breadcrumbs navigation">
+
+                    <ul class="wy-breadcrumbs">
+
+                        <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+
+                        <li><a href="../index.html">Module code</a> &raquo;</li>
+
+                        <li>SkillTimingContexts.stid8</li>
+
+
+                        <li class="wy-breadcrumbs-aside">
+
+                        </li>
+
+                    </ul>
+
+
+                    <hr/>
+                </div>
+                <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+                    <div itemprop="articleBody">
+
+                        <h1>Source code for SkillTimingContexts.stid8</h1>
+                        <div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">Code.FireEmblemCombatV2</span> <span class="kn">import</span> <span
+                                class="o">*</span>
+
+
+<div class="viewcode-block" id="slid3"><a class="viewcode-back"
+                                          href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.slid3">[docs]</a><span
+        class="k">def</span> <span class="nf">slid3</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, if hp_between(param1; param2; unit)</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">slid</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span
+            class="n">skill</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">hp_between</span><span class="p">(</span><span class="n">slid</span><span
+            class="o">.</span><span class="n">param1</span><span class="p">,</span> <span class="n">slid</span><span
+            class="o">.</span><span class="n">param2</span><span class="p">,</span> <span class="n">unit</span><span
+            class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="slid4"><a class="viewcode-back"
+                                          href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.slid4">[docs]</a><span
+        class="k">def</span> <span class="nf">slid4</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="o">**</span><span
+        class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    param1 = 0: At the start of turn (1 − param2)</span>
+<span class="sd">    param1 &gt; 0: At start of turn x, if (x − 1) mod param1 = param2</span>
+
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># TODO</span>
+
+    <span class="n">slid</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span
+            class="n">skill</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">slid</span><span class="o">.</span><span class="n">param1</span> <span
+            class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">elif</span> <span class="n">slid</span><span class="o">.</span><span class="n">param1</span> <span
+            class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="slid7"><a class="viewcode-back"
+                                          href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.slid7">[docs]</a><span
+        class="k">def</span> <span class="nf">slid7</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, if stat_difference(param1; target) ≥ param2</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :param target:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">slid</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span
+            class="n">skill</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">unit</span><span class="o">.</span><span
+            class="n">stat_difference</span><span class="p">(</span><span class="n">slid</span><span
+            class="o">.</span><span class="n">param1</span><span class="p">,</span> <span class="n">target</span><span
+            class="p">)</span> <span class="o">&gt;=</span> <span class="n">slid</span><span class="o">.</span><span
+            class="n">param2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="slid9"><a class="viewcode-back"
+                                          href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.slid9">[docs]</a><span
+        class="k">def</span> <span class="nf">slid9</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    If skill_targets(target)</span>
+
+<span class="sd">    :param target:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_targets</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="slid10"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.slid10">[docs]</a><span
+        class="k">def</span> <span class="nf">slid10</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="slid14"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.slid14">[docs]</a><span
+        class="k">def</span> <span class="nf">slid14</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, if count_around(unit; allies) ≥ param2</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">count_around</span><span class="p">(</span><span
+            class="n">unit</span><span class="p">,</span> <span class="n">allies</span><span class="p">,</span> <span
+            class="n">skill</span><span class="o">.</span><span class="n">slid</span><span class="p">)</span> <span
+            class="o">&gt;=</span> <span class="n">skill</span><span class="o">.</span><span class="n">slid</span><span
+            class="o">.</span><span class="n">param2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="slid19"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.slid19">[docs]</a><span
+        class="k">def</span> <span class="nf">slid19</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, if count_around(unit; allies) ≤ param2</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">count_around</span><span class="p">(</span><span
+            class="n">unit</span><span class="p">,</span> <span class="n">allies</span><span class="p">,</span> <span
+            class="n">skill</span><span class="o">.</span><span class="n">slid</span><span class="p">)</span> <span
+            class="o">&lt;=</span> <span class="n">skill</span><span class="o">.</span><span class="n">slid</span><span
+            class="o">.</span><span class="n">param2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="slid30"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.slid30">[docs]</a><span
+        class="k">def</span> <span class="nf">slid30</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, if count_around(unit; allies (excluding dragon allies)) ≤ param2</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">count_around</span><span class="p">(</span><span
+            class="n">unit</span><span class="p">,</span> <span class="k">lambda</span> <span
+            class="n">chars</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span
+            class="n">not_dragon</span><span class="p">(</span><span class="n">allies</span><span
+            class="p">(</span><span class="n">chars</span><span class="p">,</span> <span class="n">u</span><span
+            class="p">)),</span>
+                    <span class="n">skill</span><span class="o">.</span><span class="n">slid</span><span
+            class="p">)</span> <span class="o">&lt;=</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">slid</span><span class="o">.</span><span class="n">param2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="slid31"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.slid31">[docs]</a><span
+        class="k">def</span> <span class="nf">slid31</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, if count_around(unit; dragon or beast allies) ≥ param2</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">count_around</span><span class="p">(</span><span
+            class="n">unit</span><span class="p">,</span> <span class="k">lambda</span> <span
+            class="n">chars</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span
+            class="n">dragon</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span> <span
+            class="o">+</span> <span class="n">beast</span><span class="p">(</span><span class="n">chars</span><span
+            class="p">),</span>
+                    <span class="n">skill</span><span class="o">.</span><span class="n">slid</span><span
+            class="p">)</span> <span class="o">&gt;=</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">slid</span><span class="o">.</span><span class="n">param2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="slid35"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.slid35">[docs]</a><span
+        class="k">def</span> <span class="nf">slid35</span><span class="p">(</span><span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, if special cooldown count is at its maximum value</span>
+
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">unit</span><span class="o">.</span><span class="n">special_cd</span> <span
+            class="o">==</span> <span class="n">unit</span><span class="o">.</span><span class="n">max_special_cd</span><span
+            class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said22"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said22">[docs]</a><span
+        class="k">def</span> <span class="nf">said22</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, map_add_hp(skill_params.hp; neighborhood(unit)).</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span
+            class="n">neighborhood</span><span class="p">(</span><span class="n">unit</span><span
+            class="p">,</span> <span class="n">skill</span><span class="p">):</span>
+        <span class="n">map_add_hp</span><span class="p">(</span><span class="n">skill</span><span
+            class="o">.</span><span class="n">skill_params</span><span class="p">[</span><span
+            class="s2">&quot;hp&quot;</span><span class="p">],</span> <span class="n">char</span><span
+            class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said23"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said23">[docs]</a><span
+        class="k">def</span> <span class="nf">said23</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, buff(neighborhood(unit)).</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span
+            class="n">neighborhood</span><span class="p">(</span><span class="n">unit</span><span
+            class="p">,</span> <span class="n">skill</span><span class="p">):</span>
+        <span class="n">buff</span><span class="p">(</span><span class="n">skill</span><span class="p">,</span> <span
+            class="n">char</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said50"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said50">[docs]</a><span
+        class="k">def</span> <span class="nf">said50</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, map_add_hp(skill_params.hp; allies within_range(unit)).</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">allies</span><span
+            class="p">(</span><span class="n">within_range_abstracted</span><span class="p">(</span><span
+            class="n">unit</span><span class="p">,</span> <span class="n">skill</span><span class="p">),</span> <span
+            class="n">unit</span><span class="p">):</span>
+        <span class="n">map_add_hp</span><span class="p">(</span><span class="n">skill</span><span
+            class="o">.</span><span class="n">skill_params</span><span class="p">[</span><span
+            class="s2">&quot;hp&quot;</span><span class="p">],</span> <span class="n">char</span><span
+            class="p">)</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said51"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said51">[docs]</a><span
+        class="k">def</span> <span class="nf">said51</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, map_add_hp(skill_params.hp; foes within_range(unit)).</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">foes</span><span
+            class="p">(</span><span class="n">within_range_abstracted</span><span class="p">(</span><span
+            class="n">unit</span><span class="p">,</span> <span class="n">skill</span><span class="p">),</span> <span
+            class="n">unit</span><span class="p">):</span>
+        <span class="n">map_add_hp</span><span class="p">(</span><span class="n">skill</span><span
+            class="o">.</span><span class="n">skill_params</span><span class="p">[</span><span
+            class="s2">&quot;hp&quot;</span><span class="p">],</span> <span class="n">char</span><span
+            class="p">)</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said52"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said52">[docs]</a><span
+        class="k">def</span> <span class="nf">said52</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, buff(targeted(allies within_range(unit))).</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">skill</span><span
+            class="o">.</span><span class="n">targeted</span><span class="p">(</span><span class="n">allies</span><span
+            class="p">(</span><span class="n">within_range_abstracted</span><span class="p">(</span><span
+            class="n">unit</span><span class="p">,</span> <span class="n">skill</span><span class="p">),</span> <span
+            class="n">unit</span><span class="p">)):</span>
+        <span class="n">buff</span><span class="p">(</span><span class="n">skill</span><span class="p">,</span> <span
+            class="n">char</span><span class="p">)</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said53"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said53">[docs]</a><span
+        class="k">def</span> <span class="nf">said53</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, buff(targeted(foes within_range(unit))).</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">skill</span><span
+            class="o">.</span><span class="n">targeted</span><span class="p">(</span><span class="n">foes</span><span
+            class="p">(</span><span class="n">within_range_abstracted</span><span class="p">(</span><span
+            class="n">unit</span><span class="p">,</span> <span class="n">skill</span><span class="p">),</span> <span
+            class="n">unit</span><span class="p">)):</span>
+        <span class="n">buff</span><span class="p">(</span><span class="n">skill</span><span class="p">,</span> <span
+            class="n">char</span><span class="p">)</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said67"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said67">[docs]</a><span
+        class="k">def</span> <span class="nf">said67</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, map_add_hp(skill_params.atk; unit) and cooldown(skill_params.hp; unit).</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">map_add_hp</span><span class="p">(</span><span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;atk&quot;</span><span class="p">],</span> <span
+            class="n">unit</span><span class="p">)</span>
+    <span class="n">cooldown</span><span class="p">(</span><span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span class="p">],</span> <span
+            class="n">unit</span><span class="p">)</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said68"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said68">[docs]</a><span
+        class="k">def</span> <span class="nf">said68</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, buff(foes in cardinal directions of unit).</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">within_range_abstracted</span><span class="p">()</span>
+    <span class="n">within_range_ex_abstract</span><span class="p">()</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said69"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said69">[docs]</a><span
+        class="k">def</span> <span class="nf">said69</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said73"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said73">[docs]</a><span
+        class="k">def</span> <span class="nf">said73</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said74"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said74">[docs]</a><span
+        class="k">def</span> <span class="nf">said74</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said86"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said86">[docs]</a><span
+        class="k">def</span> <span class="nf">said86</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said88"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said88">[docs]</a><span
+        class="k">def</span> <span class="nf">said88</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said89"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said89">[docs]</a><span
+        class="k">def</span> <span class="nf">said89</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said92"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said92">[docs]</a><span
+        class="k">def</span> <span class="nf">said92</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said98"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said98">[docs]</a><span
+        class="k">def</span> <span class="nf">said98</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said105"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said105">[docs]</a><span
+        class="k">def</span> <span class="nf">said105</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    At start of turn, COOLDOWN(−number of TARGETED(allies on team (including unit)); unit).</span>
+
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cooldown</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span
+            class="p">(</span><span class="n">skill</span><span class="o">.</span><span class="n">targeted</span><span
+            class="p">(</span><span class="n">allies</span><span class="p">(</span><span class="n">char_list</span><span
+            class="p">,</span> <span class="n">unit</span><span class="p">))),</span> <span class="n">unit</span><span
+            class="p">)</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said106"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said106">[docs]</a><span
+        class="k">def</span> <span class="nf">said106</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said111"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said111">[docs]</a><span
+        class="k">def</span> <span class="nf">said111</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said114"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said114">[docs]</a><span
+        class="k">def</span> <span class="nf">said114</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said118"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said118">[docs]</a><span
+        class="k">def</span> <span class="nf">said118</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said122"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said122">[docs]</a><span
+        class="k">def</span> <span class="nf">said122</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said123"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said123">[docs]</a><span
+        class="k">def</span> <span class="nf">said123</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said125"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said125">[docs]</a><span
+        class="k">def</span> <span class="nf">said125</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said131"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said131">[docs]</a><span
+        class="k">def</span> <span class="nf">said131</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said132"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said132">[docs]</a><span
+        class="k">def</span> <span class="nf">said132</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said133"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said133">[docs]</a><span
+        class="k">def</span> <span class="nf">said133</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said141"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said141">[docs]</a><span
+        class="k">def</span> <span class="nf">said141</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said159"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said159">[docs]</a><span
+        class="k">def</span> <span class="nf">said159</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said195"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said195">[docs]</a><span
+        class="k">def</span> <span class="nf">said195</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said203"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said203">[docs]</a><span
+        class="k">def</span> <span class="nf">said203</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said207"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid8.said207">[docs]</a><span
+        class="k">def</span> <span class="nf">said207</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+</pre>
+                        </div>
+
+                    </div>
+
+                </div>
+                <footer>
+
+
+                    <hr/>
+
+                    <div role="contentinfo">
+                        <p>
+
+                            &copy; Copyright 2020, Dania M.
+
+                        </p>
+                    </div>
+
+
+                    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+
+                    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+
+                    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+                </footer>
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+
+</script>
+
+
+</body>
+</html>

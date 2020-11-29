@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SkillTimingContexts.stid0 &mdash; FireEmblemClone documentation</title>
+
+
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css"/>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css"/>
+    <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css"/>
+
+
+    <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+    <![endif]-->
+
+
+    <script type="text/javascript" id="documentation_options" data-url_root="../../"
+            src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+
+    <link rel="index" title="Index" href="../../genindex.html"/>
+    <link rel="search" title="Search" href="../../search.html"/>
+</head>
+
+<body class="wy-body-for-nav">
+
+
+<div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+        <div class="wy-side-scroll">
+            <div class="wy-side-nav-search">
+
+
+                <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> FireEmblemClone
+
+
+                </a>
+
+
+                <div role="search">
+                    <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+                        <input type="text" name="q" placeholder="Search docs"/>
+                        <input type="hidden" name="check_keywords" value="yes"/>
+                        <input type="hidden" name="area" value="default"/>
+                    </form>
+                </div>
+
+
+            </div>
+
+
+            <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+
+
+                <p class="caption"><span class="caption-text">Contents:</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../modules.html">Code</a></li>
+                </ul>
+
+
+            </div>
+
+        </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+
+        <nav class="wy-nav-top" aria-label="top navigation">
+
+            <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+            <a href="../../index.html">FireEmblemClone</a>
+
+        </nav>
+
+
+        <div class="wy-nav-content">
+
+            <div class="rst-content">
+
+
+                <div role="navigation" aria-label="breadcrumbs navigation">
+
+                    <ul class="wy-breadcrumbs">
+
+                        <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+
+                        <li><a href="../index.html">Module code</a> &raquo;</li>
+
+                        <li>SkillTimingContexts.stid0</li>
+
+
+                        <li class="wy-breadcrumbs-aside">
+
+                        </li>
+
+                    </ul>
+
+
+                    <hr/>
+                </div>
+                <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+                    <div itemprop="articleBody">
+
+                        <h1>Source code for SkillTimingContexts.stid0</h1>
+                        <div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">Code.FireEmblemCombatV2</span> <span class="kn">import</span> <span
+                                class="o">*</span>
+
+
+<div class="viewcode-block" id="slid9"><a class="viewcode-back"
+                                          href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.slid9">[docs]</a><span
+        class="k">def</span> <span class="nf">slid9</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">,</span> <span class="p">):</span>
+    <span class="k">if</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_targets</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="said17"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said17">[docs]</a><span
+        class="k">def</span> <span class="nf">said17</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Shove/smite assist</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :param target:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># FIXME: get_direction does not return a magnitude 1 vector, this logic is invalid</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">move_direction</span><span
+            class="p">(</span><span class="n">get_direction</span><span class="p">(</span><span
+            class="n">unit</span><span class="p">,</span> <span class="n">target</span><span class="p">),</span> <span
+            class="n">skill</span><span class="o">.</span><span class="n">skill_params</span><span
+            class="p">[</span><span class="s2">&quot;hp&quot;</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="said18"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said18">[docs]</a><span
+        class="k">def</span> <span class="nf">said18</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Swap assist</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :param target:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span
+            class="n">pos</span>
+    <span class="n">unit</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span
+            class="n">target</span><span class="o">.</span><span class="n">pos</span><span class="p">)</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span
+            class="n">temp</span><span class="p">)</span>
+
+    <span class="c1"># FIXME: Additional action should be granted once per turn only.</span>
+    <span class="k">if</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;res&quot;</span><span class="p">]</span> <span
+            class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">give_action</span><span class="p">(</span><span class="n">unit</span><span
+            class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said19"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said19">[docs]</a><span
+        class="k">def</span> <span class="nf">said19</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Drawback assist</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :param target:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span
+            class="n">pos</span>
+    <span class="n">unit</span><span class="o">.</span><span class="n">move_direction</span><span
+            class="p">(</span><span class="n">get_direction</span><span class="p">(</span><span
+            class="n">target</span><span class="p">,</span> <span class="n">unit</span><span class="p">),</span> <span
+            class="mi">1</span><span class="p">)</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span
+            class="n">temp</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said20"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said20">[docs]</a><span
+        class="k">def</span> <span class="nf">said20</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reposition / To Change Fate (Chrom) assist</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :param target:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">move_direction</span><span
+            class="p">(</span><span class="n">get_direction</span><span class="p">(</span><span
+            class="n">target</span><span class="p">,</span> <span class="n">unit</span><span class="p">),</span> <span
+            class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;res&quot;</span><span class="p">]</span> <span
+            class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">give_action</span><span class="p">(</span><span class="n">unit</span><span
+            class="p">)</span></div>
+        <span class="c1"># FIXME</span>
+        <span class="c1"># (Additional action granted once per turn only.) Grants Atk+6 to unit and</span>
+        <span class="c1"># Pair Up cohort for 1 turn. ADD_STATUS( Isolation; unit and Pair Up cohort).</span>
+
+
+<div class="viewcode-block" id="said21"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said21">[docs]</a><span
+        class="k">def</span> <span class="nf">said21</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pivot assist</span>
+
+<span class="sd">    :param unit:</span>
+<span class="sd">    :param target:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">unit</span><span class="o">.</span><span class="n">move_direction</span><span
+            class="p">(</span><span class="n">get_direction</span><span class="p">(</span><span
+            class="n">unit</span><span class="p">,</span> <span class="n">target</span><span class="p">),</span> <span
+            class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said22"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said22">[docs]</a><span
+        class="k">def</span> <span class="nf">said22</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="c1"># CHECK: is this section supposed to be executed always or only when spd param == 0?</span>
+    <span class="n">hp_add</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span
+            class="n">skill</span><span class="o">.</span><span class="n">skill_params</span><span
+            class="p">[</span><span class="s2">&quot;def&quot;</span><span class="p">]</span> <span
+            class="o">/</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">unit</span><span
+            class="o">.</span><span class="n">stats</span><span class="p">[</span><span
+            class="s2">&quot;atk&quot;</span><span class="p">]</span> <span class="o">+</span> <span
+            class="n">skill</span><span class="o">.</span><span class="n">skill_params</span><span
+            class="p">[</span><span class="s2">&quot;res&quot;</span><span class="p">],</span>
+                 <span class="n">skill</span><span class="o">.</span><span class="n">skill_params</span><span class="p">[</span><span
+            class="s2">&quot;hp&quot;</span><span class="p">])</span>
+    <span class="n">map_add_hp</span><span class="p">(</span><span class="n">hp_add</span><span class="p">,</span> <span
+            class="n">target</span><span class="p">)</span>
+    <span class="n">map_add_hp</span><span class="p">(</span><span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;atk&quot;</span><span class="p">],</span> <span
+            class="n">unit</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;spd&quot;</span><span class="p">]</span> <span
+            class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">map_add_hp</span><span class="p">(</span><span class="n">unit</span><span
+            class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span
+            class="p">]</span> <span class="o">-</span> <span class="n">unit</span><span class="o">.</span><span
+            class="n">hp</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="n">map_add_hp</span><span class="p">((</span><span class="n">unit</span><span
+            class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span
+            class="p">]</span> <span class="o">-</span> <span class="n">unit</span><span class="o">.</span><span
+            class="n">hp</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span
+            class="p">,</span> <span class="n">unit</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;spd&quot;</span><span class="p">]</span> <span
+            class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">map_add_hp</span><span class="p">(</span><span class="nb">max</span><span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">target</span><span
+            class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span
+            class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span
+            class="o">*</span> <span class="n">target</span><span class="o">.</span><span class="n">hp</span><span
+            class="p">)),</span> <span class="n">target</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;spd&quot;</span><span class="p">]</span> <span
+            class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">neutralize_penalties</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+        <span class="k">pass</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said23"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said23">[docs]</a><span
+        class="k">def</span> <span class="nf">said23</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="n">to_buff</span> <span class="o">=</span> <span class="n">neighborhood</span><span
+            class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">skill</span><span
+            class="p">)</span>
+    <span class="n">to_buff</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span
+            class="n">unit</span><span class="p">)</span>
+    <span class="n">buff</span><span class="p">(</span><span class="n">skill</span><span class="p">,</span> <span
+            class="n">to_buff</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said27"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said27">[docs]</a><span
+        class="k">def</span> <span class="nf">said27</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span
+            class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">map_add_hp</span><span class="p">(</span><span class="n">skill</span><span
+            class="o">.</span><span class="n">skill_params</span><span class="p">[</span><span
+            class="s2">&quot;hp&quot;</span><span class="p">],</span> <span class="n">target</span><span
+            class="p">)</span>
+        <span class="c1"># CHECK: Check whether the above can donate the full hp amount and if not, give less in below</span>
+        <span class="n">map_add_hp</span><span class="p">(</span><span class="o">-</span><span
+            class="n">skill</span><span class="o">.</span><span class="n">skill_params</span><span
+            class="p">[</span><span class="s2">&quot;hp&quot;</span><span class="p">],</span> <span
+            class="n">unit</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span
+            class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span
+            class="p">:</span>
+        <span class="n">map_add_hp</span><span class="p">(</span><span class="n">unit</span><span
+            class="o">.</span><span class="n">hp</span> <span class="o">-</span> <span class="mi">1</span><span
+            class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="n">map_add_hp</span><span class="p">(</span><span class="mi">1</span> <span
+            class="o">-</span> <span class="n">unit</span><span class="o">.</span><span class="n">hp</span><span
+            class="p">,</span> <span class="n">unit</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span
+            class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">convert_penalties_to_bonuses</span><span class="p">(</span><span class="n">target</span><span
+            class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said28"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said28">[docs]</a><span
+        class="k">def</span> <span class="nf">said28</span><span class="p">(</span><span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">unit</span><span class="o">.</span><span
+            class="n">hp</span>
+    <span class="n">unit</span><span class="o">.</span><span class="n">hp</span> <span class="o">=</span> <span
+            class="nb">min</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span
+            class="n">hp</span><span class="p">,</span> <span class="n">unit</span><span class="o">.</span><span
+            class="n">stats</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span
+            class="p">])</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">hp</span> <span class="o">=</span> <span
+            class="nb">min</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span
+            class="n">target</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span
+            class="s2">&quot;hp&quot;</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="said29"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said29">[docs]</a><span
+        class="k">def</span> <span class="nf">said29</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="n">convert_penalties_to_bonuses</span><span class="p">(</span><span class="n">target</span><span
+            class="p">)</span>
+    <span class="k">if</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span
+            class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">neutralize_penalties</span><span class="p">(</span><span class="n">target</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said30"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said30">[docs]</a><span
+        class="k">def</span> <span class="nf">said30</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">,</span> <span class="n">target</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="c1"># CHECK: Check if target is a refresher here or put that in the give_action func?</span>
+    <span class="n">give_action</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+    <span class="c1"># TODO: Use switch-equivalent dict for this</span>
+    <span class="k">if</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;res&quot;</span><span class="p">]</span> <span
+            class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_targets</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
+            <span class="n">add_status</span><span class="p">(</span><span class="s2">&quot;March&quot;</span><span
+            class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;res&quot;</span><span class="p">]</span> <span
+            class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">affected_units</span> <span class="o">=</span> <span class="n">neighborhood_ex</span><span
+            class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="kc">None</span><span
+            class="p">,</span> <span class="s2">&quot;in_cardinals&quot;</span><span class="p">)</span>
+        <span class="n">affected_units</span><span class="o">.</span><span class="n">extend</span><span
+            class="p">(</span><span class="n">neighborhood_ex</span><span class="p">(</span><span
+            class="n">target</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span
+            class="s2">&quot;in_cardinals&quot;</span><span class="p">))</span>
+        <span class="n">affected_units</span><span class="o">.</span><span class="n">remove</span><span
+            class="p">(</span><span class="n">unit</span><span class="p">)</span>
+
+        <span class="n">spectrum_buff</span><span class="p">(</span><span class="n">affected_units</span><span
+            class="p">,</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;atk&quot;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">aff_unit</span> <span class="ow">in</span> <span class="n">affected_units</span><span
+            class="p">:</span>
+            <span class="n">add_status</span><span class="p">(</span><span class="n">status</span><span
+            class="p">(</span><span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span class="p">]),</span> <span
+            class="n">aff_unit</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;res&quot;</span><span class="p">]</span> <span
+            class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">elif</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;res&quot;</span><span class="p">]</span> <span
+            class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">elif</span> <span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;res&quot;</span><span class="p">]</span> <span
+            class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said55"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said55">[docs]</a><span
+        class="k">def</span> <span class="nf">said55</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said56"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said56">[docs]</a><span
+        class="k">def</span> <span class="nf">said56</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="said67"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said67">[docs]</a><span
+        class="k">def</span> <span class="nf">said67</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="c1"># cooldown(skill.skill_params[&quot;hp&quot;], unit)</span>
+
+    <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span
+            class="n">skill</span><span class="o">.</span><span class="n">targeted</span><span class="p">(</span><span
+            class="n">allies</span><span class="p">(</span><span class="n">within_range_ex_abstract</span><span
+            class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">skill</span><span
+            class="p">),</span> <span class="n">unit</span><span class="p">)):</span>
+        <span class="n">cooldown</span><span class="p">(</span><span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span class="p">],</span> <span
+            class="n">character</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said88"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said88">[docs]</a><span
+        class="k">def</span> <span class="nf">said88</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;BUFF(unit and TARGETED(allies WITHIN_RANGE_EX(unit))).</span>
+<span class="sd">    ADD_STATUS(STATUS(skill_params.hp); unit and TARGETED(allies WITHIN_RANGE_EX(unit)))&quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span
+            class="n">skill</span><span class="o">.</span><span class="n">targeted</span><span class="p">(</span><span
+            class="n">allies</span><span class="p">(</span><span class="n">within_range_ex_abstract</span><span
+            class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">skill</span><span
+            class="p">),</span> <span class="n">unit</span><span class="p">)):</span>
+        <span class="n">buff</span><span class="p">(</span><span class="n">skill</span><span class="p">,</span> <span
+            class="n">character</span><span class="p">)</span>
+        <span class="n">add_status</span><span class="p">(</span><span class="n">status</span><span
+            class="p">(</span><span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span class="p">]),</span> <span
+            class="n">character</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said92"><a class="viewcode-back"
+                                           href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said92">[docs]</a><span
+        class="k">def</span> <span class="nf">said92</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;MAP_ADD_HP(skill_params.hp; foes WITHIN_RANGE_EX(unit)).</span>
+<span class="sd">    ADD_STATUS(STATUS(skill_params.atk); foes WITHIN_RANGE_EX(unit))&quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span
+            class="n">foes</span><span class="p">(</span><span class="n">within_range_ex_abstract</span><span class="p">(</span><span
+            class="n">unit</span><span class="p">,</span> <span class="n">skill</span><span class="p">),</span> <span
+            class="n">unit</span><span class="p">):</span>
+        <span class="n">map_add_hp</span><span class="p">(</span><span class="n">skill</span><span
+            class="o">.</span><span class="n">skill_params</span><span class="p">[</span><span
+            class="s2">&quot;hp&quot;</span><span class="p">],</span> <span class="n">character</span><span
+            class="p">)</span>
+        <span class="n">add_status</span><span class="p">(</span><span class="n">status</span><span
+            class="p">(</span><span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;atk&quot;</span><span class="p">]),</span> <span
+            class="n">character</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said192"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said192">[docs]</a><span
+        class="k">def</span> <span class="nf">said192</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;MAP_ADD_HP(skill_params.hp; NEIGHBORHOOD_EX(unit)).</span>
+<span class="sd">    Neutralizes【Penalty】on NEIGHBORHOOD_EX(unit).</span>
+<span class="sd">    BUFF(NEIGHBORHOOD_EX(unit))&quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">neighborhood_ex</span><span
+            class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">skill</span><span
+            class="p">):</span>
+        <span class="n">map_add_hp</span><span class="p">(</span><span class="n">skill</span><span
+            class="o">.</span><span class="n">skill_params</span><span class="p">[</span><span
+            class="s2">&quot;hp&quot;</span><span class="p">],</span> <span class="n">character</span><span
+            class="p">)</span>
+        <span class="n">neutralize_penalties</span><span class="p">(</span><span class="n">character</span><span
+            class="p">)</span>
+        <span class="n">buff</span><span class="p">(</span><span class="n">skill</span><span class="p">,</span> <span
+            class="n">character</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said200"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said200">[docs]</a><span
+        class="k">def</span> <span class="nf">said200</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;BUFF(NEIGHBORHOOD_EX(unit)).</span>
+<span class="sd">    ADD_STATUS(STATUS(skill_params.hp); NEIGHBORHOOD_EX(unit)).</span>
+<span class="sd">    ADD_STATUS(STATUS(skill_params2.hp); NEIGHBORHOOD_EX(unit))&quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">neighborhood_ex</span><span
+            class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">skill</span><span
+            class="p">):</span>
+        <span class="n">buff</span><span class="p">(</span><span class="n">skill</span><span class="p">,</span> <span
+            class="n">character</span><span class="p">)</span>
+        <span class="n">add_status</span><span class="p">(</span><span class="n">status</span><span
+            class="p">(</span><span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span class="p">]),</span> <span
+            class="n">character</span><span class="p">)</span>
+        <span class="n">add_status</span><span class="p">(</span><span class="n">status</span><span
+            class="p">(</span><span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params2</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span class="p">]),</span> <span
+            class="n">character</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said214"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said214">[docs]</a><span
+        class="k">def</span> <span class="nf">said214</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;ADD_STATUS(STATUS(skill_params.hp); NEIGHBORHOOD_EX(unit)).</span>
+<span class="sd">    ADD_STATUS(STATUS(skill_params2.hp); foes WITHIN_RANGE_EX(unit)).</span>
+<span class="sd">    BUFF2(foes WITHIN_RANGE_EX(unit)).&quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span
+            class="n">foes</span><span class="p">(</span><span class="n">within_range_ex_abstract</span><span class="p">(</span><span
+            class="n">unit</span><span class="p">,</span> <span class="n">skill</span><span class="p">),</span> <span
+            class="n">unit</span><span class="p">):</span>
+        <span class="n">add_status</span><span class="p">(</span><span class="n">status</span><span
+            class="p">(</span><span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params2</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span class="p">]),</span> <span
+            class="n">character</span><span class="p">)</span>
+        <span class="n">buff2</span><span class="p">(</span><span class="n">skill</span><span class="p">,</span> <span
+            class="n">character</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">neighborhood_ex</span><span
+            class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">skill</span><span
+            class="p">):</span>
+        <span class="n">add_status</span><span class="p">(</span><span class="n">status</span><span
+            class="p">(</span><span class="n">skill</span><span class="o">.</span><span
+            class="n">skill_params</span><span class="p">[</span><span class="s2">&quot;hp&quot;</span><span class="p">]),</span> <span
+            class="n">character</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="said217"><a class="viewcode-back"
+                                            href="../../SkillTimingContexts.html#SkillTimingContexts.stid0.said217">[docs]</a><span
+        class="k">def</span> <span class="nf">said217</span><span class="p">(</span><span class="n">skill</span><span
+        class="p">:</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">unit</span><span
+        class="p">:</span> <span class="n">Character</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;ADD_STATUS(STATUS(skill_params.hp);</span>
+<span class="sd">    unit and allies from the same titles WITHIN_RANGE_EX(unit))&quot;&quot;&quot;</span>
+
+    <span class="c1"># TODO</span>
+
+    <span class="k">pass</span></div>
+</pre>
+                        </div>
+
+                    </div>
+
+                </div>
+                <footer>
+
+
+                    <hr/>
+
+                    <div role="contentinfo">
+                        <p>
+
+                            &copy; Copyright 2020, Dania M.
+
+                        </p>
+                    </div>
+
+
+                    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+
+                    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+
+                    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+                </footer>
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+
+</script>
+
+
+</body>
+</html>

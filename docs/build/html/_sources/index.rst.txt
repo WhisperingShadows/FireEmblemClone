@@ -1,9 +1,7 @@
-
-
 Welcome to the documentation for my fully-Python Fire Emblem Heroes (FEH) clone!
 ================================================================================
 
-Hiya Lucca! (Ignore if you're not Luc)
+Hiya Lucca! (Or ignore if you're not Luc)
 
 This project, in all its various forms scattered across the internet, is (rather unimaginatively)
 named FireEmblemClone. Its intended goal is to be a perfect (or nearly perfect) copy of the popular
