@@ -2,7 +2,7 @@
 Updated combat logic for FireEmblemClone
 """
 
-from DijkstraAlgorithm_Speedy_Custom import *
+from Code.FEH_DijkstraAlgorithm import *
 # from FEH_definitions import *
 from Code import FEH_StatGrowth
 from Code.FireEmblemLoadJsonFilesBetterV2 import *

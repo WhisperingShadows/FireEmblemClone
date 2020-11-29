@@ -6,5 +6,4 @@ setup(name='FireEmblemClone',
       author='Dania M.',
       url='https://fireemblemclone.readthedocs.io/',
       packages=find_packages(include=["Code"]),
-
       )
