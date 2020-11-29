@@ -1,5 +1,5 @@
-Code
-====
+Behold, My Code (Beware The Spaghetti)
+======================================
 
 .. toctree::
    :maxdepth: 4
