@@ -1,4 +1,4 @@
-from LuaBase import LuaList
+from Code.ZanyLuaOpShenanigans.LuaBase import LuaList
 
 from typing import Any
 from pprint import pprint

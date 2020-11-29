@@ -1,5 +1,5 @@
 """
-Updated combat logic for FireEmblemClone
+Contains the updated combat logic for FireEmblemClone
 """
 
 from Code.FEH_DijkstraAlgorithm import *
@@ -7,12 +7,18 @@ from Code.FEH_DijkstraAlgorithm import *
 from Code import FEH_StatGrowth
 from Code.FireEmblemLoadJsonFilesBetterV2 import *
 from math import trunc, floor
+
 try:
     from metaproperties import properties, self_properties
 except ImportError:
     from Tools.metaproperties import properties, self_properties
 from types import SimpleNamespace as sn
 from typing import Iterable, Union, Optional, List, Dict, Any, Tuple, NamedTuple, Callable
+
+try:
+    from utility_functions import call_with
+except:
+    from Tools.utility_functions import call_with
 
 # TODO: rework loadfile output dicts to use id_nums tag as keys
 
@@ -448,6 +454,35 @@ class Skill(ArbitraryAttributeClass):
 
         super().__init__(**kwargs)
 
+    def activate(self, **kwargs):
+
+        # gets first limit function
+        if self.limit1_id != 0:
+            limit1 = getattr(eval(f"stid{self.timing_id}"), f"slid{self.limit1_id}")
+        else:
+            # if the limit id is 0, there is no limit
+            limit1 = True
+
+        # gets second limit function
+        if self.limit2_id != 0:
+            limit2 = getattr(eval(f"stid{self.timing_id}"), f"slid{self.limit2_id}")
+        else:
+            # if the limit id is 0, there is no limit
+            limit2 = True
+
+        # print(self.limit1_id, self.limit2_id)
+
+        # gets the ability function
+        ability = getattr(eval(f"stid{self.timing_id}"), f"said{self.ability_id}")
+
+        # tests whether the ability activates for each character
+        # if so, activates ability with that character as the target
+
+        for char in char_list:
+            # print(f"    {char}: {(limit1(skill=self, target=char), limit2(skill=self, target=char))}")
+            if limit1(skill=self, target=char) and limit2(skill=self, target=char):
+                call_with(ability, dict(kwargs, unit=char, target=char))
+
     def targeted(self, items: Iterable['Character']):
         """
         Return list of units within the given group which are targeted by the skill. Skill targeting
@@ -457,11 +492,7 @@ class Skill(ArbitraryAttributeClass):
         :return:
         """
 
-        if self.target_either:
-            # CHECK: Should i.target_mov and i.target_wep be mov and wep? (Or whatever the equivalent)
-            return [i for i in items if i.target_mov == self.target_mov or i.target_wep == self.target_wep]
-        else:
-            return [i for i in items if i.target_mov == self.target_mov and i.target_wep == self.target_wep]
+        return [i for i in items if self.skill_targets(i)]
 
     def skill_targets(self, unit: 'Character'):
         """
@@ -472,12 +503,25 @@ class Skill(ArbitraryAttributeClass):
         :param unit: :class:`Character`
         :return: bool
         """
+        # print("Unit move type:", unit.move_type, "\nTarget move type:", self.target_mov,
+        #       "\nUnit weapon type:", unit.weapon_type, "\nTarget weapon type:", self.target_wep)
+
+        targets_mov = in_bitmask(unit.move_type, self.target_mov) or self.target_mov == 0
+        targets_wep = in_bitmask(unit.weapon_type, self.target_wep) or self.target_wep == 0
+
+        # print(f"        targets_mov: {targets_mov}; targets_wep: {targets_wep}")
+
         if self.target_either:
-            return True if unit.target_mov == self.target_mov or \
-                           unit.target_wep == self.target_wep else False
+            return True if targets_mov or targets_wep else False
         else:
-            return True if unit.target_mov == self.target_mov and \
-                           unit.target_wep == self.target_wep else False
+            return True if targets_mov and targets_wep else False
+
+        # if self.target_either:
+        #     return True if unit.move_type == self.target_mov or \
+        #                    unit.weapon_type == self.target_wep else False
+        # else:
+        #     return True if unit.move_type == self.target_mov and \
+        #                    unit.weapon_type == self.target_wep else False
 
     def combat_boost(self, unit: 'Character'):
         """
@@ -545,7 +589,7 @@ class Weapon(Skill):
         self.weapon_class = None
 
         super().__init__(**kwargs)
-        self.set_attribute_values()
+        # self.set_attribute_values()
 
     def set_attribute_values(self):
         """
@@ -624,27 +668,30 @@ class Character(ArbitraryAttributeClass):
         self.base_stats = None
         #: percent growth rates for each stat
         self.growth_rates = None
-        #: for given rarity, first 6 values (0-5) are default (already learned), remaining 8 (6-13) are unlockable
-        #: index 0 and index 6 are weapons
-        #: index 1 and index 7 are assists
-        #: index 2 and index 8 are specials
-        #: index 3 and index 9 are A slot (except for Drag Back on Gwendolyn)
-        #: index 4 and index 10 are B slot (Except Defiant Attack on Ogma)
-        #: index 5 and index 11 are C slot (Except HP+ on Abel)
-        #: index 12 is empty
-        #: index 13 is empty
-        self.skills = None
+        #: List of lists: index of first list corresponds to unit rarity; index of second list
+        #: corresponds to skill category.
+        #: For given rarity, first 6 values (0-5) are default (already learned), remaining 8 (6-13)
+        #: are unlockable
+        #: - index 0 and index 6 are weapons
+        #: - index 1 and index 7 are assists
+        #: - index 2 and index 8 are specials
+        #: - index 3 and index 9 are A slot (except for Drag Back on Gwendolyn)
+        #: - index 4 and index 10 are B slot (Except Defiant Attack on Ogma)
+        #: - index 5 and index 11 are C slot (Except HP+ on Abel)
+        #: - index 12 is empty
+        #: - index 13 is empty
+        self.skills: List[List] = None
 
         #: position; tuple (x, y)
         self.pos = None
         #: node at character's position
-        self.node = None
+        self.node: Node = None
         #: movement range; integer
-        self.move_range = None
+        self.move_range: int = None
         #: current rarity; integer
-        self.rarity = None
+        self.rarity: int = None
         #: current level; integer
-        self.level = None
+        self.level: int = None
         #: affinity bonus (bonus granted by skills like gem weapons or triangle adept)
         self.affinity = None
         #: currently equipped weapon
@@ -652,52 +699,52 @@ class Character(ArbitraryAttributeClass):
         #: base weapon class (kinda useless right now?)
         self.weapon_class = None
         #: unit color; integer
-        self.color = None
+        self.color: int = None
         #: translated unit name
-        self.name = None
-        #: currently equipped skills
-        self.equipped_skills = None
+        self.name: str = None
+        #: Currently equipped skills. Dict keys correspond to skill category.
+        self.equipped_skills: Dict[str:Skill] = None
         #: stats scaled to current level
-        self.stats = None
+        self.stats: Dict[str:int] = None
         #: visible buffs applied to unit; integer
-        self.buffs = None
+        self.buffs: Dict[str:int] = None
         #: visible debuffs applied to unit; integer
-        self.debuffs = None
+        self.debuffs: Dict[str:int] = None
         #: sum of invisible in-combat buffs/debuffs applied to unit; integer
-        self.combat_boosts = None
+        self.combat_boosts: Dict[str:int] = None
         #: current hp value; integer
-        self._hp = None
+        self._hp: int = None
         #: unit can counterattack regardless of opponent’s range; boolean
-        self.counter = None
+        self.counter: bool = None
         #: unit cannot counterattack; boolean
-        self.no_counter = None
+        self.no_counter: bool = None
         #: can unit make a follow-up (1 = guaranteed, 0 = normal, -1 = no follow-up); integer
-        self.follow_up = None
+        self.follow_up: int = None
         #: does unit have vantage; boolean
-        self.vantage = None
+        self.vantage: bool = None
         #: does unit have desperation; boolean
-        self.desperation = None
+        self.desperation: bool = None
         #: does unit have brave effect; boolean
-        self.brave = None
+        self.brave: bool = None
         #: does unit have raven effect; boolean
-        self.raven = None
+        self.raven: bool = None
         #: does unit have adaptive damage; boolean
-        self.adaptive = None
+        self.adaptive: bool = None
         #: does unit have adaptive special damage; boolean
-        self.adaptive_aoe = None
+        self.adaptive_aoe: bool = None
         #: does unit calculate damage from staff like normal weapons; boolean
-        self.wrathful_staff = None
+        self.wrathful_staff: bool = None
         #: dictionary of status effects on unit; string keys and boolean values
-        self.status_effects = None
+        self.status_effects: Dict[str:bool] = None
         #: is unit the one initiating combat; boolean
-        self.is_initiating = None
+        self.is_initiating: bool = None
         # TODO: Make equipping a special skill affect this value
         #: Current special cooldown value; int
-        self.special_cd = None
+        self.special_cd: int = None
         #: Maximum special cooldown value; int
-        self.max_special_cd = None
+        self.max_special_cd: int = None
         #: has unit acted already; boolean
-        self.has_acted = None
+        self.has_acted: bool = None
 
         super().__init__(**kwargs)
         scope = self.__dict__.copy()
@@ -814,7 +861,9 @@ class Character(ArbitraryAttributeClass):
 
         # sets character's equipped skill for each category to None
         if not self.equipped_skills:
+
             self.equipped_skills = {
+
                 "assist": None,
                 "special": None,
                 "a": None,
@@ -935,6 +984,7 @@ class Character(ArbitraryAttributeClass):
                         owns_weapon = True
                         break
                 if not owns_weapon:
+                    print("Does not own weapon")
                     return False
 
             if weapon.enemy_only:
@@ -1711,15 +1761,34 @@ def hp_between(min_hp_percent: int, max_hp_percent: int, unit: Character):
 
 
 def counter(unit: 'Character'):
+    """
+    Unit can counterattack regardless of opponent’s range
+
+    :param unit:
+    :return:
+    """
     unit.counter = True
 
 
 def no_counter(unit: 'Character'):
+    """
+    Unit cannot counterattack
+
+    :param unit:
+    :return:
+    """
     unit.no_counter = True
 
 
-# FIXME: Does this need to be in here? Self param is never used (same with 2 above)
 def follow_up(follow_up_value: int, unit: 'Character'):
+    """
+    If `follow_up_value` is 1, unit makes a guaranteed follow-up attack, if `follow_up_value` is
+    -1 unit cannot make a follow-up attack.
+
+    :param follow_up_value: 1 or -1
+    :param unit:
+    :return:
+    """
     unit.follow_up += follow_up_value
     # FIXME? I think this wrong but idk
     unit.follow_up_value = 1 if follow_up_value > 1 else -1 if follow_up_value < -1 else follow_up_value
@@ -1735,30 +1804,73 @@ def null_follow_up(neut_guarantee_foe: bool, neut_prevent_unit: bool, unit: 'Cha
 
 
 def vantage(unit: 'Character'):
+    """
+    Unit can counterattack before opponent’s first attack
+
+    :param unit:
+    :return:
+    """
     unit.vantage = True
 
 
 def desperation(unit: 'Character'):
+    """
+    Unit can make a follow-up attack before opponent can counterattack
+
+    :param unit:
+    :return:
+    """
     unit.desperation = True
 
 
 def brave(unit: 'Character'):
+    """
+    Unit attacks twice
+
+    :param unit:
+    :return:
+    """
     unit.brave = True
 
 
 def raven(unit: 'Character'):
+    """
+    Grants weapon-triangle advantage to unit against colorless opponents,
+    and inflicts weapon-triangle disadvantage on colorless opponents during combat.
+
+    :param unit:
+    :return:
+    """
     unit.raven = True
 
 
 def adaptive(unit: 'Character'):
+    """
+    Calculates unit’s damage during combat using the lower of opponent’s Def or Res
+
+    :param unit:
+    :return:
+    """
     unit.adaptive = True
 
 
 def adaptive_aoe(unit: 'Character'):
+    """
+    Calculates damage from unit’s area-of-effect Specials using the lower of opponent’s Def or Res
+
+    :param unit:
+    :return:
+    """
     unit.adaptive_aoe = True
 
 
 def wrathful_staff(unit: 'Character'):
+    """
+    Calculates damage from unit’s staff like other weapons
+
+    :param unit:
+    :return:
+    """
     unit.wrathful_staff = True
 
 
@@ -1779,11 +1891,13 @@ def charge(mode: int, charge_num: int, unit: 'Character'):
     pass
 
 
+# aether/sol/noontime and the like
 def combat_add_hp(hp_change: int, unit: 'Character'):
     unit.hp += hp_change
     unit.hp = min(unit.hp, unit.stats["hp"])
 
 
+# savage blow and stuff
 def map_add_hp(hp_change: int, unit: 'Character'):
     unit.hp += hp_change
     if unit.hp > 0:
@@ -1838,22 +1952,40 @@ def count_around(unit: Character, unit_type: 'Callable', context: Union['Slid', 
 # could implement using within_range, but I think this is better
 # CHECK: This thing is confusing
 def unit_near(self, other_unit: 'Character', skill: Skill):
+    """
+    If unit is :func:`within_range` of unit
+
+    :param self:
+    :param other_unit:
+    :param skill:
+    :return:
+    """
     return in_range(self.pos, other_unit.pos, skill.skill_range)
 
 
 def neighborhood(unit: Character, skill: Skill) -> List[Character]:
+    """
+    Unit and units on unit’s team :func:`within_range` of unit
+
+    :param unit:
+    :param skill:
+    :return:
+    """
     nearby = within_range_abstracted(unit, skill, "within_range")
 
-    return allies(nearby, unit) + [unit]
+    # second part is not needed because allies() is inclusive
+    return allies(nearby, unit)  # + [unit]
 
 
 def neighborhood_ex(unit: Character, skill: Optional[Skill], range_shape_override: str = "") -> List[Character]:
     nearby = within_range_ex_abstract(unit, skill, range_shape_override=range_shape_override)
 
-    return allies(nearby, unit) + [unit]
+    # second part is not needed because allies() is inclusive
+    return allies(nearby, unit)  # + [unit]
 
 
 def cooldown(cooldown: int, unit: Character):
+    print("Changing CD by:", cooldown)
     unit.special_cd += cooldown
 
     # if special_cd is below 0, set to 0
@@ -1880,10 +2012,23 @@ status_dict = {0: "Gravity", 1: "Panic", 2: "No counterattacks", 3: "March", 4: 
 
 
 def status(status_id: int) -> str:
+    """
+    Converts status id to status name
+
+    :param status_id:
+    :return:
+    """
     return status_dict[status_id]
 
 
 def add_status(status_effect: str, unit: Character):
+    """
+    Grants/inflicts status to/on unit
+
+    :param status_effect:
+    :param unit:
+    :return:
+    """
     unit.status_effects[status_effect] = True
 
 
@@ -2101,6 +2246,8 @@ class stid0(sn):
         :param target:
         :return:
         """
+
+        # FIXME: get_direction does not return a magnitude 1 vector, this logic is invalid
         target.move_direction(get_direction(unit, target), skill.skill_params["hp"])
 
     def said18(skill: Skill, unit: Character, target: Character):
@@ -2290,6 +2437,8 @@ class stid0(sn):
     def said217(skill: Skill, unit: Character):
         """ADD_STATUS(STATUS(skill_params.hp);
         unit and allies from the same titles WITHIN_RANGE_EX(unit))"""
+
+        # TODO
 
         pass
 
@@ -2999,13 +3148,34 @@ class stid8(sn):
     def slid3(self):
         pass
 
-    def slid4(self):
+    def slid4(skill: Skill, **kwargs):
+        """
+        param1 = 0: At the start of turn (1 − param2)
+        param1 > 0: At start of turn x, if (x − 1) mod param1 = param2
+
+        :return:
+        """
+
+        # TODO
+
+        slid = find(skill, 4)
+        if slid.param1 == 0:
+            return 1
+
+        elif slid.param1 > 0:
+            return
+
         pass
 
     def slid7(self):
         pass
 
-    def slid9(self):
+    def slid9(skill: Skill, target: Character):
+
+        if skill.skill_targets(target):
+            return 1
+        return 0
+
         pass
 
     def slid10(self):
@@ -3024,6 +3194,110 @@ class stid8(sn):
         pass
 
     def slid35(self):
+        pass
+
+    def said22(self):
+        pass
+
+    def said23(self):
+        pass
+
+    def said50(self):
+        pass
+
+    def said51(self):
+        pass
+
+    def said52(self):
+        pass
+
+    def said53(self):
+        pass
+
+    def said67(self):
+        pass
+
+    def said68(self):
+        pass
+
+    def said69(self):
+        pass
+
+    def said73(self):
+        pass
+
+    def said74(self):
+        pass
+
+    def said86(self):
+        pass
+
+    def said88(self):
+        pass
+
+    def said89(self):
+        pass
+
+    def said92(self):
+        pass
+
+    def said98(self):
+        pass
+
+    def said105(skill: Skill, unit: Character):
+        """
+        At start of turn, COOLDOWN(−number of TARGETED(allies on team (including unit)); unit).
+
+        :return:
+        """
+
+        cooldown(-len(skill.targeted(allies(char_list, unit))), unit)
+
+        pass
+
+    def said106(self):
+        pass
+
+    def said111(self):
+        pass
+
+    def said114(self):
+        pass
+
+    def said118(self):
+        pass
+
+    def said122(self):
+        pass
+
+    def said123(self):
+        pass
+
+    def said125(self):
+        pass
+
+    def said131(self):
+        pass
+
+    def said132(self):
+        pass
+
+    def said133(self):
+        pass
+
+    def said141(self):
+        pass
+
+    def said159(self):
+        pass
+
+    def said195(self):
+        pass
+
+    def said203(self):
+        pass
+
+    def said207(self):
         pass
 
 
@@ -3131,11 +3405,25 @@ class GameLoop:
         self.phase = None
         self.running = True
 
+    @property
+    def phase(self):
+        return self._phase
+
+    @phase.setter
+    def phase(self, value):
+        self.turn += 1
+        self._phase = value
+
     def main(self, autobattle=False):
 
-        self.swap_phase()
+        # self.swap_phase()
 
         while self.running:
+            self.player_phase()
+            self.enemy_phase()
+
+            print("CD: ", char_list[1].special_cd)
+
             instruction = input()
             self.process_instruction(instruction)
 
@@ -3144,17 +3432,20 @@ class GameLoop:
     def process_instruction(self, instruction: str):
         tokens: List[str] = instruction.split(" ")
         command = tokens[0]
-        args = tokens[1:]
+        if len(tokens) > 1:
+            args = tokens[1:]
+        else:
+            args = []
 
         if command == "chars":
-            print("Player characters")
+            print("Player characters:")
             players = [i for i in char_list if i.__class__ == Player]
             if len(players) != 0:
                 for i in players:
                     print("\t" + str(i))
             else:
                 print("None")
-            print("Enemy characters")
+            print("Enemy characters:")
             enemies = [i for i in char_list if i.__class__ == Enemy]
             if len(enemies) != 0:
                 for i in enemies:
@@ -3169,14 +3460,24 @@ class GameLoop:
         elif command == "exit":
             self.running = False
         else:
-            print("No such command")
+            print("No such command, attempting exec")
+            try:
+                exec(instruction)
+            except Exception as e:
+                print("Failed exec: ", e)
 
         pass
 
     def swap_phase(self):
+        print("Starting swap phase")
+
+        # do something
+
+        self.battle_phase()
         pass
 
     def player_phase(self):
+        print("Starting player phase")
         self.phase = "player"
         players = get_players()
         self.start_of_turn(players)
@@ -3187,6 +3488,7 @@ class GameLoop:
         self.start_of_turn(enemies)
 
     def battle_phase(self):
+        print("Starting battle phase")
 
         while not (get_players() == [] or get_enemies() == []):
             self.player_phase()
@@ -3200,15 +3502,26 @@ class GameLoop:
         pass
 
     def start_of_turn(self, characters):
+        print("Starting turn")
         for character in characters:
+            print("Character:", character)
             assert isinstance(character, Character)
 
-            for skill in character.equipped_skills:
-                assert isinstance(skill, Skill)
-                if skill.timing_id in [8, 12, 13, 22, 25, 27]:
-                    # do skill stuff here; skill.activate() or whatever
+            # TODO: Determine SAID order
+            for category, skill in dict(character.equipped_skills, weapon=character.weapon).items():
+                # print(f"Category: {category}; Skill: {skill}")
+                if not skill is None:
+                    print("Skill:", skill)
+                    assert isinstance(skill, Skill)
+                    if skill.timing_id in [8, 12, 13, 22, 25, 27]:
+                        # do skill stuff here; skill.activate() or whatever
+                        # I have indeed make it be "skill.activate() or whatever"
+                        print(f"Activating {skill}")
+                        skill.activate(skill=skill, unit=character)
 
-                    pass
+                        # CHECK: Change to evaluate for each SAID rather than each character here?
+
+                        pass
 
                 pass
 
@@ -3255,11 +3568,20 @@ def program_instructions():
     # gl = GameLoop()
     # gl.main()
 
-    testchar = Character.from_dict(players_data[0]["PID_Death_Knight"], pos=(1, 1))
+    testchar = Enemy.from_dict(players_data[0]["PID_Death_Knight"], pos=(1, 1))
 
-    for skill in skills_data[1].values():
-        if skill["timing_id"] == 0 and (skill["limit1_id"] == 9 or skill["limit2_id"] == 9):
-            print(skill)
+    testchar2 = Player.from_dict(players_data[0]["PID_Ophelia"], pos=(2, 1), rarity=5, level=40,
+                                 weapon="SID_魔書ミステルトィン", special_cd=4, max_special_cd=4)
+
+    testchar3 = Player.from_dict(players_data[0]["PID_Ophelia"], pos=(3, 1), rarity=5, level=40,
+                                 weapon="SID_魔書ミステルトィン", special_cd=4, max_special_cd=4)
+
+    loop = GameLoop()
+    loop.main()
+
+    # for skill in skills_data[1].values():
+    #     if skill["timing_id"] == 8 and (skill["limit1_id"] == 9 or skill["limit2_id"] == 9):
+    #         print(skill)
 
     # for skill in skills_data[1].values():
     #     # slid0 means the skill does not have an activation condition
