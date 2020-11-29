@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/HertzDevil_JSON_assets" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.mypy_cache" />
+      <excludeFolder url="file://$MODULE_DIR$/Old_Code" />
       <excludeFolder url="file://$MODULE_DIR$/Resources" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>

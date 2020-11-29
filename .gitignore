@@ -9,10 +9,10 @@ ExtraFiles
 
 
 # Files:
-Code/JSONdataloader_withdebugstuff.py
+Old_Code/JSONdataloader_withdebugstuff.py
 Code/FEH_definitions.py
-Code/FireEmblemCombat.py
-Code/FireEmblemLoadJsonDataFiles.py
-Code/FireEmblemLoadJsonFilesBetter.py
-Code/FireEmblemMain.py
-Code/FireEmblemMainCopy.py
+Old_Code/FireEmblemCombat.py
+Old_Code/FireEmblemLoadJsonDataFiles.py
+Old_Code/FireEmblemLoadJsonFilesBetter.py
+Old_Code/FireEmblemMain.py
+Old_Code/FireEmblemMainCopy.py
