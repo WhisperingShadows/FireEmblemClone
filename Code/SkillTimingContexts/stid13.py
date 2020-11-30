@@ -20,6 +20,5 @@ for item_name in dir(module):
         exec(f"{item_name} = getattr(module, item_name)")
 
 
-class stid13(sn):
-    def slid3(self):
-        pass
+def slid3(self):
+    pass
