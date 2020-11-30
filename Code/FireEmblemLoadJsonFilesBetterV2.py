@@ -482,13 +482,24 @@ def load_files(skill_class, player_class, enemy_class, weapon_class, output_as_c
     print("Time elapsed during file loading:", stop - start, "secs")
     return skills, players, enemies, weapons, english_data, growth, move, stage_encount, terrain
 
-# if __name__ == "__main__":
-#     from FireEmblemCombatV2 import Skill, Weapon, Enemy, Player
-#
-#     skills_output, players_output, enemies_output, weapons_output, english_data_output, growth_output, \
-#         move_output, stage_encount_output, terrain_output = load_files(Skill, Player, Enemy, Weapon)
-#
-#     print(players_output[0]["MARTH"].skills)
+
+if __name__ == "__main__":
+    from Code.FireEmblemCombatV2 import Skill, Weapon, Enemy, Player
+
+    skills_output, players_output, enemies_output, weapons_output, english_data_output, growth_output, \
+    move_output, stage_encount_output, terrain_output = load_files(Skill, Player, Enemy, Weapon,
+                                                                   output_as_class=False,
+                                                                   get_simple_names=True)
+
+
+def main():
+    from Code.FireEmblemCombatV2 import Skill, Weapon, Enemy, Player
+
+    skills_output, players_output, enemies_output, weapons_output, english_data_output, growth_output, \
+    move_output, stage_encount_output, terrain_output = load_files(Skill, Player, Enemy, Weapon,
+                                                                   output_as_class=False,
+                                                                   get_simple_names=True)
+    # print(players_output[0]["MARTH"].skills)
 
 # CONCLUSION: some things, like Falchion, get overridden, others cannot be translated by current translation method
 # List: 3515, Set: 3400 --> 3400 translated normally; 96 untranslated, set as None; 11 overridden Falchion items;

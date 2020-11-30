@@ -3,9 +3,8 @@ Contains the updated combat logic for FireEmblemClone
 """
 
 from Code.FEH_DijkstraAlgorithm import *
-# from FEH_definitions import *
 from Code import FEH_StatGrowth
-from Code.FireEmblemLoadJsonFilesBetterV2 import *
+from Code.ThreadedLoad_JSON_Data import *
 from math import trunc, floor
 
 try:
@@ -452,10 +451,6 @@ class Skill(ArbitraryAttributeClass):
         # self.ss_badge = ss_badge
         # self.ss_great_badge = ss_great_badge
 
-        # CHECK: What should the second value be here? Does this even work properly?
-        # CHECK: Move after super() call?
-        #: unit's :class:`Slid`
-        self.slid = find(self, None)
 
         super().__init__(**kwargs)
 
@@ -860,11 +855,12 @@ class Character(ArbitraryAttributeClass):
             self.weapon_class = WeaponClass.from_dict(weapon_data_by_index[self.weapon_type])
 
         # equips weapon to unit; defaults to None (recently added id_tag part, check it)
-        self.equip_weapon(weapon=self.weapon.id_tag)
+        self.equip_weapon(weapon=self.weapon)
 
         # sets character's name
         if not self.name:
-            self.name = str(translate_jp_to_en_class(self, english_data, prefix="MPID", old_prefix="PID"))
+            self.name = str(translate_jp_to_en_dict(self.__dict__, english_data,
+                                                    prefix="MPID", old_prefix="PID"))
 
         # sets character's equipped skill for each category to None
         if not self.equipped_skills:
@@ -1369,19 +1365,6 @@ class Player(Character):
 # CLASS DEFINITIONS END
 # ============================================================================================================
 
-
-# load all necessary data from JSON files
-if __name__ == '__main__':
-    skills_data, players_data, enemies_data, weapons_data, english_data, growth_data, move_data, \
-    stage_encount_data, terrain_data = \
-        load_files(Skill, Player, Enemy, Weapon, output_as_class=False, get_simple_names=True)
-
-    weapon_data_by_index = {v["index"]: v for v in weapons_data[1].values()}
-
-colors_by_weapon_index = [1, 2, 3, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 0, 1, 2, 3, 0, 1, 2, 3, 0]
-weapon_index_to_color_dict = {k: v for k, v in zip([i for i in range(24)], colors_by_weapon_index)}
-
-
 # ============================================================================================================
 # GENERAL DEFINITIONS START
 
@@ -1732,6 +1715,15 @@ def allies(items: Iterable, unit: Character) -> list:
         """
     # ensures unit is a subclass of Character
     # issubclass(unit.__class__, Character)
+
+    print("In allies, unit is", unit)
+    print(unit.__class__)
+    print(isinstance(unit, Character))
+    print(issubclass(unit.__class__, Character))
+    print(issubclass(Player, Character))
+    print(isinstance(unit, Player))
+    print(globals())
+
     if isinstance(unit, Character) and unit.__class__ != Character:
         return [i for i in items if i.__class__ == unit.__class__]
     else:
@@ -2404,6 +2396,23 @@ def program_instructions():
 
 
 if __name__ == "__main__":
+    # load all necessary data
+    skills_data, players_data, enemies_data, weapons_data, english_data, growth_data, move_data, \
+    stage_encount_data, terrain_data = load_files(get_simple_names=True)
+
+    weapon_data_by_index = {v["index"]: v for v in weapons_data[1].values()}
+
+    colors_by_weapon_index = [1, 2, 3, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 0, 1, 2, 3, 0, 1, 2, 3, 0]
+    weapon_index_to_color_dict = {k: v for k, v in zip([i for i in range(24)], colors_by_weapon_index)}
+
+    from Code.SkillTimingContexts import (
+        stid0, stid1, stid2, stid3, stid4, stid5, stid6, stid7, stid8, stid9, stid10,
+        stid11, stid12, stid13, stid14, stid15, stid16, stid17, stid18, stid19, stid20,
+        stid21, stid22, stid23, stid24, stid25, stid26, stid27, stid28
+    )
+
+    # ========================================================================================================
+
     prog_start = time()
     program_instructions()
     prog_stop = time()
