@@ -343,12 +343,12 @@ def get_jap_and_eng_name_dicts(list_of_dicts: List[Dict], output_category: str,
 def load_files(get_english_data=True, get_skills=True, get_characters=True, get_weapons=True,
                get_growth=True, get_move=True, get_stage_encount=True, get_terrain=True,
                check_for_update=False, get_simple_names=False):
-    hold_path = os.getcwd()
+    hold_path = os.path.dirname(os.path.dirname(__file__))
 
     english_data = {}
 
     if get_english_data:
-        os.chdir(os.path.abspath("../HertzDevil_JSON_assets/USEN/Message/Data"))
+        os.chdir(os.path.join(hold_path, "HertzDevil_JSON_assets/USEN/Message/Data"))
 
         english_data = ThreadedLoad().run(os.listdir())
 
@@ -385,7 +385,7 @@ def load_files(get_english_data=True, get_skills=True, get_characters=True, get_
         return output
 
     os.chdir(hold_path)
-    os.chdir(os.path.abspath("../HertzDevil_JSON_assets//Common/SRPG"))
+    os.chdir(os.path.abspath("HertzDevil_JSON_assets//Common/SRPG"))
 
     skills = {}
     players = {}

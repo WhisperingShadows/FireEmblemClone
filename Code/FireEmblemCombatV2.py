@@ -1716,14 +1716,6 @@ def allies(items: Iterable, unit: Character) -> list:
     # ensures unit is a subclass of Character
     # issubclass(unit.__class__, Character)
 
-    print("In allies, unit is", unit)
-    print(unit.__class__)
-    print(isinstance(unit, Character))
-    print(issubclass(unit.__class__, Character))
-    print(issubclass(Player, Character))
-    print(isinstance(unit, Player))
-    print(globals())
-
     if isinstance(unit, Character) and unit.__class__ != Character:
         return [i for i in items if i.__class__ == unit.__class__]
     else:
@@ -2405,11 +2397,13 @@ if __name__ == "__main__":
     colors_by_weapon_index = [1, 2, 3, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 0, 1, 2, 3, 0, 1, 2, 3, 0]
     weapon_index_to_color_dict = {k: v for k, v in zip([i for i in range(24)], colors_by_weapon_index)}
 
-    from Code.SkillTimingContexts import (
-        stid0, stid1, stid2, stid3, stid4, stid5, stid6, stid7, stid8, stid9, stid10,
-        stid11, stid12, stid13, stid14, stid15, stid16, stid17, stid18, stid19, stid20,
-        stid21, stid22, stid23, stid24, stid25, stid26, stid27, stid28
-    )
+    # from Code.SkillTimingContexts import (
+    #     stid0, stid1, stid2, stid3, stid4, stid5, stid6, stid7, stid8, stid9, stid10,
+    #     stid11, stid12, stid13, stid14, stid15, stid16, stid17, stid18, stid19, stid20,
+    #     stid21, stid22, stid23, stid24, stid25, stid26, stid27, stid28
+    # )
+
+    from Code.SkillTimingContexts import stid8
 
     # ========================================================================================================
 
