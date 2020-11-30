@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ThreadedLoad_JSON_Data &mdash; FireEmblemClone documentation</title>
+
+
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css"/>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css"/>
+    <link rel="stylesheet" href="../_static/graphviz.css" type="text/css"/>
+
+
+    <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+    <![endif]-->
+
+
+    <script type="text/javascript" id="documentation_options" data-url_root="../"
+            src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+
+    <link rel="index" title="Index" href="../genindex.html"/>
+    <link rel="search" title="Search" href="../search.html"/>
+</head>
+
+<body class="wy-body-for-nav">
+
+
+<div class="wy-grid-for-nav">
+
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+        <div class="wy-side-scroll">
+            <div class="wy-side-nav-search">
+
+
+                <a href="../index.html" class="icon icon-home" alt="Documentation Home"> FireEmblemClone
+
+
+                </a>
+
+
+                <div role="search">
+                    <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+                        <input type="text" name="q" placeholder="Search docs"/>
+                        <input type="hidden" name="check_keywords" value="yes"/>
+                        <input type="hidden" name="area" value="default"/>
+                    </form>
+                </div>
+
+
+            </div>
+
+
+            <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+
+
+                <p class="caption"><span class="caption-text">Contents:</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../modules.html">Code</a></li>
+                </ul>
+
+
+            </div>
+
+        </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+
+        <nav class="wy-nav-top" aria-label="top navigation">
+
+            <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+            <a href="../index.html">FireEmblemClone</a>
+
+        </nav>
+
+
+        <div class="wy-nav-content">
+
+            <div class="rst-content">
+
+
+                <div role="navigation" aria-label="breadcrumbs navigation">
+
+                    <ul class="wy-breadcrumbs">
+
+                        <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+
+                        <li><a href="index.html">Module code</a> &raquo;</li>
+
+                        <li>ThreadedLoad_JSON_Data</li>
+
+
+                        <li class="wy-breadcrumbs-aside">
+
+                        </li>
+
+                    </ul>
+
+
+                    <hr/>
+                </div>
+                <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+                    <div itemprop="articleBody">
+
+                        <h1>Source code for ThreadedLoad_JSON_Data</h1>
+                        <div class="highlight"><pre>
+<span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span
+                                class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                                class="sa">r</span><span class="s2">&quot;C:\Users\admin\AppData\Local\Programs\Python\Python36\Lib\site-packages&quot;</span><span
+                                class="p">)</span>
+    <span class="kn">import</span> <span class="nn">ujson</span> <span class="k">as</span> <span class="nn">json</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using UJSON&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">json</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using JSON&quot;</span><span
+                                class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+
+
+<div class="viewcode-block" id="merge_english_dicts"><a class="viewcode-back"
+                                                        href="../ThreadedLoad_JSON_Data.html#ThreadedLoad_JSON_Data.merge_english_dicts">[docs]</a><span
+        class="k">def</span> <span class="nf">merge_english_dicts</span><span class="p">(</span><span class="n">list_of_dicts</span><span
+        class="p">):</span>
+    <span class="n">merged</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i_dict</span> <span class="ow">in</span> <span
+            class="n">list_of_dicts</span><span class="p">:</span>
+        <span class="c1"># dicts are of the form {&quot;key&quot;: key, &quot;value&quot;: value}</span>
+        <span class="n">merged</span><span class="p">[</span><span class="n">i_dict</span><span class="p">[</span><span
+            class="s2">&quot;key&quot;</span><span class="p">]]</span> <span class="o">=</span> <span
+            class="n">i_dict</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span
+            class="p">]</span>
+    <span class="k">return</span> <span class="n">merged</span></div>
+
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span
+                                class="n">List</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span
+                                class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">import</span> <span class="nn">queue</span><span class="o">,</span> <span
+                                class="nn">threading</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">concurrent.futures</span>
+
+<span class="n">cores</span> <span class="o">=</span> <span class="mi">5</span>
+
+
+<div class="viewcode-block" id="ThreadedLoad"><a class="viewcode-back"
+                                                 href="../ThreadedLoad_JSON_Data.html#ThreadedLoad_JSON_Data.ThreadedLoad">[docs]</a><span
+        class="k">class</span> <span class="nc">ThreadedLoad</span><span class="p">:</span>
+    <span class="n">fileQueue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span
+            class="n">Queue</span><span class="p">()</span>
+    <span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span
+            class="n">Lock</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span
+            class="p">,</span> <span class="n">directory</span><span class="o">=</span><span
+            class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">directory</span> <span
+            class="o">=</span> <span class="n">directory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span
+            class="p">{}</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span
+            class="p">,</span> <span class="n">fileList</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span
+            class="n">run</span><span class="p">(</span><span class="n">fileList</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ThreadedLoad.run"><a class="viewcode-back"
+                                                     href="../ThreadedLoad_JSON_Data.html#ThreadedLoad_JSON_Data.ThreadedLoad.run">[docs]</a>    <span
+        class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">,</span> <span class="n">fileList</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span
+            class="n">threadWorker</span><span class="p">(</span><span class="n">fileList</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ThreadedLoad.Worker"><a class="viewcode-back"
+                                                        href="../ThreadedLoad_JSON_Data.html#ThreadedLoad_JSON_Data.ThreadedLoad.Worker">[docs]</a>    <span
+        class="k">def</span> <span class="nf">Worker</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+        <span class="n">fileName</span> <span class="o">=</span> <span class="bp">self</span><span
+            class="o">.</span><span class="n">fileQueue</span><span class="o">.</span><span class="n">get</span><span
+            class="p">()</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">((</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">directory</span> <span
+            class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span
+            class="n">fileName</span><span class="p">)</span> <span class="k">if</span> <span
+            class="bp">self</span><span class="o">.</span><span class="n">directory</span> <span
+            class="k">else</span> <span class="n">fileName</span><span class="p">,</span> <span
+            class="s2">&quot;r&quot;</span><span class="p">,</span>
+                  <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span
+            class="p">)</span> <span class="k">as</span> <span class="n">json_data</span><span class="p">:</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span
+            class="n">load</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span
+            class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span
+            class="n">fileName</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span>
+        <span class="c1">#     self.count += 1</span>
+        <span class="c1">#     print(fileQueue.queue)</span>
+        <span class="c1">#     print(f&quot;Task {self.count} done&quot;)</span>
+        <span class="c1">#</span>
+        <span class="c1"># print(&quot;Lock released&quot;)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fileQueue</span><span
+            class="o">.</span><span class="n">task_done</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ThreadedLoad.threadWorker"><a class="viewcode-back"
+                                                              href="../ThreadedLoad_JSON_Data.html#ThreadedLoad_JSON_Data.ThreadedLoad.threadWorker">[docs]</a>    <span
+        class="k">def</span> <span class="nf">threadWorker</span><span class="p">(</span><span
+        class="bp">self</span><span class="p">,</span> <span class="n">filename_list</span><span
+        class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span
+        class="p">]):</span>
+        <span class="k">with</span> <span class="n">concurrent</span><span class="o">.</span><span
+            class="n">futures</span><span class="o">.</span><span class="n">ThreadPoolExecutor</span><span
+            class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span
+            class="n">cores</span><span class="p">)</span> <span class="k">as</span> <span
+            class="n">executor</span><span class="p">:</span>
+            <span class="c1"># print(f&quot;Loading {len(filename_list)} files into queue&quot;)</span>
+            <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filename_list</span><span
+            class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fileQueue</span><span
+            class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">filename</span><span
+            class="p">)</span>
+
+                <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span
+            class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Worker</span><span
+            class="p">)</span>
+
+            <span class="c1"># print(&quot;Blocking until join&quot;)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fileQueue</span><span class="o">.</span><span
+            class="n">join</span><span class="p">()</span>  <span class="c1"># program waits for this process to be done.</span>
+            <span class="c1"># print(&quot;Join done!&quot;)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span
+            class="n">data</span></div></div>
+
+
+<div class="viewcode-block" id="translate_jp_to_en_dict"><a class="viewcode-back"
+                                                            href="../ThreadedLoad_JSON_Data.html#ThreadedLoad_JSON_Data.translate_jp_to_en_dict">[docs]</a><span
+        class="k">def</span> <span class="nf">translate_jp_to_en_dict</span><span class="p">(</span><span class="n">input_dict</span><span
+        class="p">,</span> <span class="n">english_data</span><span class="p">,</span> <span class="n">tag</span><span
+        class="o">=</span><span class="s2">&quot;id_tag&quot;</span><span class="p">,</span> <span
+        class="n">prefix</span><span class="o">=</span><span class="s2">&quot;MSID_&quot;</span><span class="p">,</span> <span
+        class="n">old_prefix</span><span class="o">=</span><span class="s2">&quot;SID_&quot;</span><span
+        class="p">,</span> <span class="n">is_skill</span><span class="o">=</span><span class="kc">False</span><span
+        class="p">):</span>
+    <span class="c1"># Prefixes that begin with &quot;M&quot; refer to English entries (I think)</span>
+
+    <span class="c1"># this was the result of like 4 days with no sleep, constantly coding, I have no idea how it works</span>
+    <span class="k">if</span> <span class="n">is_skill</span><span class="p">:</span>
+
+        <span class="c1"># initialize output to None</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="c1"># if refined, is weapon, get base weapon and return with refine effect</span>
+            <span class="c1"># not sure if this works for non atk/spd/def/res refines</span>
+            <span class="k">if</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;refined&quot;</span><span
+            class="p">]:</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="nb">str</span><span
+            class="p">(</span><span class="n">translate_jp_to_en_dict</span><span class="p">(</span><span class="n">input_dict</span><span
+            class="p">,</span> <span class="n">english_data</span><span class="p">,</span> <span
+            class="n">tag</span><span class="o">=</span><span class="s2">&quot;refine_base&quot;</span><span class="p">))</span> <span
+            class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="p">(</span>
+                    <span class="n">input_dict</span><span class="p">[</span><span
+            class="s2">&quot;id_tag&quot;</span><span class="p">]</span><span class="o">.</span><span
+            class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span
+            class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="c1"># if skill is not refined, try to translate it normally</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">output</span> <span class="o">=</span> <span
+            class="n">translate_jp_to_en_dict</span><span class="p">(</span><span class="n">input_dict</span><span
+            class="p">,</span> <span class="n">english_data</span><span class="p">)</span>
+
+                <span class="c1"># if skill cannot be translated</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+
+                    <span class="c1"># been a while (4 months), but I believe this cannot be translated,</span>
+                    <span class="c1"># the commented out line below returns the skill description (not name)</span>
+                    <span class="k">if</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;beast_effect_id&quot;</span><span
+            class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span
+            class="ow">and</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span
+            class="p">]</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+                        <span class="c1"># output = translate_jp_to_en_dict(input_dict, english_data, prefix=&quot;MSID_H_&quot;)</span>
+                        <span class="k">return</span> <span class="kc">None</span>
+
+                    <span class="c1"># this means it&#39;s a duo effect or something similar (beast effect?), doesn&#39;t catch all duos</span>
+                    <span class="k">if</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;beast_effect_id&quot;</span><span
+            class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span
+            class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span
+            class="p">]</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+                        <span class="c1"># duo skills don&#39;t have names, but they do have descriptions</span>
+                        <span class="c1"># skillsDict[skill].roman_name = english_data[skillsDict[skill].id_tag.replace(&quot;SID_&quot;, &quot;MSID_&quot;)]</span>
+
+                        <span class="k">if</span> <span class="n">input_dict</span><span class="p">[</span><span
+            class="s2">&quot;wep_equip&quot;</span><span class="p">]</span> <span class="o">==</span> <span
+            class="mi">0</span> <span class="ow">and</span> <span class="n">input_dict</span><span
+            class="p">[</span><span class="s2">&quot;skill_range&quot;</span><span class="p">]</span> <span
+            class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="c1"># Weird beast thing, not touching it</span>
+                            <span class="k">return</span> <span class="kc">None</span>
+
+                        <span class="c1"># dprint(&quot;Duo Effect:&quot;, english_data[input_dict[&quot;id_tag&quot;].replace(&quot;SID_&quot;, &quot;MSID_H_&quot;)])</span>
+                        <span class="c1"># print(skillsDict[skill].id_tag.replace(&quot;SID_&quot;, &quot;MSID_H_&quot;))</span>
+                        <span class="k">return</span> <span class="kc">None</span>
+
+                    <span class="k">if</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;id_tag&quot;</span><span
+            class="p">]</span> <span class="o">==</span> <span class="s2">&quot;SID_無し&quot;</span><span
+            class="p">:</span>
+                        <span class="k">return</span> <span class="s2">&quot;blank&quot;</span>
+
+                    <span class="c1"># category 7 refers to refined weapon skill effects, these normally have an R in them</span>
+                    <span class="c1"># these also do not have a translation because they are simply an additional effect that is</span>
+                    <span class="c1"># added onto the base weapon</span>
+                    <span class="c1"># you could find the base weapon by iterating through all skill dicts and checking if they have</span>
+                    <span class="c1"># an entry in their &quot;refine_id&quot; key and creating a dict that links all &quot;refine_id&quot; values to</span>
+                    <span class="c1"># the value/entry in their &quot;id_tag&quot; key (so dicts would take form key = refine_id value,</span>
+                    <span class="c1"># value = id_tag value)</span>
+                    <span class="k">if</span> <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span
+            class="p">]</span> <span class="o">!=</span> <span class="mi">7</span><span class="p">:</span>
+                        <span class="n">output</span> <span class="o">=</span> <span
+            class="n">translate_jp_to_en_dict</span><span class="p">(</span><span class="n">input_dict</span><span
+            class="p">,</span> <span class="n">english_data</span><span class="p">,</span> <span class="n">prefix</span><span
+            class="o">=</span><span class="s2">&quot;MSID_H_&quot;</span><span class="p">)</span>
+                    <span class="k">pass</span>
+
+            <span class="k">return</span> <span class="n">output</span>
+
+        <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span
+            class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error:&quot;</span><span
+            class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">english_data</span><span class="p">[</span><span class="n">input_dict</span><span
+            class="p">[</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span
+            class="p">(</span><span class="n">old_prefix</span><span class="p">,</span> <span
+            class="n">prefix</span><span class="p">)]</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;How did you get here&quot;</span><span
+            class="p">)</span></div>
+
+
+<div class="viewcode-block" id="remove_digits"><a class="viewcode-back"
+                                                  href="../ThreadedLoad_JSON_Data.html#ThreadedLoad_JSON_Data.remove_digits">[docs]</a><span
+        class="k">def</span> <span class="nf">remove_digits</span><span class="p">(</span><span
+        class="n">input_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span
+        class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">remove_digits_translation_table</span> <span class="o">=</span> <span class="nb">str</span><span
+            class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span
+            class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s2">&quot;0123456789&quot;</span><span
+            class="p">)</span>
+    <span class="n">output_string</span> <span class="o">=</span> <span class="n">input_string</span><span
+            class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">remove_digits_translation_table</span><span
+            class="p">)</span>
+    <span class="k">return</span> <span class="n">output_string</span></div>
+
+
+<div class="viewcode-block" id="get_jap_and_eng_name_dicts"><a class="viewcode-back"
+                                                               href="../ThreadedLoad_JSON_Data.html#ThreadedLoad_JSON_Data.get_jap_and_eng_name_dicts">[docs]</a><span
+        class="k">def</span> <span class="nf">get_jap_and_eng_name_dicts</span><span class="p">(</span><span class="n">list_of_dicts</span><span
+        class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span
+        class="p">],</span> <span class="n">output_category</span><span class="p">:</span> <span
+        class="nb">str</span><span class="p">,</span>
+                               <span class="n">english_transl_data</span><span class="p">:</span> <span
+            class="n">Dict</span><span class="p">,</span> <span class="n">get_short_names</span><span class="o">=</span><span
+            class="kc">True</span><span class="p">)</span> \
+        <span class="o">-&gt;</span> <span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span
+            class="nb">dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span
+            class="n">Set</span><span class="p">]]:</span>
+    <span class="n">english_names</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">japanese_names</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">to_return</span> <span class="o">=</span> <span class="p">[</span><span
+            class="n">english_names</span><span class="p">,</span> <span class="n">japanese_names</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">get_short_names</span><span class="p">:</span>
+        <span class="n">name_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">to_return</span><span class="o">.</span><span class="n">append</span><span
+            class="p">(</span><span class="n">name_set</span><span class="p">)</span>
+
+    <span class="n">weapon_index_dict</span> <span class="o">=</span> <span class="p">{</span><span
+            class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span
+            class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span
+            class="nb">zip</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span
+            class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span
+            class="mi">24</span><span class="p">)],</span> <span class="p">[</span>
+        <span class="s2">&quot;Sword&quot;</span><span class="p">,</span> <span class="s2">&quot;Lance&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Axe&quot;</span><span class="p">,</span> <span class="s2">&quot;Red bow&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Blue bow&quot;</span><span class="p">,</span> <span class="s2">&quot;Green bow&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Colorless bow&quot;</span><span class="p">,</span> <span
+            class="s2">&quot;Red Dagger&quot;</span><span class="p">,</span> <span
+            class="s2">&quot;Blue Dagger&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Green Dagger&quot;</span><span class="p">,</span> <span class="s2">&quot;Colorless Dagger&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Red Tome&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue Tome&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Green Tome&quot;</span><span class="p">,</span> <span class="s2">&quot;Colorless Tome&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Staff&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Red Breath&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Blue Breath&quot;</span><span class="p">,</span> <span class="s2">&quot;Green Breath&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Colorless Breath&quot;</span><span class="p">,</span> <span
+            class="s2">&quot;Red Beast&quot;</span><span class="p">,</span> <span
+            class="s2">&quot;Blue Beast&quot;</span><span class="p">,</span> <span
+            class="s2">&quot;Green Beast&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Colorless Beast&quot;</span>
+    <span class="p">])}</span>
+
+    <span class="c1"># CHECK: Keep as &quot;Flier&quot; or change to &quot;Flying&quot;?</span>
+    <span class="n">move_index_dict</span> <span class="o">=</span> <span class="p">{</span><span
+            class="mi">0</span><span class="p">:</span> <span class="s2">&quot;Infantry&quot;</span><span
+            class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span
+            class="s2">&quot;Armored&quot;</span><span class="p">,</span> <span class="mi">2</span><span
+            class="p">:</span> <span class="s2">&quot;Cavalry&quot;</span><span class="p">,</span> <span
+            class="mi">3</span><span class="p">:</span> <span class="s2">&quot;Flier&quot;</span><span
+            class="p">}</span>
+
+    <span class="k">for</span> <span class="n">i_dict</span> <span class="ow">in</span> <span
+            class="n">list_of_dicts</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">i_dict</span><span class="p">[</span><span class="s2">&quot;id_tag&quot;</span><span
+            class="p">]</span> <span class="o">==</span> <span class="s2">&quot;PID_無し&quot;</span> <span
+            class="ow">or</span> <span class="n">i_dict</span><span class="p">[</span><span class="s2">&quot;id_tag&quot;</span><span
+            class="p">]</span> <span class="o">==</span> <span class="s2">&quot;EID_無し&quot;</span><span
+            class="p">:</span>
+            <span class="c1"># maybe insert something that just uses these as blanks?</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="n">output_category</span> <span class="o">==</span> <span class="s2">&quot;player&quot;</span><span
+            class="p">:</span>
+
+            <span class="c1"># just the name (afaik)</span>
+            <span class="n">simple_name</span> <span class="o">=</span> <span
+            class="n">translate_jp_to_en_dict</span><span class="p">(</span><span class="n">i_dict</span><span
+            class="p">,</span> <span class="n">english_transl_data</span><span class="p">,</span>
+                                                  <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;MPID&quot;</span><span
+            class="p">,</span> <span class="n">old_prefix</span><span class="o">=</span><span
+            class="s2">&quot;PID&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">get_short_names</span><span class="p">:</span>
+                <span class="n">name_set</span><span class="o">.</span><span class="n">add</span><span
+            class="p">(</span><span class="n">simple_name</span><span class="p">)</span>
+
+            <span class="n">simple_name</span> <span class="o">=</span> <span class="n">simple_name</span><span
+            class="o">.</span><span class="n">replace</span><span class="p">(</span><span
+            class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span
+            class="p">)</span>
+
+            <span class="c1"># there&#39;s probably a reason for the digits at the end but I can&#39;t figure it out,</span>
+            <span class="c1"># so I think it&#39;s safe to remove them</span>
+            <span class="c1"># this finds all the unique unit identifiers, used for naming alts</span>
+            <span class="n">unit_identifiers</span> <span class="o">=</span> <span class="n">remove_digits</span><span
+            class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i_dict</span><span
+            class="p">[</span><span class="s2">&quot;roman&quot;</span><span class="p">]))</span><span
+            class="o">.</span><span class="n">split</span><span class="p">(</span><span
+            class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+
+            <span class="c1"># suffix that identifies unit as male version (mainly used for protagonists)</span>
+            <span class="k">if</span> <span class="s2">&quot;M&quot;</span> <span class="ow">in</span> <span class="n">unit_identifiers</span><span
+            class="p">:</span>
+                <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_M&quot;</span>
+            <span class="c1"># suffix that identifies unit as female version (mainly used for protagonists)</span>
+            <span class="k">elif</span> <span class="s2">&quot;F&quot;</span> <span class="ow">in</span> <span
+            class="n">unit_identifiers</span><span class="p">:</span>
+                <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_F&quot;</span>
+            <span class="c1"># elif &quot;A&quot; in unit_identifiers:</span>
+            <span class="c1">#     suffix = &quot;_A&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="n">prefix_dict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="s2">&quot;Adult_&quot;</span><span
+            class="p">,</span>  <span class="c1"># prefix that identifies hero as an adult alt</span>
+                <span class="s2">&quot;POPULARITY&quot;</span><span class="p">:</span> <span class="s2">&quot;Brave_&quot;</span><span
+            class="p">,</span>  <span class="c1"># prefix that identifies hero as a brave alt</span>
+                <span class="s2">&quot;DANCE&quot;</span><span class="p">:</span> <span
+            class="s2">&quot;Dancer_&quot;</span><span class="p">,</span>  <span class="c1"># prefix that identifies hero as a dancer alt</span>
+                <span class="s2">&quot;PAIR&quot;</span><span class="p">:</span> <span
+            class="s2">&quot;Duo_&quot;</span><span class="p">,</span>  <span class="c1"># prefix that identifies hero as a duo unit</span>
+                <span class="s2">&quot;LEGEND&quot;</span><span class="p">:</span> <span class="s2">&quot;Legendary_&quot;</span><span
+            class="p">,</span>  <span class="c1"># prefix that identifies hero as a legendary hero</span>
+                <span class="s2">&quot;GOD&quot;</span><span class="p">:</span> <span
+            class="s2">&quot;Mythic_&quot;</span><span class="p">,</span>  <span class="c1"># prefix that identifies hero as a mythic hero</span>
+                <span class="s2">&quot;BRIDE&quot;</span><span class="p">:</span> <span
+            class="s2">&quot;Bridal_&quot;</span><span class="p">,</span>  <span class="c1"># prefix that identifies hero as a bridal alt</span>
+                <span class="s2">&quot;DARK&quot;</span><span class="p">:</span> <span
+            class="s2">&quot;Fallen_&quot;</span><span class="p">,</span>  <span class="c1"># prefix that identifies hero as a fallen alt</span>
+                <span class="s2">&quot;HALLOWEEN&quot;</span><span class="p">:</span> <span class="s2">&quot;Halloween_&quot;</span><span
+            class="p">,</span>  <span class="c1"># prefix that identifies hero as a halloween alt</span>
+                <span class="s2">&quot;SUMMER&quot;</span><span class="p">:</span> <span
+            class="s2">&quot;Summer_&quot;</span><span class="p">,</span>  <span class="c1"># prefix that identifies hero as a summer alt</span>
+                <span class="s2">&quot;PICNIC&quot;</span><span class="p">:</span> <span
+            class="s2">&quot;Picnic_&quot;</span><span class="p">,</span>  <span class="c1"># prefix that identifies hero as a picnic alt</span>
+                <span class="s2">&quot;SPRING&quot;</span><span class="p">:</span> <span
+            class="s2">&quot;Spring_&quot;</span><span class="p">,</span>  <span class="c1"># prefix that identifies hero as a spring alt</span>
+                <span class="s2">&quot;VALENTINE&quot;</span><span class="p">:</span> <span class="s2">&quot;Valentine_&quot;</span><span
+            class="p">,</span>  <span class="c1"># prefix that identifies hero as a valentine alt</span>
+                <span class="s2">&quot;WINTER&quot;</span><span class="p">:</span> <span
+            class="s2">&quot;Winter_&quot;</span><span class="p">,</span>  <span class="c1"># prefix that identifies hero as a winter alt</span>
+                <span class="s2">&quot;ONSEN&quot;</span><span class="p">:</span> <span class="s2">&quot;HotSprings_&quot;</span><span
+            class="p">,</span>  <span class="c1"># prefix that identifies hero as a Hot Springs alt</span>
+                <span class="s2">&quot;DREAM&quot;</span><span class="p">:</span> <span
+            class="s2">&quot;Adrift_&quot;</span><span class="p">,</span>  <span class="c1"># prefix that identifies hero as an adrift alt</span>
+                <span class="s2">&quot;MIKATA&quot;</span><span class="p">:</span> <span
+            class="s2">&quot;Ally_&quot;</span><span class="p">,</span>  <span class="c1"># prefix that identifies hero as a playable alt of a NPC</span>
+                <span class="s2">&quot;BON&quot;</span><span class="p">:</span> <span class="s2">&quot;HoshidanSummer_&quot;</span><span
+            class="p">,</span>  <span class="c1"># prefix that identifies hero as a Hoshidan Summer alt</span>
+                <span class="s2">&quot;NEWYEAR&quot;</span><span class="p">:</span> <span class="s2">&quot;NewYears_&quot;</span><span
+            class="p">,</span>  <span class="c1"># prefix that identifies hero as a New Years alt</span>
+                <span class="s2">&quot;KAKUSEI&quot;</span><span class="p">:</span> <span class="s2">&quot;Awakening_&quot;</span><span
+            class="p">,</span>  <span
+            class="c1"># prefix that identifies hero as an Awakening alt (only Anna so far)</span>
+                <span class="s2">&quot;ECHOES&quot;</span><span class="p">:</span> <span
+            class="s2">&quot;Echoes_&quot;</span><span class="p">,</span>  <span class="c1"># prefix that identifies hero as an Echoes alt (only Catria so far)</span>
+                <span class="s2">&quot;BEFORE&quot;</span><span class="p">:</span> <span
+            class="s2">&quot;Young_&quot;</span><span class="p">,</span>  <span class="c1"># prefix that identifies hero as a young alt</span>
+            <span class="p">}</span>
+
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="c1"># combines all identifers into (hopefully) unique identifier prefix for unit</span>
+            <span class="k">for</span> <span class="n">identifier</span> <span class="ow">in</span> <span class="n">prefix_dict</span><span
+            class="p">:</span>
+                <span class="k">if</span> <span class="n">identifier</span> <span class="ow">in</span> <span class="n">unit_identifiers</span><span
+            class="p">:</span>
+                    <span class="n">prefix</span> <span class="o">+=</span> <span class="n">prefix_dict</span><span
+            class="p">[</span><span class="n">identifier</span><span class="p">]</span>
+
+            <span class="c1"># translated name with identifier prefixes and M/F suffix</span>
+            <span class="n">translated_name</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;PID_&quot;</span> <span
+            class="o">+</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">simple_name</span> <span
+            class="o">+</span> <span class="n">suffix</span><span class="p">)</span><span class="o">.</span><span
+            class="n">strip</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">translated_name</span> <span class="ow">not</span> <span
+            class="ow">in</span> <span class="n">english_names</span><span class="p">:</span>
+                <span class="n">english_names</span><span class="p">[</span><span class="n">translated_name</span><span
+            class="p">]</span> <span class="o">=</span> <span class="n">i_dict</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># This is where we go if the identifier combo + name for a unit isn&#39;t unique</span>
+                <span class="c1"># this is not a fun place to be</span>
+
+                <span class="c1"># If weapon-type and move-type doesn&#39;t make these units unique then I give up</span>
+
+                <span class="c1"># if output_as_class:</span>
+                <span class="c1">#     # creates new entry that includes id_num in key for old entry</span>
+                <span class="c1">#     my_dict[&quot;PID_&quot; + str(my_dict[translated_name].id_num).replace(&quot; &quot;, &quot;&quot;)</span>
+                <span class="c1">#             + &quot;_&quot; + str(translated_name).replace(&quot;PID_&quot;, &quot;&quot;)] = my_dict[translated_name]</span>
+                <span class="c1">#</span>
+                <span class="c1">#     # creates new entry that includes id_num in key for duplicate entry</span>
+                <span class="c1">#     my_dict[&quot;PID_&quot; + str(idict[&quot;id_num&quot;]).replace(&quot; &quot;, &quot;&quot;) + &quot;_&quot; +</span>
+                <span class="c1">#             str(translated_name).replace(&quot;PID_&quot;, &quot;&quot;)] = output_class.from_dict(input_dict=idict)</span>
+                <span class="c1"># else:</span>
+                <span class="c1">#     # creates new entry that includes id_num in key for old entry</span>
+                <span class="c1">#     my_dict[&quot;PID_&quot; + str(my_dict[translated_name][&quot;id_num&quot;])</span>
+                <span class="c1">#             .replace(&quot; &quot;, &quot;&quot;) + &quot;_&quot; + str(translated_name).replace(&quot;PID_&quot;, &quot;&quot;)] \</span>
+                <span class="c1">#         = my_dict[translated_name]</span>
+                <span class="c1">#</span>
+                <span class="c1">#     # creates new entry that includes id_num in key for duplicate entry</span>
+                <span class="c1">#     my_dict[&quot;PID_&quot; + str(idict[&quot;id_num&quot;]).replace(&quot; &quot;, &quot;&quot;) + &quot;_&quot; +</span>
+                <span class="c1">#             str(translated_name).replace(&quot;PID_&quot;, &quot;&quot;)] = idict</span>
+
+                <span class="c1"># extracts gender from face file</span>
+                <span class="k">def</span> <span class="nf">get_gender</span><span class="p">(</span><span class="n">dictionary</span><span
+            class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">gender</span> <span class="o">=</span> <span class="p">[</span><span
+            class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span
+            class="nb">str</span><span class="p">(</span><span class="n">dictionary</span><span class="p">[</span><span
+            class="s2">&quot;face_name&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span
+            class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span> <span
+            class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">upper</span><span
+            class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;M&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">]]</span>
+                    <span class="c1"># print(gender)</span>
+
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span
+            class="n">gender</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span
+            class="p">:</span>
+                        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">gender</span><span
+            class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">gender</span><span class="p">[</span><span
+            class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span
+            class="p">()</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="s2">&quot;Face_name of unit </span><span class="si">{0}</span><span class="s2"> contains more than one gender&quot;</span><span
+            class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i_dict</span><span
+            class="p">[</span><span class="s2">&quot;id_num&quot;</span><span class="p">]))</span>
+
+                <span class="c1"># changes up the name and its duplicate so that they aren&#39;t matching anymore</span>
+                <span class="k">def</span> <span class="nf">deduplicate</span><span class="p">(</span><span class="n">name</span><span
+            class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name_dict</span><span
+            class="p">,</span> <span class="n">all_names_dict</span><span class="o">=</span><span class="n">english_names</span><span
+            class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">str</span><span
+            class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+
+                    <span class="c1"># creates new name entry that includes weapon and move type for old entry</span>
+                    <span class="n">old_entry</span> <span class="o">=</span> <span class="nb">str</span><span
+            class="p">(</span>
+                        <span class="s2">&quot;PID_&quot;</span> <span class="o">+</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">weapon_index_dict</span><span
+            class="p">[</span><span class="n">all_names_dict</span><span class="p">[</span><span
+            class="n">name</span><span class="p">]</span>
+                        <span class="p">[</span><span class="s2">&quot;weapon_type&quot;</span><span
+            class="p">]])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span
+            class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span
+            class="p">)</span> <span class="o">+</span>  <span class="c1"># weapon type</span>
+                        <span class="s2">&quot;_&quot;</span> <span class="o">+</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">move_index_dict</span><span
+            class="p">[</span><span class="n">all_names_dict</span><span class="p">[</span><span
+            class="n">name</span><span class="p">][</span><span class="s2">&quot;move_type&quot;</span><span class="p">]])</span> <span
+            class="o">+</span>  <span class="c1"># move type</span>
+                        <span class="s2">&quot;_&quot;</span> <span class="o">+</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span
+            class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span
+            class="s2">&quot;PID_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span
+            class="p">))</span>  <span class="c1"># name with identifiers</span>
+
+                    <span class="c1"># creates new name entry that includes weapon and move type for name that</span>
+                    <span class="c1"># caused duplicate error (pesky little thing)</span>
+                    <span class="n">duplicate_entry</span> <span class="o">=</span> <span class="nb">str</span><span
+            class="p">(</span>
+                        <span class="s2">&quot;PID_&quot;</span> <span class="o">+</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">weapon_index_dict</span><span
+            class="p">[</span><span class="n">name_dict</span><span class="p">[</span><span class="s2">&quot;weapon_type&quot;</span><span
+            class="p">]])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span
+            class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span
+            class="p">)</span> <span class="o">+</span>  <span class="c1"># weapon type</span>
+                        <span class="s2">&quot;_&quot;</span> <span class="o">+</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">move_index_dict</span><span
+            class="p">[</span><span class="n">name_dict</span><span class="p">[</span><span class="s2">&quot;move_type&quot;</span><span
+            class="p">]])</span> <span class="o">+</span>  <span class="c1"># move type</span>
+                        <span class="s2">&quot;_&quot;</span> <span class="o">+</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span
+            class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span
+            class="s2">&quot;PID_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span
+            class="p">))</span>  <span class="c1"># name with identifiers</span>
+
+                    <span class="c1"># if the weapon and move type addition didn&#39;t solve the duplicate names,</span>
+                    <span class="c1"># try adding gender to the name too</span>
+                    <span class="c1"># this is not the same as the M/F suffix from earlier, since those are mostly</span>
+                    <span class="c1"># reserved for main FE series protagonists (which always have both a male</span>
+                    <span class="c1"># and a female version</span>
+                    <span class="k">if</span> <span class="n">old_entry</span> <span class="o">==</span> <span
+            class="n">duplicate_entry</span><span class="p">:</span>
+                        <span class="n">old_entry</span> <span class="o">+=</span> <span class="s2">&quot;_&quot;</span> <span
+            class="o">+</span> <span class="n">get_gender</span><span class="p">(</span><span
+            class="n">all_names_dict</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+                        <span class="n">duplicate_entry</span> <span class="o">+=</span> <span
+            class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">get_gender</span><span
+            class="p">(</span><span class="n">name_dict</span><span class="p">)</span>
+
+                    <span class="k">return</span> <span class="n">old_entry</span><span class="p">,</span> <span
+            class="n">duplicate_entry</span>
+
+                <span class="n">old_entry</span><span class="p">,</span> <span class="n">duplicate_entry</span> <span
+            class="o">=</span> <span class="n">deduplicate</span><span class="p">(</span><span
+            class="n">translated_name</span><span class="p">,</span> <span class="n">i_dict</span><span
+            class="p">)</span>
+
+                <span class="c1"># adds new entries to the dictionary</span>
+                <span class="n">english_names</span><span class="p">[</span><span class="n">old_entry</span><span
+            class="p">]</span> <span class="o">=</span> <span class="n">english_names</span><span
+            class="p">[</span><span class="n">translated_name</span><span class="p">]</span>
+                <span class="n">english_names</span><span class="p">[</span><span class="n">duplicate_entry</span><span
+            class="p">]</span> <span class="o">=</span> <span class="n">i_dict</span>
+
+                <span class="c1"># deletes old entry without id_num in name</span>
+                <span class="k">del</span> <span class="n">english_names</span><span class="p">[</span><span class="n">translated_name</span><span
+            class="p">]</span>
+
+        <span class="k">if</span> <span class="n">output_category</span> <span class="o">==</span> <span class="s2">&quot;enemy&quot;</span><span
+            class="p">:</span>
+            <span class="c1"># I may be wrong, but I think I should add the same differentiating code as for player</span>
+            <span class="c1"># names into here too</span>
+
+            <span class="n">translated_name</span> <span class="o">=</span> <span
+            class="n">translate_jp_to_en_dict</span><span class="p">(</span><span class="n">i_dict</span><span
+            class="p">,</span> <span class="n">english_transl_data</span><span class="p">,</span>
+                                                      <span class="n">prefix</span><span class="o">=</span><span
+            class="s2">&quot;MEID&quot;</span><span class="p">,</span> <span class="n">old_prefix</span><span class="o">=</span><span
+            class="s2">&quot;EID&quot;</span><span class="p">)</span>
+
+            <span class="n">english_names</span><span class="p">[</span><span class="n">translated_name</span><span
+            class="p">]</span> <span class="o">=</span> <span class="n">i_dict</span>
+
+        <span class="k">if</span> <span class="n">output_category</span> <span class="o">==</span> <span class="s2">&quot;skill&quot;</span><span
+            class="p">:</span>
+            <span class="n">translate_output</span> <span class="o">=</span> <span
+            class="n">translate_jp_to_en_dict</span><span class="p">(</span><span class="n">i_dict</span><span
+            class="p">,</span> <span class="n">english_data</span><span class="o">=</span><span class="n">english_transl_data</span><span
+            class="p">,</span>
+                                                       <span class="n">is_skill</span><span class="o">=</span><span
+            class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">translate_output</span> <span class="ow">is</span> <span
+            class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">english_names</span><span class="p">[</span><span class="n">translate_output</span><span
+            class="p">]</span> <span class="o">=</span> <span class="n">i_dict</span>
+
+        <span class="n">japanese_names</span><span class="p">[</span><span class="n">i_dict</span><span
+            class="p">[</span><span class="s2">&quot;id_tag&quot;</span><span class="p">]]</span> <span
+            class="o">=</span> <span class="n">i_dict</span>
+
+    <span class="k">return</span> <span class="n">to_return</span></div>
+
+
+<div class="viewcode-block" id="load_files"><a class="viewcode-back"
+                                               href="../ThreadedLoad_JSON_Data.html#ThreadedLoad_JSON_Data.load_files">[docs]</a><span
+        class="k">def</span> <span class="nf">load_files</span><span class="p">(</span><span
+        class="n">get_english_data</span><span class="o">=</span><span class="kc">True</span><span
+        class="p">,</span> <span class="n">get_skills</span><span class="o">=</span><span class="kc">True</span><span
+        class="p">,</span> <span class="n">get_characters</span><span class="o">=</span><span
+        class="kc">True</span><span class="p">,</span> <span class="n">get_weapons</span><span class="o">=</span><span
+        class="kc">True</span><span class="p">,</span>
+               <span class="n">get_growth</span><span class="o">=</span><span class="kc">True</span><span
+            class="p">,</span> <span class="n">get_move</span><span class="o">=</span><span class="kc">True</span><span
+            class="p">,</span> <span class="n">get_stage_encount</span><span class="o">=</span><span
+            class="kc">True</span><span class="p">,</span> <span class="n">get_terrain</span><span
+            class="o">=</span><span class="kc">True</span><span class="p">,</span>
+               <span class="n">check_for_update</span><span class="o">=</span><span class="kc">False</span><span
+            class="p">,</span> <span class="n">get_simple_names</span><span class="o">=</span><span
+            class="kc">False</span><span class="p">):</span>
+    <span class="n">hold_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span
+            class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span
+            class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span
+            class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+
+    <span class="n">english_data</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">get_english_data</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span
+            class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span
+            class="n">join</span><span class="p">(</span><span class="n">hold_path</span><span class="p">,</span> <span
+            class="s2">&quot;HertzDevil_JSON_assets/USEN/Message/Data&quot;</span><span class="p">))</span>
+
+        <span class="n">english_data</span> <span class="o">=</span> <span class="n">ThreadedLoad</span><span class="p">()</span><span
+            class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">os</span><span
+            class="o">.</span><span class="n">listdir</span><span class="p">())</span>
+
+        <span class="n">my_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">english_data_entry</span> <span class="ow">in</span> <span class="n">english_data</span><span
+            class="p">:</span>
+            <span class="n">my_list</span><span class="o">.</span><span class="n">extend</span><span
+            class="p">(</span><span class="n">english_data</span><span class="p">[</span><span class="n">english_data_entry</span><span
+            class="p">])</span>
+
+        <span class="n">english_data</span> <span class="o">=</span> <span class="n">merge_english_dicts</span><span
+            class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span
+            class="n">data_loc</span><span class="p">,</span> <span class="n">output</span><span
+            class="p">,</span> <span class="n">output_type</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">single_file</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">update</span><span
+            class="p">(</span><span class="n">ThreadedLoad</span><span class="p">(</span><span class="n">data_loc</span><span
+            class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">os</span><span
+            class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">data_loc</span><span
+            class="p">)))</span>
+        <span class="k">except</span> <span class="ne">NotADirectoryError</span><span class="p">:</span>
+            <span class="n">single_file</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span
+            class="n">data_loc</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span
+            class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span
+            class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_data</span><span
+            class="p">:</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">json</span><span
+            class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">json_data</span><span
+            class="p">)</span>
+
+        <span class="c1"># if the data is of a special type (like skills, characters, weapons),</span>
+        <span class="c1"># then get translated versions</span>
+        <span class="k">if</span> <span class="n">output_type</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">single_file</span><span
+            class="p">:</span>
+                <span class="c1"># dictionary to list of dictionary&#39;s values</span>
+                <span class="c1"># combines data from multiple files into one large list of dicts</span>
+                <span class="n">dict_values_list</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span
+            class="n">output</span><span class="p">:</span>
+                    <span class="n">dict_values_list</span><span class="o">.</span><span class="n">extend</span><span
+            class="p">(</span><span class="n">output</span><span class="p">[</span><span class="n">key</span><span
+            class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dict_values_list</span> <span class="o">=</span> <span class="n">output</span>
+
+            <span class="n">output</span> <span class="o">=</span> <span
+            class="n">get_jap_and_eng_name_dicts</span><span class="p">(</span><span
+            class="n">dict_values_list</span><span class="p">,</span> <span class="n">output_type</span><span class="p">,</span>
+                                                <span class="n">english_data</span><span class="p">,</span> <span
+            class="n">get_simple_names</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span
+            class="n">hold_path</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span
+            class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span
+            class="n">abspath</span><span class="p">(</span><span class="s2">&quot;HertzDevil_JSON_assets//Common/SRPG&quot;</span><span
+            class="p">))</span>
+
+    <span class="n">skills</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">players</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">enemies</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">weapons</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">growth</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">move</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">stage_encount</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">terrain</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">get_skills</span><span class="p">:</span>
+        <span class="n">skills</span> <span class="o">=</span> <span class="n">process_data</span><span
+            class="p">(</span><span class="s2">&quot;Skill&quot;</span><span class="p">,</span> <span
+            class="n">skills</span><span class="p">,</span> <span class="s2">&quot;skill&quot;</span><span
+            class="p">)</span>
+
+    <span class="k">if</span> <span class="n">get_characters</span><span class="p">:</span>
+        <span class="n">players</span> <span class="o">=</span> <span class="n">process_data</span><span
+            class="p">(</span><span class="s2">&quot;Person&quot;</span><span class="p">,</span> <span
+            class="n">players</span><span class="p">,</span> <span class="s2">&quot;player&quot;</span><span
+            class="p">)</span>
+
+        <span class="c1"># ===========================================</span>
+
+        <span class="n">enemies</span> <span class="o">=</span> <span class="n">process_data</span><span
+            class="p">(</span><span class="s2">&quot;Enemy&quot;</span><span class="p">,</span> <span
+            class="n">enemies</span><span class="p">,</span> <span class="s2">&quot;enemy&quot;</span><span
+            class="p">)</span>
+
+    <span class="k">if</span> <span class="n">get_weapons</span><span class="p">:</span>
+        <span class="n">weapons</span> <span class="o">=</span> <span class="n">process_data</span><span
+            class="p">(</span><span class="s2">&quot;Weapon.json&quot;</span><span class="p">,</span> <span class="n">weapons</span><span
+            class="p">,</span> <span class="s2">&quot;weapons&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">get_growth</span><span class="p">:</span>
+        <span class="n">growth</span> <span class="o">=</span> <span class="n">process_data</span><span
+            class="p">(</span><span class="s2">&quot;Grow.json&quot;</span><span class="p">,</span> <span class="n">growth</span><span
+            class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">get_move</span><span class="p">:</span>
+        <span class="n">move</span> <span class="o">=</span> <span class="n">process_data</span><span class="p">(</span><span
+            class="s2">&quot;Move.json&quot;</span><span class="p">,</span> <span class="n">move</span><span
+            class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">get_stage_encount</span><span class="p">:</span>
+        <span class="n">stage_encount</span> <span class="o">=</span> <span class="n">process_data</span><span
+            class="p">(</span><span class="s2">&quot;StageEncount.json&quot;</span><span class="p">,</span> <span
+            class="n">stage_encount</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">get_terrain</span><span class="p">:</span>
+        <span class="n">terrain</span> <span class="o">=</span> <span class="n">process_data</span><span
+            class="p">(</span><span class="s2">&quot;Terrain.json&quot;</span><span class="p">,</span> <span class="n">terrain</span><span
+            class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span
+            class="n">hold_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">skills</span><span class="p">,</span> <span
+            class="n">players</span><span class="p">,</span> <span class="n">enemies</span><span
+            class="p">,</span> <span class="n">weapons</span><span class="p">,</span> <span
+            class="n">english_data</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span
+            class="n">move</span><span class="p">,</span> <span class="n">stage_encount</span><span
+            class="p">,</span> <span class="n">terrain</span></div>
+
+
+<div class="viewcode-block" id="test"><a class="viewcode-back"
+                                         href="../ThreadedLoad_JSON_Data.html#ThreadedLoad_JSON_Data.test">[docs]</a><span
+        class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">timeit</span> <span class="kn">import</span> <span
+            class="n">timeit</span>
+
+    <span class="n">number</span> <span class="o">=</span> <span class="mi">3</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using json&quot;</span><span
+            class="p">)</span>
+        <span class="kn">import</span> <span class="nn">json</span> <span class="k">as</span> <span
+            class="nn">json</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">timeit</span><span class="p">(</span><span
+            class="s2">&quot;load_files()&quot;</span><span class="p">,</span> <span class="nb">globals</span><span
+            class="o">=</span><span class="p">{</span><span class="s2">&quot;load_files&quot;</span><span
+            class="p">:</span> <span class="n">load_files</span><span class="p">},</span> <span
+            class="n">number</span><span class="o">=</span><span class="n">number</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using rapidjson&quot;</span><span
+            class="p">)</span>
+        <span class="kn">import</span> <span class="nn">rapidjson</span> <span class="k">as</span> <span
+            class="nn">json</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">timeit</span><span class="p">(</span><span
+            class="s2">&quot;load_files()&quot;</span><span class="p">,</span> <span class="nb">globals</span><span
+            class="o">=</span><span class="p">{</span><span class="s2">&quot;load_files&quot;</span><span
+            class="p">:</span> <span class="n">load_files</span><span class="p">},</span> <span
+            class="n">number</span><span class="o">=</span><span class="n">number</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using ujson&quot;</span><span
+            class="p">)</span>
+        <span class="kn">import</span> <span class="nn">ujson</span> <span class="k">as</span> <span
+            class="nn">json</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">timeit</span><span class="p">(</span><span
+            class="s2">&quot;load_files()&quot;</span><span class="p">,</span> <span class="nb">globals</span><span
+            class="o">=</span><span class="p">{</span><span class="s2">&quot;load_files&quot;</span><span
+            class="p">:</span> <span class="n">load_files</span><span class="p">},</span> <span
+            class="n">number</span><span class="o">=</span><span class="n">number</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using orjson&quot;</span><span
+            class="p">)</span>
+        <span class="kn">import</span> <span class="nn">orjson</span> <span class="k">as</span> <span
+            class="nn">json</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">timeit</span><span class="p">(</span><span
+            class="s2">&quot;load_files()&quot;</span><span class="p">,</span> <span class="nb">globals</span><span
+            class="o">=</span><span class="p">{</span><span class="s2">&quot;load_files&quot;</span><span
+            class="p">:</span> <span class="n">load_files</span><span class="p">},</span> <span
+            class="n">number</span><span class="o">=</span><span class="n">number</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">pass</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span
+                                class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+    <span class="n">skills</span><span class="p">,</span> <span class="n">players</span><span class="p">,</span> <span
+                                class="n">enemies</span><span class="p">,</span> <span class="n">weapons</span><span
+                                class="p">,</span> <span class="n">english_data</span><span class="p">,</span> <span
+                                class="n">growth</span><span class="p">,</span> <span class="n">move</span><span
+                                class="p">,</span> <span class="n">stage_encount</span><span class="p">,</span> <span
+                                class="n">terrain</span> <span class="o">=</span> <span class="n">load_files</span><span
+                                class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Time elapsed:&quot;</span><span
+                                class="p">,</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span
+                                class="n">start</span><span class="p">)</span>
+
+    <span class="c1"># print(players[0][&quot;PID_Marth&quot;])</span>
+
+    <span class="k">pass</span>
+</pre>
+                        </div>
+
+                    </div>
+
+                </div>
+                <footer>
+
+
+                    <hr/>
+
+                    <div role="contentinfo">
+                        <p>
+
+                            &copy; Copyright 2020, Dania M.
+
+                        </p>
+                    </div>
+
+
+                    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+
+                    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+
+                    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+                </footer>
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+
+<script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+
+</script>
+
+
+</body>
+</html>

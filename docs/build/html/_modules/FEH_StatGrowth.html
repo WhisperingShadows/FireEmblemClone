@@ -240,16 +240,25 @@
             class="n">e</span><span class="p">:</span>
                         <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span
             class="p">)</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Attempting to convert input type&quot;</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Attempting to convert input type&quot;</span><span
+            class="p">)</span>
                         <span class="k">try</span><span class="p">:</span>
-                            <span class="n">new_args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+                            <span class="n">new_args</span><span class="p">[</span><span class="n">i</span><span
+            class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="n">a</span><span
+            class="p">)</span>
                         <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to convert&quot;</span><span class="p">)</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to convert&quot;</span><span
+            class="p">)</span>
                             <span class="k">raise</span> <span class="ne">Exception</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successfully converted:&quot;</span><span class="p">,</span> <span class="n">new_args</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">new_args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successfully converted:&quot;</span><span
+            class="p">,</span> <span class="n">new_args</span><span class="p">[</span><span class="n">i</span><span
+            class="p">])</span>
+            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span
+            class="n">new_args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span
+            class="p">)</span>
 
-        <span class="n">new_f</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">new_f</span><span class="o">.</span><span class="vm">__name__</span> <span
+            class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="k">return</span> <span class="n">new_f</span>
 
     <span class="k">return</span> <span class="n">check_accepts</span></div>

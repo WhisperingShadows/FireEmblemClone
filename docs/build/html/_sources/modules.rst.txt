@@ -13,6 +13,7 @@ Code
    FireEmblemLoadJsonFilesBetterV2
    ProcessInstructions
    SkillTimingContexts
+   ThreadedLoad_JSON_Data
    ZanyLuaOpShenanigans
    scratch_6
    scratch_8
