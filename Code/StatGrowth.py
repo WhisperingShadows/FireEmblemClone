@@ -1,8 +1,9 @@
 from Code.FEH_character_search import get_character
 from Code.ThreadedLoad_JSON_Data import load_files
 
-skills_data, players_data, enemies_data, weapons_data, english_data, growth_data, move_data, \
-stage_encount_data, terrain_data = load_files(True, False, True, False, get_simple_names=True)
+if __name__ == '__main__':
+    skills_data, players_data, enemies_data, weapons_data, english_data, growth_data, move_data, \
+    stage_encount_data, terrain_data = load_files(True, False, True, False, get_simple_names=True)
 
 
 # def zip_op(t1, t2, op):
