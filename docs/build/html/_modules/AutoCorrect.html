@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AutoCorrect &mdash; FireEmblemClone  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> FireEmblemClone
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Code</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">FireEmblemClone</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>AutoCorrect</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for AutoCorrect</h1><div class="highlight"><pre>
+<span></span><span class="c1"># TODO: Create autocorrect class that is called on all text input (override input method)</span>
+<span class="c1"># TODO: Add register function to register new autocorrect categories (ex. names, prefixes, suffixes, commands)</span>
+
+<span class="c1"># CHECK: Do I really need a singleton class? Couldn&#39;t I just use only class methods and prevent instances?</span>
+
+<span class="kn">import</span> <span class="nn">difflib</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">utility_functions</span> <span class="kn">import</span> <span class="n">flatten</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">Tools.utility_functions</span> <span class="kn">import</span> <span class="n">flatten</span>
+
+
+<span class="c1"># import string</span>
+
+<span class="c1"># class Singleton(type):</span>
+<span class="c1">#     _instances = {}</span>
+<span class="c1">#     def __call__(cls, *args, **kwargs):</span>
+<span class="c1">#         if cls not in cls._instances:</span>
+<span class="c1">#             cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)</span>
+<span class="c1">#         return cls._instances[cls]</span>
+
+
+<div class="viewcode-block" id="AutoCorrect"><a class="viewcode-back" href="../AutoCorrect.html#AutoCorrect.AutoCorrect">[docs]</a><span class="k">class</span> <span class="nc">AutoCorrect</span><span class="p">:</span>
+    <span class="c1"># dictionary of valid autocorrect corrections</span>
+    <span class="n">correction_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="c1"># stores reference to builtin input method, for faster lookup (roughly 3x faster)</span>
+    <span class="n">input_reference</span> <span class="o">=</span> <span class="nb">input</span>
+    <span class="c1"># similarity cutoff for difflib&#39;s get_close_matches function</span>
+    <span class="n">cutoff</span> <span class="o">=</span> <span class="mf">0.6</span>
+
+<div class="viewcode-block" id="AutoCorrect.register"><a class="viewcode-back" href="../AutoCorrect.html#AutoCorrect.AutoCorrect.register">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">words</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Registers new autocorrection categories and words.</span>
+
+<span class="sd">        :param category:</span>
+<span class="sd">        :param words:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">correction_dict</span><span class="p">[</span><span class="n">category</span><span class="p">]</span> <span class="o">=</span> <span class="n">words</span></div>
+
+<div class="viewcode-block" id="AutoCorrect.input"><a class="viewcode-back" href="../AutoCorrect.html#AutoCorrect.AutoCorrect.input">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">input</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Input method used by autocorrect class. Takes in input using builtin input method and returns corrected</span>
+<span class="sd">        input. Supports input prompt.</span>
+
+<span class="sd">        :param prompt:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">text_in</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">input_reference</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+        <span class="n">corrected_text</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">auto_correct</span><span class="p">(</span><span class="n">text_in</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">corrected_text</span></div>
+
+<div class="viewcode-block" id="AutoCorrect.auto_correct"><a class="viewcode-back" href="../AutoCorrect.html#AutoCorrect.AutoCorrect.auto_correct">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">auto_correct</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">input_string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes in argument input_string, splits by spaces to create word tokens, and replaces each token with</span>
+<span class="sd">        closest match in the class&#39; correction_dict. Returns string of tokens joined by spaces (preserves order).</span>
+
+<span class="sd">        :param input_string: string</span>
+<span class="sd">        :return: string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># input_string = cls.filter_input(input_string)</span>
+
+        <span class="n">possible_corrections</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">input_string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">):</span>
+            <span class="c1"># print(token)</span>
+            <span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">words</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">correction_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">possible_corrections</span><span class="p">[</span><span class="n">category</span><span class="p">]</span> <span class="o">=</span> <span class="n">difflib</span><span class="o">.</span><span class="n">get_close_matches</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">title</span><span class="p">(),</span> <span class="n">words</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">cutoff</span><span class="p">)</span>
+
+            <span class="c1"># print(&quot;Possible:&quot;, flatten([i for i in possible_corrections.values()]))</span>
+
+            <span class="n">corrected</span> <span class="o">=</span> <span class="n">difflib</span><span class="o">.</span><span class="n">get_close_matches</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">title</span><span class="p">(),</span> <span class="n">flatten</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">possible_corrections</span><span class="o">.</span><span class="n">values</span><span class="p">()]),</span> <span class="mi">1</span><span class="p">,</span>
+                                                  <span class="bp">cls</span><span class="o">.</span><span class="n">cutoff</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">corrected</span><span class="p">:</span>
+                <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">corrected</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AutoCorrect.override_input"><a class="viewcode-back" href="../AutoCorrect.html#AutoCorrect.AutoCorrect.override_input">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">override_input</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Overrides builtin input method with class input method.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">globals</span><span class="p">()[</span><span class="s2">&quot;input&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">input</span></div>
+
+<div class="viewcode-block" id="AutoCorrect.restore_input"><a class="viewcode-back" href="../AutoCorrect.html#AutoCorrect.AutoCorrect.restore_input">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">restore_input</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Restores builtin input method.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">del</span> <span class="nb">globals</span><span class="p">()[</span><span class="s2">&quot;input&quot;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="AutoCorrect.switch_input"><a class="viewcode-back" href="../AutoCorrect.html#AutoCorrect.AutoCorrect.switch_input">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">switch_input</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Switches between builtin input method and class input method, depending on which is currently</span>
+<span class="sd">        being used.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">globals</span><span class="p">()[</span><span class="s2">&quot;input&quot;</span><span class="p">]</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">restore_input</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">override_input</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Dania M.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
