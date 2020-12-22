@@ -1,136 +1,162 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" >
 <head>
-    <meta charset="utf-8">
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>FEH_DijkstraAlgorithm &mdash; FireEmblemClone  documentation</title>
+  
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
 
-    <title>FEH_DijkstraAlgorithm &mdash; FireEmblemClone documentation</title>
+  
+  
+  
+  
 
-
-    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css"/>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css"/>
-    <link rel="stylesheet" href="../_static/graphviz.css" type="text/css"/>
-
-
-    <!--[if lt IE 9]>
+  
+  <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
-    <![endif]-->
-
-
-    <script type="text/javascript" id="documentation_options" data-url_root="../"
-            src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-
-    <link rel="index" title="Index" href="../genindex.html"/>
-    <link rel="search" title="Search" href="../search.html"/>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
 
-
-<div class="wy-grid-for-nav">
-
+   
+  <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-        <div class="wy-side-scroll">
-            <div class="wy-side-nav-search">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
 
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> FireEmblemClone
+          
 
-                <a href="../index.html" class="icon icon-home" alt="Documentation Home"> FireEmblemClone
+          
+          </a>
 
+          
+            
+            
+          
 
-                </a>
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
 
-
-                <div role="search">
-                    <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-                        <input type="text" name="q" placeholder="Search docs"/>
-                        <input type="hidden" name="check_keywords" value="yes"/>
-                        <input type="hidden" name="area" value="default"/>
-                    </form>
-                </div>
-
-
-            </div>
-
-
-            <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-
-
-                <p class="caption"><span class="caption-text">Contents:</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../modules.html">Code</a></li>
-                </ul>
-
-
-            </div>
-
+          
         </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Code</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
-
-        <nav class="wy-nav-top" aria-label="top navigation">
-
-            <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-            <a href="../index.html">FireEmblemClone</a>
-
-        </nav>
-
-
-        <div class="wy-nav-content">
-
-            <div class="rst-content">
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">FireEmblemClone</a>
+        
+      </nav>
 
 
-                <div role="navigation" aria-label="breadcrumbs navigation">
-
-                    <ul class="wy-breadcrumbs">
-
-                        <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-
-                        <li><a href="index.html">Module code</a> &raquo;</li>
-
-                        <li>FEH_DijkstraAlgorithm</li>
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
 
 
-                        <li class="wy-breadcrumbs-aside">
-
-                        </li>
-
-                    </ul>
 
 
-                    <hr/>
-                </div>
-                <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-                    <div itemprop="articleBody">
 
-                        <h1>Source code for FEH_DijkstraAlgorithm</h1>
-                        <div class="highlight"><pre>
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>FEH_DijkstraAlgorithm</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for FEH_DijkstraAlgorithm</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
 
-<div class="viewcode-block" id="Node"><a class="viewcode-back"
-                                         href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Node">[docs]</a><span
-        class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+<div class="viewcode-block" id="Node"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Node">[docs]</a><span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span
-            class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">indexloc</span><span
-            class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span
-            class="n">data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span
-            class="n">indexloc</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">holds</span> <span class="o">=</span> <span
-            class="kc">None</span></div>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">indexloc</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">indexloc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">holds</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 
 <span class="c1"># to initialize graph normally, create nodes, instantiate graph object, and connect nodes</span>
@@ -141,680 +167,274 @@
 <span class="c1">#</span>
 <span class="c1"># to initialize graph as a grid use init_as_grid(width, length) method</span>
 <span class="c1"># g = Graph.init_as_grid(3, 4)</span>
-<div class="viewcode-block" id="Graph"><a class="viewcode-back"
-                                          href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph">[docs]</a><span
-        class="k">class</span> <span class="nc">Graph</span><span class="p">:</span>
+<div class="viewcode-block" id="Graph"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph">[docs]</a><span class="k">class</span> <span class="nc">Graph</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span
-            class="p">,</span> <span class="n">nodes</span><span class="p">:</span> <span class="n">List</span><span
-            class="p">[</span><span class="n">Node</span><span class="p">],</span> <span class="o">**</span><span
-            class="n">kwargs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span
-            class="n">nodes</span>
-        <span class="k">if</span> <span class="s2">&quot;adj_list&quot;</span> <span class="ow">in</span> <span
-            class="n">kwargs</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">adj_list</span> <span class="o">=</span> <span
-            class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;adj_list&quot;</span><span
-            class="p">]</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Node</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">nodes</span>
+        <span class="k">if</span> <span class="s2">&quot;adj_list&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adj_list</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;adj_list&quot;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">adj_list</span> <span class="o">=</span> <span
-            class="p">[[</span><span class="n">node</span><span class="p">,</span> <span class="p">[]]</span> <span
-            class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span
-            class="n">nodes</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span
-            class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span
-            class="n">nodes</span><span class="p">)):</span>
-            <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span
-            class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adj_list</span> <span class="o">=</span> <span class="p">[[</span><span class="n">node</span><span class="p">,</span> <span class="p">[]]</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)):</span>
+            <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">i</span>
 
-<div class="viewcode-block" id="Graph.connect_dir"><a class="viewcode-back"
-                                                      href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.connect_dir">[docs]</a>    <span
-        class="k">def</span> <span class="nf">connect_dir</span><span class="p">(</span><span
-        class="bp">self</span><span class="p">,</span> <span class="n">node1</span><span class="p">,</span> <span
-        class="n">node2</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span
-        class="mi">1</span><span class="p">):</span>
-        <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span> <span class="o">=</span> <span
-            class="bp">self</span><span class="o">.</span><span class="n">get_index_from_node</span><span
-            class="p">(</span><span class="n">node1</span><span class="p">),</span> <span class="bp">self</span><span
-            class="o">.</span><span class="n">get_index_from_node</span><span class="p">(</span><span
-            class="n">node2</span><span class="p">)</span>
+<div class="viewcode-block" id="Graph.connect_dir"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.connect_dir">[docs]</a>    <span class="k">def</span> <span class="nf">connect_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_index_from_node</span><span class="p">(</span><span class="n">node1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_index_from_node</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
         <span class="c1"># Note that the below doesn&#39;t protect from adding a connection twice</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">adj_list</span><span class="p">[</span><span
-            class="n">node1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span
-            class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node2</span><span
-            class="p">,</span> <span class="n">weight</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adj_list</span><span class="p">[</span><span class="n">node1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node2</span><span class="p">,</span> <span class="n">weight</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Graph.connect"><a class="viewcode-back"
-                                                  href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.connect">[docs]</a>    <span
-        class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">,</span> <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span
-        class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span
-        class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connect_dir</span><span
-            class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span
-            class="p">,</span> <span class="n">weight</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connect_dir</span><span
-            class="p">(</span><span class="n">node2</span><span class="p">,</span> <span class="n">node1</span><span
-            class="p">,</span> <span class="n">weight</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Graph.connect"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect_dir</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect_dir</span><span class="p">(</span><span class="n">node2</span><span class="p">,</span> <span class="n">node1</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Graph.connections"><a class="viewcode-back"
-                                                      href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.connections">[docs]</a>    <span
-        class="k">def</span> <span class="nf">connections</span><span class="p">(</span><span
-        class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
-        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">get_index_from_node</span><span class="p">(</span><span class="n">node</span><span
-            class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">adj_list</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span
-            class="mi">1</span><span class="p">]</span></div>
+<div class="viewcode-block" id="Graph.connections"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.connections">[docs]</a>    <span class="k">def</span> <span class="nf">connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_index_from_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_list</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Graph.get_index_from_node"><a class="viewcode-back"
-                                                              href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.get_index_from_node">[docs]</a>    <span
-        class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_index_from_node</span><span class="p">(</span><span
-            class="n">node</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span
-            class="n">node</span><span class="p">,</span> <span class="n">Node</span><span class="p">)</span> <span
-            class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span
-            class="n">node</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Node must be an integer or a Node object&quot;</span><span
-            class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span
-            class="n">node</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.get_index_from_node"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.get_index_from_node">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_index_from_node</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">Node</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Node must be an integer or a Node object&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">node</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span
-            class="n">index</span></div>
+            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">index</span></div>
 
-<div class="viewcode-block" id="Graph.create_grid"><a class="viewcode-back"
-                                                      href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.create_grid">[docs]</a>    <span
-        class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">create_grid</span><span class="p">(</span><span class="n">x</span><span
-            class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">weight</span><span
-            class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.create_grid"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.create_grid">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">create_grid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span
-            class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span
-            class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span
-            class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span
-            class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-                <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span
-            class="p">(</span><span class="n">Node</span><span class="p">((</span><span class="n">x</span><span
-            class="p">,</span> <span class="n">y</span><span class="p">)))</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)))</span>
 
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span
-            class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span
-            class="n">nodes</span><span class="p">)):</span>
-            <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span
-            class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)):</span>
+            <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">i</span>
 
-        <span class="n">adj_list</span> <span class="o">=</span> <span class="p">[[</span><span
-            class="n">node</span><span class="p">,</span> <span class="p">[]]</span> <span class="k">for</span> <span
-            class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
+        <span class="n">adj_list</span> <span class="o">=</span> <span class="p">[[</span><span class="n">node</span><span class="p">,</span> <span class="p">[]]</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
 
-        <span class="k">for</span> <span class="n">node_index</span> <span class="ow">in</span> <span
-            class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span
-            class="n">nodes</span><span class="p">)):</span>
-            <span class="n">adj_left</span> <span class="o">=</span> <span class="p">(</span><span
-            class="n">node_index</span> <span class="o">-</span> <span class="mi">1</span> <span
-            class="k">if</span> <span class="n">node_index</span> <span class="o">%</span> <span
-            class="n">x</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span
-            class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
-            <span class="n">adj_right</span> <span class="o">=</span> <span class="p">(</span><span
-            class="n">node_index</span> <span class="o">+</span> <span class="mi">1</span> <span
-            class="k">if</span> <span class="p">(</span><span class="n">node_index</span> <span class="o">-</span> <span
-            class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span
-            class="o">%</span> <span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span> <span
-            class="k">else</span> <span class="kc">None</span><span class="p">,</span> <span
-            class="n">weight</span><span class="p">)</span>
-            <span class="n">adj_up</span> <span class="o">=</span> <span class="p">(</span><span
-            class="n">node_index</span> <span class="o">+</span> <span class="n">x</span> <span
-            class="k">if</span> <span class="n">node_index</span> <span class="o">+</span> <span
-            class="n">x</span> <span class="o">&lt;=</span> <span class="n">nodes</span><span class="p">[</span><span
-            class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span> <span
-            class="k">else</span> <span class="kc">None</span><span class="p">,</span> <span
-            class="n">weight</span><span class="p">)</span>
-            <span class="n">adj_down</span> <span class="o">=</span> <span class="p">(</span><span
-            class="n">node_index</span> <span class="o">-</span> <span class="n">x</span> <span
-            class="k">if</span> <span class="n">node_index</span> <span class="o">-</span> <span
-            class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span
-            class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span
-            class="n">adj_left</span><span class="p">,</span> <span class="n">adj_right</span><span
-            class="p">,</span> <span class="n">adj_up</span><span class="p">,</span> <span
-            class="n">adj_down</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span
-            class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span
-            class="p">:</span>
-                    <span class="n">adj_list</span><span class="p">[</span><span class="n">node_index</span><span
-            class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span
-            class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">node_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)):</span>
+            <span class="n">adj_left</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_index</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">node_index</span> <span class="o">%</span> <span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+            <span class="n">adj_right</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_index</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="p">(</span><span class="n">node_index</span> <span class="o">-</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+            <span class="n">adj_up</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_index</span> <span class="o">+</span> <span class="n">x</span> <span class="k">if</span> <span class="n">node_index</span> <span class="o">+</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+            <span class="n">adj_down</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_index</span> <span class="o">-</span> <span class="n">x</span> <span class="k">if</span> <span class="n">node_index</span> <span class="o">-</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">adj_left</span><span class="p">,</span> <span class="n">adj_right</span><span class="p">,</span> <span class="n">adj_up</span><span class="p">,</span> <span class="n">adj_down</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">adj_list</span><span class="p">[</span><span class="n">node_index</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
             <span class="c1"># adj_list[node_index][1] = [adj_left, adj_right, adj_up, adj_down]</span>
 
-        <span class="k">return</span> <span class="n">nodes</span><span class="p">,</span> <span
-            class="n">adj_list</span></div>
+        <span class="k">return</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">adj_list</span></div>
 
-<div class="viewcode-block" id="Graph.get_grid_width_height"><a class="viewcode-back"
-                                                                href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.get_grid_width_height">[docs]</a>    <span
-        class="k">def</span> <span class="nf">get_grid_width_height</span><span class="p">(</span><span
-        class="n">grid</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">grid</span><span class="o">.</span><span class="n">adj_list</span><span
-            class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span
-            class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span></div>
+<div class="viewcode-block" id="Graph.get_grid_width_height"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.get_grid_width_height">[docs]</a>    <span class="k">def</span> <span class="nf">get_grid_width_height</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">grid</span><span class="o">.</span><span class="n">adj_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span></div>
 
     <span class="c1"># xy and widthheight are both meant to be tuples</span>
-<div class="viewcode-block" id="Graph.get_index_from_xy"><a class="viewcode-back"
-                                                            href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.get_index_from_xy">[docs]</a>    <span
-        class="k">def</span> <span class="nf">get_index_from_xy</span><span class="p">(</span><span
-        class="bp">self</span><span class="p">,</span> <span class="n">xy</span><span class="p">):</span>
-        <span class="n">widthheight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">get_grid_width_height</span><span class="p">()</span>
-        <span class="n">index</span> <span class="o">=</span> <span class="p">(</span><span class="n">xy</span><span
-            class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span
-            class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">widthheight</span><span
-            class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span
-            class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span
-            class="o">-</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span
-            class="n">widthheight</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span
-            class="o">*</span> <span class="n">widthheight</span><span class="p">[</span><span class="mi">1</span><span
-            class="p">]:</span>
+<div class="viewcode-block" id="Graph.get_index_from_xy"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.get_index_from_xy">[docs]</a>    <span class="k">def</span> <span class="nf">get_index_from_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xy</span><span class="p">):</span>
+        <span class="n">widthheight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_grid_width_height</span><span class="p">()</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="p">(</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">widthheight</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">widthheight</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">widthheight</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
             <span class="k">return</span> <span class="n">index</span>
-        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Index of &quot;</span> <span
-            class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span
-            class="p">)</span> <span class="o">+</span> <span class="s2">&quot; greater than &quot;</span> <span
-            class="o">+</span> <span class="nb">str</span><span class="p">(</span>
-            <span class="n">widthheight</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span
-            class="o">*</span> <span class="n">widthheight</span><span class="p">[</span><span class="mi">1</span><span
-            class="p">])</span> <span class="o">+</span> <span class="s2">&quot;, out of max range. Grid coordinate &quot;</span> <span
-            class="o">+</span> <span class="nb">str</span><span class="p">(</span>
-            <span class="n">xy</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; was supplied, but the grid size was only &quot;</span> <span
-            class="o">+</span> <span class="nb">str</span><span class="p">(</span><span
-            class="n">widthheight</span><span class="p">))</span></div>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Index of &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; greater than &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+            <span class="n">widthheight</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">widthheight</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;, out of max range. Grid coordinate &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+            <span class="n">xy</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; was supplied, but the grid size was only &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">widthheight</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Graph.init_as_grid"><a class="viewcode-back"
-                                                       href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.init_as_grid">[docs]</a>    <span
-        class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">init_as_grid</span><span class="p">(</span><span
-            class="bp">cls</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span
-            class="n">height</span><span class="p">):</span>
-        <span class="n">nodes</span><span class="p">,</span> <span class="n">adj_list</span> <span
-            class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span
-            class="n">create_grid</span><span class="p">(</span><span class="n">width</span><span
-            class="p">,</span> <span class="n">height</span><span class="p">)</span>
-        <span class="n">graph</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span
-            class="n">nodes</span><span class="p">,</span> <span class="n">adj_list</span><span class="o">=</span><span
-            class="n">adj_list</span><span class="p">)</span>
+<div class="viewcode-block" id="Graph.init_as_grid"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.init_as_grid">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">init_as_grid</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="n">nodes</span><span class="p">,</span> <span class="n">adj_list</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_grid</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">adj_list</span><span class="o">=</span><span class="n">adj_list</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">graph</span></div>
 
-<div class="viewcode-block" id="Graph.dijkstra"><a class="viewcode-back"
-                                                   href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.dijkstra">[docs]</a>    <span
-        class="k">def</span> <span class="nf">dijkstra</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">endpoint</span><span
-        class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">only_end</span><span
-        class="o">=</span><span class="kc">False</span><span class="p">,</span> <span
-        class="n">eval_to_length</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.dijkstra"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.Graph.dijkstra">[docs]</a>    <span class="k">def</span> <span class="nf">dijkstra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">only_end</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eval_to_length</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span
-            class="n">endpoint</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
-            <span class="n">endpoint</span> <span class="o">=</span> <span class="bp">self</span><span
-            class="o">.</span><span class="n">adj_list</span><span class="p">[</span><span class="bp">self</span><span
-            class="o">.</span><span class="n">get_index_from_xy</span><span class="p">(</span><span
-            class="n">endpoint</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">endpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_list</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_index_from_xy</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="c1"># check if endpoint is a possible destination node</span>
-        <span class="k">if</span> <span class="n">endpoint</span> <span class="ow">and</span> <span
-            class="p">(</span><span class="n">endpoint</span> <span class="ow">not</span> <span
-            class="ow">in</span> <span class="p">[</span><span class="n">node_edges</span><span class="p">[</span><span
-            class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span
-            class="n">node_edges</span> <span class="ow">in</span> <span class="bp">self</span><span
-            class="o">.</span><span class="n">adj_list</span><span class="p">]):</span>
-            <span class="nb">print</span><span class="p">(</span><span
-            class="s2">&quot;Endpoint not in node list&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">endpoint</span> <span class="ow">and</span> <span class="p">(</span><span class="n">endpoint</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">node_edges</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">node_edges</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_list</span><span class="p">]):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Endpoint not in node list&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">[]</span>
 
         <span class="c1"># algorithm entry point</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span
-            class="n">src</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
-            <span class="n">src_index</span> <span class="o">=</span> <span class="bp">self</span><span
-            class="o">.</span><span class="n">get_index_from_xy</span><span class="p">(</span><span class="n">src</span><span
-            class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">src_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_index_from_xy</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">src_index</span> <span class="o">=</span> <span class="bp">self</span><span
-            class="o">.</span><span class="n">get_index_from_node</span><span class="p">(</span><span
-            class="n">src</span><span class="p">)</span>
+            <span class="n">src_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_index_from_node</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
         <span class="c1"># Map nodes to DijkstraNodeDecorators</span>
         <span class="c1"># This will initialize all provisional distances to infinity</span>
-        <span class="n">dnodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">DijkstraNodeDecorator</span><span
-            class="p">(</span><span class="n">node_edges</span><span class="p">[</span><span class="mi">0</span><span
-            class="p">])</span> <span class="k">for</span> <span class="n">node_edges</span> <span class="ow">in</span> <span
-            class="bp">self</span><span class="o">.</span><span class="n">adj_list</span><span class="p">]</span>
+        <span class="n">dnodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">DijkstraNodeDecorator</span><span class="p">(</span><span class="n">node_edges</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">node_edges</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_list</span><span class="p">]</span>
         <span class="c1"># Set the source node provisional distance to 0 and its hops array to its node (itself)</span>
-        <span class="n">dnodes</span><span class="p">[</span><span class="n">src_index</span><span
-            class="p">]</span><span class="o">.</span><span class="n">prov_dist</span> <span class="o">=</span> <span
-            class="mi">0</span>
-        <span class="n">dnodes</span><span class="p">[</span><span class="n">src_index</span><span
-            class="p">]</span><span class="o">.</span><span class="n">hops</span><span class="o">.</span><span
-            class="n">append</span><span class="p">(</span><span class="n">dnodes</span><span class="p">[</span><span
-            class="n">src_index</span><span class="p">]</span><span class="o">.</span><span class="n">node</span><span
-            class="p">)</span>
+        <span class="n">dnodes</span><span class="p">[</span><span class="n">src_index</span><span class="p">]</span><span class="o">.</span><span class="n">prov_dist</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">dnodes</span><span class="p">[</span><span class="n">src_index</span><span class="p">]</span><span class="o">.</span><span class="n">hops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dnodes</span><span class="p">[</span><span class="n">src_index</span><span class="p">]</span><span class="o">.</span><span class="n">node</span><span class="p">)</span>
         <span class="c1"># Set up all heap customization methods</span>
-        <span class="n">is_less_than</span> <span class="o">=</span> <span class="k">lambda</span> <span
-            class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span><span
-            class="o">.</span><span class="n">prov_dist</span> <span class="o">&lt;</span> <span class="n">b</span><span
-            class="o">.</span><span class="n">prov_dist</span>
-        <span class="n">get_index</span> <span class="o">=</span> <span class="k">lambda</span> <span
-            class="n">node</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span
-            class="n">index</span><span class="p">()</span>
-        <span class="n">update_node</span> <span class="o">=</span> <span class="k">lambda</span> <span
-            class="n">node</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span
-            class="n">node</span><span class="o">.</span><span class="n">update_data</span><span class="p">(</span><span
-            class="n">data</span><span class="p">)</span>
+        <span class="n">is_less_than</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">prov_dist</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">prov_dist</span>
+        <span class="n">get_index</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">node</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">index</span><span class="p">()</span>
+        <span class="n">update_node</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">node</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">update_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="c1"># Instantiate heap to work with DijkstraNodeDecorators as the heap nodes</span>
-        <span class="n">heap</span> <span class="o">=</span> <span class="n">MinHeap</span><span class="p">(</span><span
-            class="n">dnodes</span><span class="p">,</span> <span class="n">is_less_than</span><span class="p">,</span> <span
-            class="n">get_index</span><span class="p">,</span> <span class="n">update_node</span><span
-            class="p">)</span>
+        <span class="n">heap</span> <span class="o">=</span> <span class="n">MinHeap</span><span class="p">(</span><span class="n">dnodes</span><span class="p">,</span> <span class="n">is_less_than</span><span class="p">,</span> <span class="n">get_index</span><span class="p">,</span> <span class="n">update_node</span><span class="p">)</span>
 
         <span class="n">min_dist_list</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="n">min_decorated_node</span> <span class="o">=</span> <span class="nb">type</span><span
-            class="p">(</span><span class="s1">&#39;obj&#39;</span><span class="p">,</span> <span
-            class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span
-            class="s1">&#39;node&#39;</span><span class="p">:</span> <span class="kc">None</span><span
-            class="p">})</span>
+        <span class="n">min_decorated_node</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;obj&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{</span><span class="s1">&#39;node&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">})</span>
         <span class="c1"># while undiscovered nodes remain</span>
-        <span class="k">while</span> <span class="n">heap</span><span class="o">.</span><span class="n">size</span><span
-            class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span
-            class="ow">not</span> <span class="p">(</span><span class="n">min_decorated_node</span><span
-            class="o">.</span><span class="n">node</span> <span class="o">==</span> <span
-            class="n">endpoint</span> <span class="ow">and</span> <span class="n">endpoint</span><span
-            class="p">):</span>
+        <span class="k">while</span> <span class="n">heap</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">min_decorated_node</span><span class="o">.</span><span class="n">node</span> <span class="o">==</span> <span class="n">endpoint</span> <span class="ow">and</span> <span class="n">endpoint</span><span class="p">):</span>
             <span class="c1"># Get node in heap that has not yet been &quot;seen&quot;</span>
             <span class="c1"># that has smallest distance to starting node</span>
 
-            <span class="n">min_decorated_node</span> <span class="o">=</span> <span class="n">heap</span><span
-            class="o">.</span><span class="n">pop</span><span class="p">()</span>
-            <span class="n">min_dist</span> <span class="o">=</span> <span class="n">min_decorated_node</span><span
-            class="o">.</span><span class="n">prov_dist</span>
-            <span class="n">hops</span> <span class="o">=</span> <span class="n">min_decorated_node</span><span
-            class="o">.</span><span class="n">hops</span>
-            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span
-            class="n">endpoint</span> <span class="ow">or</span> <span class="p">(</span><span
-            class="ow">not</span> <span class="n">only_end</span> <span class="ow">or</span> <span class="n">min_decorated_node</span><span
-            class="o">.</span><span class="n">node</span> <span class="o">==</span> <span class="n">endpoint</span><span
-            class="p">))</span> <span class="ow">and</span> <span class="p">(</span>
-                    <span class="n">eval_to_length</span> <span class="o">&lt;</span> <span class="mi">0</span> <span
-            class="ow">or</span> <span class="p">(</span><span class="n">min_dist</span> <span
-            class="o">&lt;=</span> <span class="n">eval_to_length</span><span class="p">)):</span>
-                <span class="n">min_dist_list</span><span class="o">.</span><span class="n">append</span><span
-            class="p">([</span><span class="n">min_dist</span><span class="p">,</span> <span class="n">hops</span><span
-            class="p">])</span>
+            <span class="n">min_decorated_node</span> <span class="o">=</span> <span class="n">heap</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="n">min_dist</span> <span class="o">=</span> <span class="n">min_decorated_node</span><span class="o">.</span><span class="n">prov_dist</span>
+            <span class="n">hops</span> <span class="o">=</span> <span class="n">min_decorated_node</span><span class="o">.</span><span class="n">hops</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">endpoint</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">only_end</span> <span class="ow">or</span> <span class="n">min_decorated_node</span><span class="o">.</span><span class="n">node</span> <span class="o">==</span> <span class="n">endpoint</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span>
+                    <span class="n">eval_to_length</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="n">min_dist</span> <span class="o">&lt;=</span> <span class="n">eval_to_length</span><span class="p">)):</span>
+                <span class="n">min_dist_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">min_dist</span><span class="p">,</span> <span class="n">hops</span><span class="p">])</span>
 
             <span class="c1"># Get all next hops. This is no longer an O(n^2) operation</span>
             <span class="c1"># Now it&#39;s an O(log(n)) operation!</span>
-            <span class="n">connections</span> <span class="o">=</span> <span class="bp">self</span><span
-            class="o">.</span><span class="n">connections</span><span class="p">(</span><span class="n">min_decorated_node</span><span
-            class="o">.</span><span class="n">node</span><span class="p">)</span>
+            <span class="n">connections</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">(</span><span class="n">min_decorated_node</span><span class="o">.</span><span class="n">node</span><span class="p">)</span>
             <span class="c1"># For each connection, update its path and total distance from</span>
             <span class="c1"># starting node if the total distance is less than the current distance</span>
             <span class="c1"># in dist array</span>
-            <span class="k">for</span> <span class="p">(</span><span class="n">inode</span><span
-            class="p">,</span> <span class="n">weight</span><span class="p">)</span> <span class="ow">in</span> <span
-            class="n">connections</span><span class="p">:</span>
-                <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span
-            class="o">.</span><span class="n">adj_list</span><span class="p">[</span><span class="n">inode</span><span
-            class="p">][</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">heap_location</span> <span class="o">=</span> <span class="n">heap</span><span
-            class="o">.</span><span class="n">order_mapping</span><span class="p">[</span><span
-            class="n">inode</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">heap_location</span> <span class="ow">is</span> <span
-            class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">tot_dist</span> <span class="o">=</span> <span class="n">weight</span> <span
-            class="o">+</span> <span class="n">min_dist</span>
-                    <span class="k">if</span> <span class="n">tot_dist</span> <span class="o">&lt;</span> <span
-            class="n">heap</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span
-            class="n">heap_location</span><span class="p">]</span><span class="o">.</span><span
-            class="n">prov_dist</span><span class="p">:</span>
-                        <span class="n">hops_cpy</span> <span class="o">=</span> <span class="nb">list</span><span
-            class="p">(</span><span class="n">hops</span><span class="p">)</span>
-                        <span class="n">hops_cpy</span><span class="o">.</span><span class="n">append</span><span
-            class="p">(</span><span class="n">node</span><span class="p">)</span>
-                        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;prov_dist&#39;</span><span
-            class="p">:</span> <span class="n">tot_dist</span><span class="p">,</span> <span
-            class="s1">&#39;hops&#39;</span><span class="p">:</span> <span class="n">hops_cpy</span><span
-            class="p">}</span>
-                        <span class="n">heap</span><span class="o">.</span><span class="n">decrease_key</span><span
-            class="p">(</span><span class="n">heap_location</span><span class="p">,</span> <span
-            class="n">data</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">inode</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">:</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adj_list</span><span class="p">[</span><span class="n">inode</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">heap_location</span> <span class="o">=</span> <span class="n">heap</span><span class="o">.</span><span class="n">order_mapping</span><span class="p">[</span><span class="n">inode</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">heap_location</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">tot_dist</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">+</span> <span class="n">min_dist</span>
+                    <span class="k">if</span> <span class="n">tot_dist</span> <span class="o">&lt;</span> <span class="n">heap</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">heap_location</span><span class="p">]</span><span class="o">.</span><span class="n">prov_dist</span><span class="p">:</span>
+                        <span class="n">hops_cpy</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">hops</span><span class="p">)</span>
+                        <span class="n">hops_cpy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;prov_dist&#39;</span><span class="p">:</span> <span class="n">tot_dist</span><span class="p">,</span> <span class="s1">&#39;hops&#39;</span><span class="p">:</span> <span class="n">hops_cpy</span><span class="p">}</span>
+                        <span class="n">heap</span><span class="o">.</span><span class="n">decrease_key</span><span class="p">(</span><span class="n">heap_location</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">min_dist_list</span></div></div>
 
 
-<div class="viewcode-block" id="DijkstraNodeDecorator"><a class="viewcode-back"
-                                                          href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.DijkstraNodeDecorator">[docs]</a><span
-        class="k">class</span> <span class="nc">DijkstraNodeDecorator</span><span class="p">:</span>
+<div class="viewcode-block" id="DijkstraNodeDecorator"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.DijkstraNodeDecorator">[docs]</a><span class="k">class</span> <span class="nc">DijkstraNodeDecorator</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span
-            class="p">,</span> <span class="n">node</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span
-            class="n">node</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">prov_dist</span> <span
-            class="o">=</span> <span class="nb">float</span><span class="p">(</span><span
-            class="s1">&#39;inf&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hops</span> <span class="o">=</span> <span
-            class="p">[]</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prov_dist</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hops</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="DijkstraNodeDecorator.index"><a class="viewcode-back"
-                                                                href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.DijkstraNodeDecorator.index">[docs]</a>    <span
-        class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">node</span><span class="o">.</span><span class="n">index</span></div>
+<div class="viewcode-block" id="DijkstraNodeDecorator.index"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.DijkstraNodeDecorator.index">[docs]</a>    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">index</span></div>
 
-<div class="viewcode-block" id="DijkstraNodeDecorator.data"><a class="viewcode-back"
-                                                               href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.DijkstraNodeDecorator.data">[docs]</a>    <span
-        class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">node</span><span class="o">.</span><span class="n">data</span></div>
+<div class="viewcode-block" id="DijkstraNodeDecorator.data"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.DijkstraNodeDecorator.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">data</span></div>
 
-<div class="viewcode-block" id="DijkstraNodeDecorator.update_data"><a class="viewcode-back"
-                                                                      href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.DijkstraNodeDecorator.update_data">[docs]</a>    <span
-        class="k">def</span> <span class="nf">update_data</span><span class="p">(</span><span
-        class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">prov_dist</span> <span
-            class="o">=</span> <span class="n">data</span><span class="p">[</span><span
-            class="s1">&#39;prov_dist&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hops</span> <span class="o">=</span> <span
-            class="n">data</span><span class="p">[</span><span class="s1">&#39;hops&#39;</span><span class="p">]</span>
+<div class="viewcode-block" id="DijkstraNodeDecorator.update_data"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.DijkstraNodeDecorator.update_data">[docs]</a>    <span class="k">def</span> <span class="nf">update_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prov_dist</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;prov_dist&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hops</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;hops&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="bp">self</span></div></div>
 
 
-<div class="viewcode-block" id="BinaryTree"><a class="viewcode-back"
-                                               href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree">[docs]</a><span
-        class="k">class</span> <span class="nc">BinaryTree</span><span class="p">:</span>
+<div class="viewcode-block" id="BinaryTree"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree">[docs]</a><span class="k">class</span> <span class="nc">BinaryTree</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span
-            class="p">,</span> <span class="n">nodes</span><span class="o">=</span><span class="kc">None</span><span
-            class="p">):</span>
-        <span class="k">if</span> <span class="n">nodes</span> <span class="ow">is</span> <span
-            class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">nodes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span
-            class="n">nodes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">nodes</span>
 
-<div class="viewcode-block" id="BinaryTree.root"><a class="viewcode-back"
-                                                    href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.root">[docs]</a>    <span
-        class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+<div class="viewcode-block" id="BinaryTree.root"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.root">[docs]</a>    <span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="BinaryTree.iparent"><a class="viewcode-back"
-                                                       href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.iparent">[docs]</a>    <span
-        class="k">def</span> <span class="nf">iparent</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span
-            class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span></div>
+<div class="viewcode-block" id="BinaryTree.iparent"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.iparent">[docs]</a>    <span class="k">def</span> <span class="nf">iparent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span></div>
 
-<div class="viewcode-block" id="BinaryTree.ileft"><a class="viewcode-back"
-                                                     href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.ileft">[docs]</a>    <span
-        class="k">def</span> <span class="nf">ileft</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span
-            class="o">+</span> <span class="mi">1</span></div>
+<div class="viewcode-block" id="BinaryTree.ileft"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.ileft">[docs]</a>    <span class="k">def</span> <span class="nf">ileft</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span></div>
 
-<div class="viewcode-block" id="BinaryTree.iright"><a class="viewcode-back"
-                                                      href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.iright">[docs]</a>    <span
-        class="k">def</span> <span class="nf">iright</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span
-            class="o">+</span> <span class="mi">2</span></div>
+<div class="viewcode-block" id="BinaryTree.iright"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.iright">[docs]</a>    <span class="k">def</span> <span class="nf">iright</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span></div>
 
-<div class="viewcode-block" id="BinaryTree.left"><a class="viewcode-back"
-                                                    href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.left">[docs]</a>    <span
-        class="k">def</span> <span class="nf">left</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">node_at_index</span><span class="p">(</span><span class="bp">self</span><span
-            class="o">.</span><span class="n">ileft</span><span class="p">(</span><span class="n">i</span><span
-            class="p">))</span></div>
+<div class="viewcode-block" id="BinaryTree.left"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.left">[docs]</a>    <span class="k">def</span> <span class="nf">left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_at_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ileft</span><span class="p">(</span><span class="n">i</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="BinaryTree.right"><a class="viewcode-back"
-                                                     href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.right">[docs]</a>    <span
-        class="k">def</span> <span class="nf">right</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">node_at_index</span><span class="p">(</span><span class="bp">self</span><span
-            class="o">.</span><span class="n">iright</span><span class="p">(</span><span class="n">i</span><span
-            class="p">))</span></div>
+<div class="viewcode-block" id="BinaryTree.right"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.right">[docs]</a>    <span class="k">def</span> <span class="nf">right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_at_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iright</span><span class="p">(</span><span class="n">i</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="BinaryTree.parent"><a class="viewcode-back"
-                                                      href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.parent">[docs]</a>    <span
-        class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">node_at_index</span><span class="p">(</span><span class="bp">self</span><span
-            class="o">.</span><span class="n">iparent</span><span class="p">(</span><span class="n">i</span><span
-            class="p">))</span></div>
+<div class="viewcode-block" id="BinaryTree.parent"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.parent">[docs]</a>    <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_at_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iparent</span><span class="p">(</span><span class="n">i</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="BinaryTree.node_at_index"><a class="viewcode-back"
-                                                             href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.node_at_index">[docs]</a>    <span
-        class="k">def</span> <span class="nf">node_at_index</span><span class="p">(</span><span
-        class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
+<div class="viewcode-block" id="BinaryTree.node_at_index"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.node_at_index">[docs]</a>    <span class="k">def</span> <span class="nf">node_at_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="BinaryTree.size"><a class="viewcode-back"
-                                                    href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.size">[docs]</a>    <span
-        class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">):</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span
-            class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span
-            class="p">)</span></div></div>
+<div class="viewcode-block" id="BinaryTree.size"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.BinaryTree.size">[docs]</a>    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="MinHeap"><a class="viewcode-back"
-                                            href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap">[docs]</a><span
-        class="k">class</span> <span class="nc">MinHeap</span><span class="p">(</span><span
-        class="n">BinaryTree</span><span class="p">):</span>
+<div class="viewcode-block" id="MinHeap"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap">[docs]</a><span class="k">class</span> <span class="nc">MinHeap</span><span class="p">(</span><span class="n">BinaryTree</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span
-            class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span
-            class="n">is_less_than</span><span class="o">=</span><span class="k">lambda</span> <span
-            class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span
-            class="o">&lt;</span> <span class="n">b</span><span class="p">,</span> <span class="n">get_index</span><span
-            class="o">=</span><span class="kc">None</span><span class="p">,</span> <span
-            class="n">update_node</span><span class="o">=</span><span class="k">lambda</span> <span
-            class="n">node</span><span class="p">,</span> <span class="n">newval</span><span class="p">:</span> <span
-            class="n">newval</span><span class="p">):</span>
-        <span class="n">BinaryTree</span><span class="o">.</span><span class="fm">__init__</span><span
-            class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span
-            class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span> <span
-            class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span
-            class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span
-            class="p">)))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">is_less_than</span><span class="p">,</span> <span
-            class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">,</span> <span
-            class="bp">self</span><span class="o">.</span><span class="n">update_node</span> <span
-            class="o">=</span> <span class="n">is_less_than</span><span class="p">,</span> <span
-            class="n">get_index</span><span class="p">,</span> <span class="n">update_node</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">is_less_than</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">,</span> <span class="n">get_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">update_node</span><span class="o">=</span><span class="k">lambda</span> <span class="n">node</span><span class="p">,</span> <span class="n">newval</span><span class="p">:</span> <span class="n">newval</span><span class="p">):</span>
+        <span class="n">BinaryTree</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_less_than</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_node</span> <span class="o">=</span> <span class="n">is_less_than</span><span class="p">,</span> <span class="n">get_index</span><span class="p">,</span> <span class="n">update_node</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">min_heapify</span><span class="p">()</span>
 
     <span class="c1"># Heapify at a node assuming all subtrees are heapified</span>
-<div class="viewcode-block" id="MinHeap.min_heapify_subtree"><a class="viewcode-back"
-                                                                href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap.min_heapify_subtree">[docs]</a>    <span
-        class="k">def</span> <span class="nf">min_heapify_subtree</span><span class="p">(</span><span
-        class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+<div class="viewcode-block" id="MinHeap.min_heapify_subtree"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap.min_heapify_subtree">[docs]</a>    <span class="k">def</span> <span class="nf">min_heapify_subtree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
 
-        <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">size</span><span class="p">()</span>
-        <span class="n">ileft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">ileft</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="n">iright</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">iright</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+        <span class="n">ileft</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ileft</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">iright</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iright</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
         <span class="n">imin</span> <span class="o">=</span> <span class="n">i</span>
-        <span class="k">if</span> <span class="n">ileft</span> <span class="o">&lt;</span> <span
-            class="n">size</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">is_less_than</span><span class="p">(</span><span class="bp">self</span><span
-            class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">ileft</span><span
-            class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span
-            class="p">[</span><span class="n">imin</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">ileft</span> <span class="o">&lt;</span> <span class="n">size</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_less_than</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">ileft</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">imin</span><span class="p">]):</span>
             <span class="n">imin</span> <span class="o">=</span> <span class="n">ileft</span>
-        <span class="k">if</span> <span class="n">iright</span> <span class="o">&lt;</span> <span class="n">size</span> <span
-            class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">is_less_than</span><span class="p">(</span><span class="bp">self</span><span
-            class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">iright</span><span
-            class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span
-            class="p">[</span><span class="n">imin</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">iright</span> <span class="o">&lt;</span> <span class="n">size</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_less_than</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">iright</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">imin</span><span class="p">]):</span>
             <span class="n">imin</span> <span class="o">=</span> <span class="n">iright</span>
-        <span class="k">if</span> <span class="n">imin</span> <span class="o">!=</span> <span class="n">i</span><span
-            class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span
-            class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span
-            class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">imin</span><span
-            class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">nodes</span><span class="p">[</span><span class="n">imin</span><span class="p">],</span> <span
-            class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span
-            class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">imin</span> <span class="o">!=</span> <span class="n">i</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">imin</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">imin</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
             <span class="c1"># If there is a lambda to get absolute index of a node</span>
             <span class="c1"># update your order_mapping array to indicate where that index lives</span>
             <span class="c1"># in the nodes array (so lookup by this index is O(1))</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">get_index</span> <span class="ow">is</span> <span class="ow">not</span> <span
-            class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span><span class="p">[</span><span
-            class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span
-            class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span
-            class="n">imin</span><span class="p">])]</span> <span class="o">=</span> <span class="n">imin</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span><span class="p">[</span><span
-            class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span
-            class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span
-            class="n">i</span><span class="p">])]</span> <span class="o">=</span> <span class="n">i</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">min_heapify_subtree</span><span
-            class="p">(</span><span class="n">imin</span><span class="p">)</span></div>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">imin</span><span class="p">])]</span> <span class="o">=</span> <span class="n">imin</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min_heapify_subtree</span><span class="p">(</span><span class="n">imin</span><span class="p">)</span></div>
 
     <span class="c1"># Heapify an un-heapified array</span>
-<div class="viewcode-block" id="MinHeap.min_heapify"><a class="viewcode-back"
-                                                        href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap.min_heapify">[docs]</a>    <span
-        class="k">def</span> <span class="nf">min_heapify</span><span class="p">(</span><span
-        class="bp">self</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span
-            class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span
-            class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span> <span
-            class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span
-            class="mi">1</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">min_heapify_subtree</span><span
-            class="p">(</span><span class="n">i</span><span class="p">)</span></div>
+<div class="viewcode-block" id="MinHeap.min_heapify"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap.min_heapify">[docs]</a>    <span class="k">def</span> <span class="nf">min_heapify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min_heapify_subtree</span><span class="p">(</span><span class="n">i</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="MinHeap.min"><a class="viewcode-back"
-                                                href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap.min">[docs]</a>    <span
-        class="k">def</span> <span class="nf">min</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+<div class="viewcode-block" id="MinHeap.min"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap.min">[docs]</a>    <span class="k">def</span> <span class="nf">min</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="MinHeap.pop"><a class="viewcode-back"
-                                                href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap.pop">[docs]</a>    <span
-        class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span
-        class="p">):</span>
-        <span class="n">min_node</span> <span class="o">=</span> <span class="bp">self</span><span
-            class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span
-            class="p">]</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span
-            class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span
-            class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span
-            class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span
-            class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span
-            class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<div class="viewcode-block" id="MinHeap.pop"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">min_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
             <span class="c1"># Update order_mapping if applicable</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">get_index</span> <span class="ow">is</span> <span class="ow">not</span> <span
-            class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span><span class="p">[</span><span
-            class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span
-            class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span
-            class="mi">0</span><span class="p">])]</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">min_heapify_subtree</span><span
-            class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span
-            class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span
-            class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min_heapify_subtree</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="c1"># If self.get_index exists, update self.order_mapping to indicate</span>
         <span class="c1"># the node of this index is no longer in the heap</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">get_index</span> <span class="ow">is</span> <span class="ow">not</span> <span
-            class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># Set value in self.order_mapping to None to indicate it is not in the heap</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span><span
-            class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span
-            class="p">(</span><span class="n">min_node</span><span class="p">)]</span> <span class="o">=</span> <span
-            class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span class="n">min_node</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">min_node</span></div>
 
     <span class="c1"># Update node value, bubble it up as necessary to maintain heap property</span>
-<div class="viewcode-block" id="MinHeap.decrease_key"><a class="viewcode-back"
-                                                         href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap.decrease_key">[docs]</a>    <span
-        class="k">def</span> <span class="nf">decrease_key</span><span class="p">(</span><span
-        class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span><span
-        class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span
-            class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span
-            class="o">.</span><span class="n">update_node</span><span class="p">(</span><span
-            class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span
-            class="n">i</span><span class="p">],</span> <span class="n">val</span><span class="p">)</span>
-        <span class="n">iparent</span> <span class="o">=</span> <span class="bp">self</span><span
-            class="o">.</span><span class="n">iparent</span><span class="p">(</span><span class="n">i</span><span
-            class="p">)</span>
-        <span class="k">while</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span> <span
-            class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">is_less_than</span><span class="p">(</span><span class="bp">self</span><span
-            class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">iparent</span><span
-            class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span
-            class="p">[</span><span class="n">i</span><span class="p">]):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span
-            class="p">[</span><span class="n">iparent</span><span class="p">],</span> <span class="bp">self</span><span
-            class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span
-            class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span
-            class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span
-            class="n">iparent</span><span class="p">]</span>
+<div class="viewcode-block" id="MinHeap.decrease_key"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap.decrease_key">[docs]</a>    <span class="k">def</span> <span class="nf">decrease_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">val</span><span class="p">)</span>
+        <span class="n">iparent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iparent</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_less_than</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">iparent</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">iparent</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">iparent</span><span class="p">]</span>
             <span class="c1"># If there is a lambda to get absolute index of a node</span>
             <span class="c1"># update your order_mapping array to indicate where that index lives</span>
             <span class="c1"># in the nodes array (so lookup by this index is O(1))</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">get_index</span> <span class="ow">is</span> <span class="ow">not</span> <span
-            class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span><span class="p">[</span><span
-            class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span
-            class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span
-            class="n">iparent</span><span class="p">])]</span> <span class="o">=</span> <span class="n">iparent</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span><span class="p">[</span><span
-            class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span
-            class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span
-            class="n">i</span><span class="p">])]</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">iparent</span><span class="p">])]</span> <span class="o">=</span> <span class="n">iparent</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">order_mapping</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span> <span class="o">=</span> <span class="n">i</span>
             <span class="n">i</span> <span class="o">=</span> <span class="n">iparent</span>
-            <span class="n">iparent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">iparent</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span
-            class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span
-            class="k">else</span> <span class="kc">None</span></div>
+            <span class="n">iparent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iparent</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="MinHeap.index_of_node_at"><a class="viewcode-back"
-                                                             href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap.index_of_node_at">[docs]</a>    <span
-        class="k">def</span> <span class="nf">index_of_node_at</span><span class="p">(</span><span
-        class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span
-            class="n">get_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span
-            class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></div></div>
+<div class="viewcode-block" id="MinHeap.index_of_node_at"><a class="viewcode-back" href="../FEH_DijkstraAlgorithm.html#FEH_DijkstraAlgorithm.MinHeap.index_of_node_at">[docs]</a>    <span class="k">def</span> <span class="nf">index_of_node_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></div></div>
 
 <span class="c1"># a = Node(&#39;a&#39;)</span>
 <span class="c1"># b = Node(&#39;b&#39;)</span>
@@ -844,49 +464,52 @@
 <span class="c1"># print([(weight, [n.data for n in node]) for (weight, node) in g.dijkstra(a)])</span>
 <span class="c1"># from pprint import pprint</span>
 <span class="c1"># pprint([(weight, [n.data for n in node]) for (weight, node) in g.dijkstra((1,1), (3,4), only_end=True)])</span>
-</pre>
-                        </div>
+</pre></div>
 
-                    </div>
+           </div>
+           
+          </div>
+          <footer>
+  
 
-                </div>
-                <footer>
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Dania M.
 
-                    <hr/>
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-                    <div role="contentinfo">
-                        <p>
+</footer>
 
-                            &copy; Copyright 2020, Dania M.
-
-                        </p>
-                    </div>
-
-
-                    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-
-                    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-
-                    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-                </footer>
-
-            </div>
         </div>
+      </div>
 
     </section>
 
-</div>
+  </div>
+  
 
-
-<script type="text/javascript">
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
+  </script>
 
-</script>
-
+  
+  
+    
+   
 
 </body>
 </html>

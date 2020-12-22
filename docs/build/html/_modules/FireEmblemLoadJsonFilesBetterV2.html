@@ -151,10 +151,7 @@
 <span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
 
-    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span
-                   class="n">insert</span><span class="p">(</span><span class="mi">0</span><span
-                   class="p">,</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\admin\AppData\Local\Programs\Python\Python36\Lib\site-packages&quot;</span><span
-                   class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\admin\AppData\Local\Programs\Python\Python36\Lib\site-packages&quot;</span><span class="p">)</span>
     <span class="c1"># os.environ[&quot;PYTHONPATH&quot;] =</span>
     <span class="kn">import</span> <span class="nn">ujson</span> <span class="k">as</span> <span class="nn">json</span>
 
@@ -162,8 +159,7 @@
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">json</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using JSON&quot;</span><span
-                   class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using JSON&quot;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
@@ -173,18 +169,9 @@
 
 <span class="c1"># FIXME: Running this script as a standalone breaks everything</span>
 
-<div class="viewcode-block" id="remove_digits"><a class="viewcode-back"
-                                                  href="../FireEmblemLoadJsonFilesBetterV2.html#FireEmblemLoadJsonFilesBetterV2.remove_digits">[docs]</a><span
-        class="k">def</span> <span class="nf">remove_digits</span><span class="p">(</span><span
-        class="n">input_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span
-        class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="n">remove_digits_translation_table</span> <span class="o">=</span> <span class="nb">str</span><span
-            class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span
-            class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s2">&quot;0123456789&quot;</span><span
-            class="p">)</span>
-    <span class="n">output_string</span> <span class="o">=</span> <span class="n">input_string</span><span
-            class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">remove_digits_translation_table</span><span
-            class="p">)</span>
+<div class="viewcode-block" id="remove_digits"><a class="viewcode-back" href="../FireEmblemLoadJsonFilesBetterV2.html#FireEmblemLoadJsonFilesBetterV2.remove_digits">[docs]</a><span class="k">def</span> <span class="nf">remove_digits</span><span class="p">(</span><span class="n">input_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">remove_digits_translation_table</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s2">&quot;0123456789&quot;</span><span class="p">)</span>
+    <span class="n">output_string</span> <span class="o">=</span> <span class="n">input_string</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">remove_digits_translation_table</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">output_string</span></div>
 
 
@@ -623,100 +610,45 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Checking player data&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">xitem</span> <span class="ow">in</span> <span class="n">players</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
             <span class="n">item_in_english</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="k">for</span> <span class="n">yitem</span> <span class="ow">in</span> <span
-            class="n">players</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="n">players</span><span class="p">[</span><span
-            class="mi">0</span><span class="p">][</span><span class="n">yitem</span><span class="p">][</span><span
-            class="s2">&quot;id_tag&quot;</span><span class="p">]</span> <span class="o">==</span> <span
-            class="n">xitem</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">yitem</span> <span class="ow">in</span> <span class="n">players</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">players</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">yitem</span><span class="p">][</span><span class="s2">&quot;id_tag&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">xitem</span><span class="p">:</span>
                     <span class="n">item_in_english</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">item_in_english</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">xitem</span><span
-            class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">xitem</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span
-            class="se">\n</span><span class="s2">Checking enemy data&quot;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">xitem</span> <span class="ow">in</span> <span
-            class="n">enemies</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Checking enemy data&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">xitem</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
             <span class="n">item_in_english</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="k">for</span> <span class="n">yitem</span> <span class="ow">in</span> <span
-            class="n">enemies</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="n">enemies</span><span class="p">[</span><span
-            class="mi">0</span><span class="p">][</span><span class="n">yitem</span><span class="p">][</span><span
-            class="s2">&quot;id_tag&quot;</span><span class="p">]</span> <span class="o">==</span> <span
-            class="n">xitem</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">yitem</span> <span class="ow">in</span> <span class="n">enemies</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">enemies</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">yitem</span><span class="p">][</span><span class="s2">&quot;id_tag&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">xitem</span><span class="p">:</span>
                     <span class="n">item_in_english</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">item_in_english</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">xitem</span><span
-            class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">xitem</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span
-            class="si">{0}</span><span class="s2">/</span><span class="si">{1}</span><span class="s2"> player entries translated&quot;</span><span
-            class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span
-            class="p">(</span><span class="n">players</span><span class="p">[</span><span class="mi">0</span><span
-            class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">players</span><span
-            class="p">[</span><span class="mi">1</span><span class="p">])))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span
-            class="si">{0}</span><span class="s2">/</span><span class="si">{1}</span><span class="s2"> enemy entries translated&quot;</span><span
-            class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span
-            class="p">(</span><span class="n">enemies</span><span class="p">[</span><span class="mi">0</span><span
-            class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">enemies</span><span
-            class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">/</span><span class="si">{1}</span><span class="s2"> player entries translated&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">players</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">players</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">/</span><span class="si">{1}</span><span class="s2"> enemy entries translated&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">enemies</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">enemies</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
 
     <span class="n">stop</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span
-            class="s2">&quot;Time elapsed during file loading:&quot;</span><span class="p">,</span> <span
-            class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span
-            class="s2">&quot;secs&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">skills</span><span class="p">,</span> <span
-            class="n">players</span><span class="p">,</span> <span class="n">enemies</span><span
-            class="p">,</span> <span class="n">weapons</span><span class="p">,</span> <span
-            class="n">english_data</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span
-            class="n">move</span><span class="p">,</span> <span class="n">stage_encount</span><span
-            class="p">,</span> <span class="n">terrain</span></div>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Time elapsed during file loading:&quot;</span><span class="p">,</span> <span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span> <span class="s2">&quot;secs&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">skills</span><span class="p">,</span> <span class="n">players</span><span class="p">,</span> <span class="n">enemies</span><span class="p">,</span> <span class="n">weapons</span><span class="p">,</span> <span class="n">english_data</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span class="n">move</span><span class="p">,</span> <span class="n">stage_encount</span><span class="p">,</span> <span class="n">terrain</span></div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span
-                   class="p">:</span>
-    <span class="kn">from</span> <span class="nn">Code.FireEmblemCombatV2</span> <span class="kn">import</span> <span
-                   class="n">Skill</span><span class="p">,</span> <span class="n">Weapon</span><span class="p">,</span> <span
-                   class="n">Enemy</span><span class="p">,</span> <span class="n">Player</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">Code.FireEmblemCombatV2</span> <span class="kn">import</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">Weapon</span><span class="p">,</span> <span class="n">Enemy</span><span class="p">,</span> <span class="n">Player</span>
 
-    <span class="n">skills_output</span><span class="p">,</span> <span class="n">players_output</span><span
-                   class="p">,</span> <span class="n">enemies_output</span><span class="p">,</span> <span class="n">weapons_output</span><span
-                   class="p">,</span> <span class="n">english_data_output</span><span class="p">,</span> <span
-                   class="n">growth_output</span><span class="p">,</span> \
-    <span class="n">move_output</span><span class="p">,</span> <span class="n">stage_encount_output</span><span
-                   class="p">,</span> <span class="n">terrain_output</span> <span class="o">=</span> <span class="n">load_files</span><span
-                   class="p">(</span><span class="n">Skill</span><span class="p">,</span> <span
-                   class="n">Player</span><span class="p">,</span> <span class="n">Enemy</span><span class="p">,</span> <span
-                   class="n">Weapon</span><span class="p">,</span>
-                                                                   <span class="n">output_as_class</span><span
-                   class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                                                   <span class="n">get_simple_names</span><span
-                   class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">skills_output</span><span class="p">,</span> <span class="n">players_output</span><span class="p">,</span> <span class="n">enemies_output</span><span class="p">,</span> <span class="n">weapons_output</span><span class="p">,</span> <span class="n">english_data_output</span><span class="p">,</span> <span class="n">growth_output</span><span class="p">,</span> \
+    <span class="n">move_output</span><span class="p">,</span> <span class="n">stage_encount_output</span><span class="p">,</span> <span class="n">terrain_output</span> <span class="o">=</span> <span class="n">load_files</span><span class="p">(</span><span class="n">Skill</span><span class="p">,</span> <span class="n">Player</span><span class="p">,</span> <span class="n">Enemy</span><span class="p">,</span> <span class="n">Weapon</span><span class="p">,</span>
+                                                                   <span class="n">output_as_class</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                                                   <span class="n">get_simple_names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back"
-                                         href="../FireEmblemLoadJsonFilesBetterV2.html#FireEmblemLoadJsonFilesBetterV2.main">[docs]</a><span
-        class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="kn">from</span> <span class="nn">Code.FireEmblemCombatV2</span> <span class="kn">import</span> <span
-            class="n">Skill</span><span class="p">,</span> <span class="n">Weapon</span><span class="p">,</span> <span
-            class="n">Enemy</span><span class="p">,</span> <span class="n">Player</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../FireEmblemLoadJsonFilesBetterV2.html#FireEmblemLoadJsonFilesBetterV2.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">Code.FireEmblemCombatV2</span> <span class="kn">import</span> <span class="n">Skill</span><span class="p">,</span> <span class="n">Weapon</span><span class="p">,</span> <span class="n">Enemy</span><span class="p">,</span> <span class="n">Player</span>
 
-    <span class="n">skills_output</span><span class="p">,</span> <span class="n">players_output</span><span
-            class="p">,</span> <span class="n">enemies_output</span><span class="p">,</span> <span class="n">weapons_output</span><span
-            class="p">,</span> <span class="n">english_data_output</span><span class="p">,</span> <span class="n">growth_output</span><span
-            class="p">,</span> \
-    <span class="n">move_output</span><span class="p">,</span> <span class="n">stage_encount_output</span><span
-            class="p">,</span> <span class="n">terrain_output</span> <span class="o">=</span> <span
-            class="n">load_files</span><span class="p">(</span><span class="n">Skill</span><span
-            class="p">,</span> <span class="n">Player</span><span class="p">,</span> <span class="n">Enemy</span><span
-            class="p">,</span> <span class="n">Weapon</span><span class="p">,</span>
-                                                                   <span class="n">output_as_class</span><span
-            class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                                                   <span class="n">get_simple_names</span><span
-            class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+    <span class="n">skills_output</span><span class="p">,</span> <span class="n">players_output</span><span class="p">,</span> <span class="n">enemies_output</span><span class="p">,</span> <span class="n">weapons_output</span><span class="p">,</span> <span class="n">english_data_output</span><span class="p">,</span> <span class="n">growth_output</span><span class="p">,</span> \
+    <span class="n">move_output</span><span class="p">,</span> <span class="n">stage_encount_output</span><span class="p">,</span> <span class="n">terrain_output</span> <span class="o">=</span> <span class="n">load_files</span><span class="p">(</span><span class="n">Skill</span><span class="p">,</span> <span class="n">Player</span><span class="p">,</span> <span class="n">Enemy</span><span class="p">,</span> <span class="n">Weapon</span><span class="p">,</span>
+                                                                   <span class="n">output_as_class</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                                                   <span class="n">get_simple_names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
     <span class="c1"># print(players_output[0][&quot;MARTH&quot;].skills)</span>
 
 <span class="c1"># CONCLUSION: some things, like Falchion, get overridden, others cannot be translated by current translation method</span>

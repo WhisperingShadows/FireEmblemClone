@@ -148,117 +148,50 @@
            <div itemprop="articleBody">
             
   <h1>Source code for FEH_StatGrowth</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">Code.FireEmblemLoadJsonFilesBetterV2</span> <span class="kn">import</span> <span
-                   class="n">load_files</span>
+<span></span><span class="kn">from</span> <span class="nn">Code.FireEmblemLoadJsonFilesBetterV2</span> <span class="kn">import</span> <span class="n">load_files</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">trunc</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">floor</span>
-<span class="kn">from</span> <span class="nn">Code.ZanyLuaOpShenanigans.LuaBase</span> <span
-                   class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">Code.ZanyLuaOpShenanigans.LuaListUtil</span> <span
-                   class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">Code.ZanyLuaOpShenanigans.LuaBase</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">Code.ZanyLuaOpShenanigans.LuaListUtil</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">False</span>
 
-<span class="n">STAT_dict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span
-                   class="p">:</span> <span class="s2">&quot;hp&quot;</span><span class="p">,</span> <span
-                   class="mi">1</span><span class="p">:</span> <span class="s2">&quot;atk&quot;</span><span
-                   class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span
-                   class="s2">&quot;spd&quot;</span><span class="p">,</span> <span class="mi">3</span><span
-                   class="p">:</span> <span class="s2">&quot;def&quot;</span><span class="p">,</span> <span
-                   class="mi">4</span><span class="p">:</span> <span class="s2">&quot;res&quot;</span><span
-                   class="p">}</span>
+<span class="n">STAT_dict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;hp&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;atk&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;spd&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;def&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;res&quot;</span><span class="p">}</span>
 
 <span class="c1"># growth_data contains a list of growth vectors in decimal format</span>
-<span class="n">skills_data</span><span class="p">,</span> <span class="n">players_data</span><span
-                   class="p">,</span> <span class="n">enemies_data</span><span class="p">,</span> <span class="n">weapons_data</span><span
-                   class="p">,</span> <span class="n">english_data</span><span class="p">,</span> <span class="n">growth_data</span><span
-                   class="p">,</span> \
-<span class="n">move_data</span><span class="p">,</span> <span class="n">stage_encount_data</span><span
-                   class="p">,</span> <span class="n">terrain_data</span> <span class="o">=</span> \
-    <span class="n">load_files</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span
-                   class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span
-                   class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span
-                   class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span
-                   class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span
-                   class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span
-                   class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span
-                   class="kc">False</span><span class="p">)</span>
+<span class="n">skills_data</span><span class="p">,</span> <span class="n">players_data</span><span class="p">,</span> <span class="n">enemies_data</span><span class="p">,</span> <span class="n">weapons_data</span><span class="p">,</span> <span class="n">english_data</span><span class="p">,</span> <span class="n">growth_data</span><span class="p">,</span> \
+<span class="n">move_data</span><span class="p">,</span> <span class="n">stage_encount_data</span><span class="p">,</span> <span class="n">terrain_data</span> <span class="o">=</span> \
+    <span class="n">load_files</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
-<span class="n">StatOffset</span> <span class="o">=</span> <span class="p">{</span><span
-                   class="s2">&quot;hp&quot;</span><span class="p">:</span> <span class="o">-</span><span
-                   class="mi">35</span><span class="p">,</span> <span class="s2">&quot;atk&quot;</span><span
-                   class="p">:</span> <span class="o">-</span><span class="mi">28</span><span class="p">,</span> <span
-                   class="s2">&quot;spd&quot;</span><span class="p">:</span> <span class="o">-</span><span
-                   class="mi">21</span><span class="p">,</span> <span class="s2">&quot;def&quot;</span><span
-                   class="p">:</span> <span class="o">-</span><span class="mi">14</span><span class="p">,</span> <span
-                   class="s2">&quot;res&quot;</span><span class="p">:</span> <span class="o">-</span><span
-                   class="mi">7</span><span class="p">}</span>
+<span class="n">StatOffset</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;hp&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">35</span><span class="p">,</span> <span class="s2">&quot;atk&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">28</span><span class="p">,</span> <span class="s2">&quot;spd&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">21</span><span class="p">,</span> <span class="s2">&quot;def&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">14</span><span class="p">,</span> <span class="s2">&quot;res&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">7</span><span class="p">}</span>
 
 
 <span class="c1"># TODO: expand to work on kwargs, fix co_argcount for args also counting kwargs</span>
-<div class="viewcode-block" id="accepts_input"><a class="viewcode-back"
-                                                  href="../FEH_StatGrowth.html#FEH_StatGrowth.accepts_input">[docs]</a><span
-        class="k">def</span> <span class="nf">accepts_input</span><span class="p">(</span><span class="o">*</span><span
-        class="n">types</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">check_accepts</span><span class="p">(</span><span
-            class="n">f</span><span class="p">):</span>
-        <span class="n">new_types</span> <span class="o">=</span> <span class="nb">list</span><span
-            class="p">(</span><span class="n">types</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">types</span><span
-            class="p">)</span> <span class="o">!=</span> <span class="n">f</span><span class="o">.</span><span
-            class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span><span class="p">:</span>
-            <span class="n">new_types</span><span class="o">.</span><span class="n">extend</span><span
-            class="p">([</span><span class="s2">&quot;any&quot;</span> <span class="k">for</span> <span
-            class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span
-            class="n">f</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span
-            class="n">co_argcount</span> <span class="o">-</span> <span class="nb">len</span><span
-            class="p">(</span><span class="n">types</span><span class="p">))])</span>
+<div class="viewcode-block" id="accepts_input"><a class="viewcode-back" href="../FEH_StatGrowth.html#FEH_StatGrowth.accepts_input">[docs]</a><span class="k">def</span> <span class="nf">accepts_input</span><span class="p">(</span><span class="o">*</span><span class="n">types</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">check_accepts</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="n">new_types</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">types</span><span class="p">)</span> <span class="o">!=</span> <span class="n">f</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span><span class="p">:</span>
+            <span class="n">new_types</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;any&quot;</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_argcount</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">types</span><span class="p">))])</span>
 
-        <span class="k">def</span> <span class="nf">new_f</span><span class="p">(</span><span class="o">*</span><span
-            class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span
-            class="p">):</span>
-            <span class="n">new_args</span> <span class="o">=</span> <span class="nb">list</span><span
-            class="p">(</span><span class="n">args</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span
-            class="n">a</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span
-            class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span
-            class="nb">zip</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span
-            class="n">new_types</span><span class="p">)):</span>
-                <span class="k">if</span> <span class="n">t</span> <span class="o">!=</span> <span class="s2">&quot;any&quot;</span> <span
-            class="ow">and</span> <span class="n">t</span> <span class="o">!=</span> <span class="n">Any</span><span
-            class="p">:</span>
+        <span class="k">def</span> <span class="nf">new_f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+            <span class="n">new_args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">new_types</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">t</span> <span class="o">!=</span> <span class="s2">&quot;any&quot;</span> <span class="ow">and</span> <span class="n">t</span> <span class="o">!=</span> <span class="n">Any</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span
-            class="n">a</span><span class="p">,</span> <span class="n">t</span><span class="p">),</span> \
-                            <span class="s2">&quot;Arg </span><span class="si">%r</span><span
-            class="s2"> does not match </span><span class="si">%s</span><span class="s2"> in function </span><span
-            class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span
-            class="n">a</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">f</span><span
-            class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span
-            class="n">co_name</span><span class="p">)</span>
-                    <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span
-            class="n">e</span><span class="p">:</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span
-            class="p">)</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Attempting to convert input type&quot;</span><span
-            class="p">)</span>
+                        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">t</span><span class="p">),</span> \
+                            <span class="s2">&quot;Arg </span><span class="si">%r</span><span class="s2"> does not match </span><span class="si">%s</span><span class="s2"> in function </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_name</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Attempting to convert input type&quot;</span><span class="p">)</span>
                         <span class="k">try</span><span class="p">:</span>
-                            <span class="n">new_args</span><span class="p">[</span><span class="n">i</span><span
-            class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="n">a</span><span
-            class="p">)</span>
+                            <span class="n">new_args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
                         <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to convert&quot;</span><span
-            class="p">)</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to convert&quot;</span><span class="p">)</span>
                             <span class="k">raise</span> <span class="ne">Exception</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successfully converted:&quot;</span><span
-            class="p">,</span> <span class="n">new_args</span><span class="p">[</span><span class="n">i</span><span
-            class="p">])</span>
-            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span
-            class="n">new_args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span
-            class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successfully converted:&quot;</span><span class="p">,</span> <span class="n">new_args</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">new_args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
-        <span class="n">new_f</span><span class="o">.</span><span class="vm">__name__</span> <span
-            class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">new_f</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="k">return</span> <span class="n">new_f</span>
 
     <span class="k">return</span> <span class="n">check_accepts</span></div>

@@ -150,12 +150,11 @@
   <h1>Source code for FEH_character_search</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">import</span> <span class="nn">difflib</span>
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">Code.FireEmblemCombatV2</span> <span class="kn">import</span> <span class="n">players_data</span>
+<span class="kn">from</span> <span class="nn">Code.ThreadedLoad_JSON_Data</span> <span class="kn">import</span> <span class="n">load_files</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="n">FORMAT</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)-15s</span><span class="s2">| </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="n">FORMAT</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="remove_prefix"><a class="viewcode-back" href="../FEH_character_search.html#FEH_character_search.remove_prefix">[docs]</a><span class="k">def</span> <span class="nf">remove_prefix</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefixes</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -255,8 +254,14 @@
 <span class="n">extra_specs</span> <span class="o">=</span> <span class="p">{</span><span class="o">*</span><span class="n">flatten</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">extra_specs</span><span class="p">])}</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">players_data</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">load_files</span><span class="p">(</span><span class="n">get_simple_names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
     <span class="n">name_set</span> <span class="o">=</span> <span class="n">players_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">parted_name_set</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">name_set</span><span class="p">])</span>
+
+    <span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">remove_prefix</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;PID_&quot;</span><span class="p">,</span> <span class="s2">&quot;EID_&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">players_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
 
 <div class="viewcode-block" id="DoesNotContainNameError"><a class="viewcode-back" href="../FEH_character_search.html#FEH_character_search.DoesNotContainNameError">[docs]</a><span class="k">class</span> <span class="nc">DoesNotContainNameError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
@@ -322,7 +327,7 @@
     <span class="k">return</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">token_list</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">filter_set</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="split_and_correct"><a class="viewcode-back" href="../FEH_character_search.html#FEH_character_search.split_and_correct">[docs]</a><span class="k">def</span> <span class="nf">split_and_correct</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="split_and_correct"><a class="viewcode-back" href="../FEH_character_search.html#FEH_character_search.split_and_correct">[docs]</a><span class="k">def</span> <span class="nf">split_and_correct</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parted_name_set</span><span class="p">,</span> <span class="n">name_set</span><span class="p">):</span>
     <span class="n">corrected_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="n">corrected_prefixes</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">corrected_suffixes</span> <span class="o">=</span> <span class="p">[]</span>
@@ -396,12 +401,13 @@
     <span class="k">return</span> <span class="n">corrected_name</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">corrected_prefixes</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">(),</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">corrected_suffixes</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span></div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<div class="viewcode-block" id="get_character"><a class="viewcode-back" href="../FEH_character_search.html#FEH_character_search.get_character">[docs]</a><span class="k">def</span> <span class="nf">get_character</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">players_data</span><span class="p">):</span>
+    <span class="n">name_set</span> <span class="o">=</span> <span class="n">players_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">parted_name_set</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">name_set</span><span class="p">])</span>
+
     <span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">remove_prefix</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;PID_&quot;</span><span class="p">,</span> <span class="s2">&quot;EID_&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">players_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
 
-
-<div class="viewcode-block" id="get_character"><a class="viewcode-back" href="../FEH_character_search.html#FEH_character_search.get_character">[docs]</a><span class="k">def</span> <span class="nf">get_character</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="n">name_token</span><span class="p">,</span> <span class="n">prefixes</span><span class="p">,</span> <span class="n">suffixes</span> <span class="o">=</span> <span class="n">split_and_correct</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">name_token</span><span class="p">,</span> <span class="n">prefixes</span><span class="p">,</span> <span class="n">suffixes</span> <span class="o">=</span> <span class="n">split_and_correct</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parted_name_set</span><span class="p">,</span> <span class="n">name_set</span><span class="p">)</span>
     <span class="c1"># print(&quot;From split&amp;correct:&quot;, name_token, prefixes, suffixes)</span>
     <span class="c1"># name_token = name_token.replace(&quot; &quot;, &quot;_&quot;)</span>
 
@@ -409,13 +415,6 @@
 
     <span class="n">containing</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">words</span> <span class="k">if</span> <span class="nb">all</span><span class="p">(</span>
         <span class="n">name_part</span> <span class="ow">in</span> <span class="p">[</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">name_part</span><span class="p">)]</span> <span class="k">for</span> <span class="n">name_part</span> <span class="ow">in</span> <span class="n">name_token</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">))]</span>
-    <span class="c1"># if not containing:</span>
-    <span class="c1">#     print(name_token)</span>
-    <span class="c1">#     print([word for word in words if &quot;Knight&quot; in word])</span>
-    <span class="c1">#     print([filter_tokens(i, token_filter) for i in containing])</span>
-    <span class="c1"># print(&quot;Filtered containing:&quot;, [filter_tokens(i, token_filter) for i in containing])</span>
-
-    <span class="c1"># tokens = name.split(&quot; &quot;)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">containing</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">NoSuchNameError</span><span class="p">(</span><span class="n">name_token</span><span class="p">)</span>
@@ -458,7 +457,7 @@
 
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Close matches: </span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">Most probable: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-    <span class="k">return</span> <span class="n">output</span></div>
+    <span class="k">return</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
@@ -469,8 +468,8 @@
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">name_set</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">get_character</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-            <span class="k">except</span> <span class="p">(</span><span class="n">DoesNotContainNameError</span><span class="p">,</span> <span class="n">AltDoesNotExistError</span><span class="p">,</span> <span class="n">InvalidTokenError</span><span class="p">,</span> <span class="n">DuplicateTermsError</span><span class="p">,</span>
-                    <span class="n">MultipleNamesError</span><span class="p">,</span> <span class="n">NoSuchNameError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">except</span> <span class="p">(</span><span class="n">DoesNotContainNameError</span><span class="p">,</span> <span class="n">AltDoesNotExistError</span><span class="p">,</span> <span class="n">InvalidTokenError</span><span class="p">,</span>
+                    <span class="n">DuplicateTermsError</span><span class="p">,</span> <span class="n">MultipleNamesError</span><span class="p">,</span> <span class="n">NoSuchNameError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
 
     <span class="k">elif</span> <span class="n">version</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;t&quot;</span><span class="p">:</span>

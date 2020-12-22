@@ -1,0 +1,495 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>StatGrowth &mdash; FireEmblemClone  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> FireEmblemClone
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Code</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">FireEmblemClone</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>StatGrowth</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for StatGrowth</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">Code.FEH_character_search</span> <span class="kn">import</span> <span class="n">get_character</span>
+<span class="kn">from</span> <span class="nn">Code.ThreadedLoad_JSON_Data</span> <span class="kn">import</span> <span class="n">load_files</span>
+
+<span class="n">skills_data</span><span class="p">,</span> <span class="n">players_data</span><span class="p">,</span> <span class="n">enemies_data</span><span class="p">,</span> <span class="n">weapons_data</span><span class="p">,</span> <span class="n">english_data</span><span class="p">,</span> <span class="n">growth_data</span><span class="p">,</span> <span class="n">move_data</span><span class="p">,</span> \
+<span class="n">stage_encount_data</span><span class="p">,</span> <span class="n">terrain_data</span> <span class="o">=</span> <span class="n">load_files</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">get_simple_names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="c1"># def zip_op(t1, t2, op):</span>
+<span class="c1">#     z = []</span>
+<span class="c1">#     for i in range(len(t1)):</span>
+<span class="c1">#         z.append(op(t1[i], t2[i]))</span>
+<span class="c1">#     return z</span>
+
+<div class="viewcode-block" id="zip_op"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.zip_op">[docs]</a><span class="k">def</span> <span class="nf">zip_op</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">op</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">op</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">zip</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">))]</span></div>
+
+
+<div class="viewcode-block" id="generate_"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.generate_">[docs]</a><span class="k">def</span> <span class="nf">generate_</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">z</span></div>
+
+
+<div class="viewcode-block" id="map_"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.map_">[docs]</a><span class="k">def</span> <span class="nf">map_</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+        <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">z</span></div>
+
+
+<div class="viewcode-block" id="count_if_"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.count_if_">[docs]</a><span class="k">def</span> <span class="nf">count_if_</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">pr</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">pr</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">):</span>
+            <span class="n">z</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">z</span></div>
+
+
+<div class="viewcode-block" id="arrayOrder_"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.arrayOrder_">[docs]</a><span class="k">def</span> <span class="nf">arrayOrder_</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">map_</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span>
+    <span class="n">count_if_</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span>
+    <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">lhs</span> <span class="o">&gt;=</span> <span class="n">rhs</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">lhs</span> <span class="o">&gt;</span> <span class="n">rhs</span><span class="p">)</span>
+              <span class="p">)</span>
+                <span class="p">)</span></div>
+
+
+<span class="c1"># arr = [1,3,2,4,3,3]</span>
+<span class="c1">#</span>
+<span class="c1"># for index, data in enumerate(arrayOrder_(arr)):</span>
+<span class="c1">#     print(index+1, data, arr[data])</span>
+
+<span class="n">STAT_dict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;hp&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;atk&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;spd&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;def&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;res&quot;</span><span class="p">}</span>
+<span class="n">StatOffset</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;hp&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">35</span><span class="p">,</span> <span class="s2">&quot;atk&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">28</span><span class="p">,</span> <span class="s2">&quot;spd&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">21</span><span class="p">,</span> <span class="s2">&quot;def&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">14</span><span class="p">,</span> <span class="s2">&quot;res&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">7</span><span class="p">}</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+
+
+<div class="viewcode-block" id="get_applied_growth_rate"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.get_applied_growth_rate">[docs]</a><span class="k">def</span> <span class="nf">get_applied_growth_rate</span><span class="p">(</span><span class="n">rarity</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">rate</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.79</span> <span class="o">+</span> <span class="mf">0.07</span> <span class="o">*</span> <span class="n">rarity</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="get_growth_value"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.get_growth_value">[docs]</a><span class="k">def</span> <span class="nf">get_growth_value</span><span class="p">(</span><span class="n">rarity</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="mf">0.39</span> <span class="o">*</span> <span class="n">get_applied_growth_rate</span><span class="p">(</span><span class="n">rarity</span><span class="p">,</span> <span class="n">rate</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="getSupergrowth"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.getSupergrowth">[docs]</a><span class="k">def</span> <span class="nf">getSupergrowth</span><span class="p">(</span><span class="n">rarity</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
+    <span class="n">neut</span> <span class="o">=</span> <span class="n">get_growth_value</span><span class="p">(</span><span class="n">rarity</span><span class="p">,</span> <span class="n">rate</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">get_growth_value</span><span class="p">(</span><span class="n">rarity</span><span class="p">,</span> <span class="n">rate</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">neut</span> <span class="o">+</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">get_growth_value</span><span class="p">(</span><span class="n">rarity</span><span class="p">,</span> <span class="n">rate</span> <span class="o">-</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">neut</span> <span class="o">-</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="get_rarity_bonuses"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.get_rarity_bonuses">[docs]</a><span class="k">def</span> <span class="nf">get_rarity_bonuses</span><span class="p">(</span><span class="n">five_star_lv1_stats</span><span class="p">):</span>
+    <span class="c1"># var = arrayOrder_(five_star_lv1_stats[2 - 1:])</span>
+    <span class="c1"># var.insert(0, 0)</span>
+    <span class="c1"># order = var</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">arrayOrder_</span><span class="p">(</span><span class="n">five_star_lv1_stats</span><span class="p">[</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:])]</span>
+    <span class="k">return</span> <span class="n">generate_</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">rarity</span><span class="p">:</span>
+    <span class="p">[</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">o</span><span class="p">:</span>
+          <span class="mi">2</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="mi">5</span> <span class="o">-</span> <span class="n">rarity</span> <span class="o">+</span> <span class="p">(</span><span class="n">o</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+          <span class="n">order</span><span class="p">)]</span>
+                     <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rarity_bonuses_for_3_stars"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.rarity_bonuses_for_3_stars">[docs]</a><span class="k">def</span> <span class="nf">rarity_bonuses_for_3_stars</span><span class="p">(</span><span class="n">rarity_bonuses</span><span class="p">,</span> <span class="n">rarity</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">STAT_dict</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rarity_bonuses</span><span class="p">[</span><span class="n">rarity</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]])}</span></div>
+
+
+<div class="viewcode-block" id="convert_lv1_3star_stats_to_5star"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.convert_lv1_3star_stats_to_5star">[docs]</a><span class="k">def</span> <span class="nf">convert_lv1_3star_stats_to_5star</span><span class="p">(</span><span class="n">stats</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This just adds 1 to each stat?</span>
+
+<span class="sd">    :param stats:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">stats</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Invalid number of stats supplied, should be 5&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_stats</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">:</span>
+                <span class="n">stat</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">new_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stat</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">new_stats</span></div>
+
+
+<div class="viewcode-block" id="full_lv1_stats"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.full_lv1_stats">[docs]</a><span class="k">def</span> <span class="nf">full_lv1_stats</span><span class="p">(</span><span class="n">five_star_lv1_stats</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns level 1 stats at all rarities</span>
+
+<span class="sd">    :param five_star_lv1_stats:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="n">arrayOrder_</span><span class="p">(</span><span class="n">five_star_lv1_stats</span><span class="p">[</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:])</span>
+    <span class="c1"># print(&quot;Order before unpack:&quot;, var)</span>
+    <span class="n">var</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># print(&quot;Order after insert:&quot;, order)</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">var</span>
+    <span class="c1"># print(&quot;Order after unpack:&quot;, order)</span>
+
+    <span class="c1"># order = unpack(arrayOrder(sub(fiveStarLv1Stats, 2, 5)))</span>
+    <span class="k">return</span> <span class="n">generate_</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">rarity</span><span class="p">:</span>
+    <span class="n">zip_op</span><span class="p">(</span><span class="n">five_star_lv1_stats</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">b</span><span class="p">,</span> <span class="n">o</span><span class="p">:</span>
+    <span class="n">b</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="mi">5</span> <span class="o">-</span> <span class="n">rarity</span> <span class="o">+</span> <span class="p">(</span><span class="n">o</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+           <span class="p">)</span>
+                     <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="full_lv40_stats"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.full_lv40_stats">[docs]</a><span class="k">def</span> <span class="nf">full_lv40_stats</span><span class="p">(</span><span class="n">rate_set</span><span class="p">,</span> <span class="n">full_1_stat_set</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">map_</span><span class="p">(</span><span class="n">full_1_stat_set</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">stat_set</span><span class="p">,</span> <span class="n">rarity</span><span class="p">:</span>
+                <span class="n">zip_op</span><span class="p">(</span><span class="n">stat_set</span><span class="p">,</span> <span class="n">rate_set</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">base</span><span class="p">,</span> <span class="n">rate</span><span class="p">:</span>
+                <span class="n">base</span> <span class="o">+</span> <span class="n">get_growth_value</span><span class="p">(</span><span class="n">rarity</span><span class="p">,</span> <span class="n">rate</span><span class="p">)</span>
+                       <span class="p">)</span>
+                <span class="p">)</span></div>
+
+
+<span class="c1"># not used for playable units at any level other than 40 where randomized stats converge</span>
+<span class="c1"># mostly used for tempest trials, training tower, chain challenges, etc.</span>
+<div class="viewcode-block" id="general_levelup"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.general_levelup">[docs]</a><span class="k">def</span> <span class="nf">general_levelup</span><span class="p">(</span><span class="n">new_level</span><span class="p">,</span> <span class="n">old_level</span><span class="p">,</span> <span class="n">applied_growth_rate</span><span class="p">):</span>
+    <span class="c1"># returns growth value</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">trunc</span><span class="p">((</span><span class="n">new_level</span> <span class="o">-</span> <span class="n">old_level</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">applied_growth_rate</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="get_growth_vector_id"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.get_growth_vector_id">[docs]</a><span class="k">def</span> <span class="nf">get_growth_vector_id</span><span class="p">(</span><span class="n">five_star_lv1_neutral_base_stat</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">applied_growth_rate</span><span class="p">,</span> <span class="n">bvid</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">num_offset</span> <span class="o">=</span> <span class="n">offset</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="ow">in</span> <span class="n">StatOffset</span><span class="p">:</span>
+            <span class="n">num_offset</span> <span class="o">=</span> <span class="n">StatOffset</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Invalid stat key supplied&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Invalid offset supplied&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">((</span><span class="mi">3</span> <span class="o">*</span> <span class="n">five_star_lv1_neutral_base_stat</span><span class="p">)</span> <span class="o">+</span> <span class="n">num_offset</span> <span class="o">+</span> <span class="n">applied_growth_rate</span> <span class="o">+</span> <span class="n">bvid</span><span class="p">)</span> <span class="o">%</span> <span class="mi">64</span></div>
+
+
+<div class="viewcode-block" id="get_growth_vector"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.get_growth_vector">[docs]</a><span class="k">def</span> <span class="nf">get_growth_vector</span><span class="p">(</span><span class="n">growth_value</span><span class="p">,</span> <span class="n">growth_vector_id</span><span class="p">):</span>
+    <span class="c1"># print(format(growth_data[growth_value][growth_vector_ID], &quot;0b&quot;)[::-1][1:], &quot;Formated Ver&quot;)</span>
+    <span class="c1"># print(bin(growth_data[growth_value][growth_vector_ID])[::-1][1:].replace(&quot;b0&quot;, &quot;&quot;), &quot;Bin ver 1&quot;)</span>
+    <span class="c1"># print(bin(growth_data[growth_value][growth_vector_ID])[1:-1][::-1], &quot;Bin ver 2&quot;) # still has b at the end</span>
+    <span class="n">bin_string</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">growth_data</span><span class="p">[</span><span class="n">growth_value</span><span class="p">][</span><span class="n">growth_vector_id</span><span class="p">],</span> <span class="s2">&quot;0b&quot;</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">bin_string</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">40</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">bin_string</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="test_growth_vector"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.test_growth_vector">[docs]</a><span class="k">def</span> <span class="nf">test_growth_vector</span><span class="p">(</span><span class="n">growth_vector</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">lv40</span><span class="p">):</span>
+    <span class="c1"># print(growth_vector)</span>
+    <span class="c1"># print(list(growth_vector).count(&quot;1&quot;))</span>
+    <span class="k">return</span> <span class="n">base</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">growth_vector</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">lv40</span></div>
+
+
+<span class="c1"># vec_id = get_growth_vector_id(18, -35, get_applied_growth_rate(5, 45), 169)</span>
+<span class="c1"># print(get_growth_vector(19, vec_id))</span>
+
+<div class="viewcode-block" id="get_stat_increase_for_level_abstract_fill"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.get_stat_increase_for_level_abstract_fill">[docs]</a><span class="k">def</span> <span class="nf">get_stat_increase_for_level_abstract_fill</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="n">stat</span><span class="p">,</span> <span class="n">rarity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                              <span class="n">stats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                              <span class="n">bvid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">asset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flaw</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rarity</span> <span class="o">=</span> <span class="n">char</span><span class="o">.</span><span class="n">rarity</span> <span class="k">if</span> <span class="n">rarity</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">rarity</span>
+    <span class="n">level</span> <span class="o">=</span> <span class="n">char</span><span class="o">.</span><span class="n">level</span> <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">level</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">char</span><span class="o">.</span><span class="n">base_stats</span> <span class="k">if</span> <span class="n">stats</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">stats</span>
+    <span class="n">rates</span> <span class="o">=</span> <span class="n">char</span><span class="o">.</span><span class="n">growth_rates</span> <span class="k">if</span> <span class="n">rates</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">rates</span>
+    <span class="n">bvid</span> <span class="o">=</span> <span class="n">char</span><span class="o">.</span><span class="n">base_vector_id</span> <span class="k">if</span> <span class="n">bvid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">bvid</span>
+    <span class="n">asset</span> <span class="o">=</span> <span class="n">char</span><span class="o">.</span><span class="n">asset</span> <span class="k">if</span> <span class="n">asset</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">asset</span>
+    <span class="n">flaw</span> <span class="o">=</span> <span class="n">char</span><span class="o">.</span><span class="n">flaw</span> <span class="k">if</span> <span class="n">flaw</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">flaw</span>
+
+    <span class="k">if</span> <span class="n">stat</span> <span class="o">==</span> <span class="n">asset</span><span class="p">:</span>
+        <span class="n">rate</span> <span class="o">=</span> <span class="n">rates</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span> <span class="o">+</span> <span class="mi">5</span>
+        <span class="n">stat_increase</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">stat</span> <span class="o">==</span> <span class="n">flaw</span><span class="p">:</span>
+        <span class="n">rate</span> <span class="o">=</span> <span class="n">rates</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span> <span class="o">-</span> <span class="mi">5</span>
+        <span class="n">stat_increase</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rate</span> <span class="o">=</span> <span class="n">rates</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span>
+        <span class="n">stat_increase</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">stat_val</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span>
+
+    <span class="n">applied_growth_rate</span> <span class="o">=</span> <span class="n">get_applied_growth_rate</span><span class="p">(</span><span class="n">rarity</span><span class="p">,</span> <span class="n">rate</span><span class="p">)</span>
+
+    <span class="n">growth_value</span> <span class="o">=</span> <span class="n">get_growth_value</span><span class="p">(</span><span class="n">rarity</span><span class="p">,</span> <span class="n">rate</span><span class="p">)</span>
+
+    <span class="n">growth_vector_id</span> <span class="o">=</span> <span class="n">get_growth_vector_id</span><span class="p">(</span><span class="n">convert_lv1_3star_stats_to_5star</span><span class="p">(</span><span class="n">stat_val</span><span class="p">),</span>
+                                            <span class="n">stat</span><span class="p">,</span> <span class="n">applied_growth_rate</span><span class="p">,</span> <span class="n">bvid</span><span class="p">)</span>
+
+    <span class="n">growth_vector</span> <span class="o">=</span> <span class="n">get_growth_vector</span><span class="p">(</span><span class="n">growth_value</span><span class="p">,</span> <span class="n">growth_vector_id</span><span class="p">)</span>
+
+    <span class="c1"># print(&quot;{0}: {1}&quot;.format(stat, growth_vector))</span>
+
+    <span class="n">stat_increase</span> <span class="o">+=</span> <span class="n">rarity_bonuses_for_3_stars</span><span class="p">(</span>
+        <span class="n">get_rarity_bonuses</span><span class="p">(</span><span class="n">convert_lv1_3star_stats_to_5star</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">values</span><span class="p">())),</span> <span class="n">rarity</span><span class="p">)[</span><span class="n">stat</span><span class="p">]</span>
+
+    <span class="c1"># for i in range(level):</span>
+    <span class="c1">#     stat_increase += int(growth_vector[i])</span>
+
+    <span class="n">stat_increase</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">growth_vector</span><span class="p">)[:</span><span class="n">level</span><span class="p">]))</span>
+
+    <span class="k">return</span> <span class="n">stat_increase</span></div>
+
+
+<span class="c1"># def get_stat_increase_for_level_abstract(stat, rarity, level, stats, rates,</span>
+<span class="c1">#                                          bvid, asset, flaw):</span>
+<span class="c1">#</span>
+<span class="c1">#     if stat == asset:</span>
+<span class="c1">#         rate = rates[stat] + 5</span>
+<span class="c1">#         stat_increase = 1</span>
+<span class="c1">#     elif stat == flaw:</span>
+<span class="c1">#         rate = rates[stat] - 5</span>
+<span class="c1">#         stat_increase = -1</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         rate = rates[stat]</span>
+<span class="c1">#         stat_increase = 0</span>
+<span class="c1">#</span>
+<span class="c1">#     stat_val = stats[stat]</span>
+<span class="c1">#</span>
+<span class="c1">#     applied_growth_rate = get_applied_growth_rate(rarity, rate)</span>
+<span class="c1">#</span>
+<span class="c1">#     growth_value = get_growth_value(rarity, rate)</span>
+<span class="c1">#</span>
+<span class="c1">#     growth_vector_id = get_growth_vector_id(convert_lv1_3star_stats_to_5star(stat_val),</span>
+<span class="c1">#                                             stat, applied_growth_rate, bvid)</span>
+<span class="c1">#</span>
+<span class="c1">#     growth_vector = get_growth_vector(growth_value, growth_vector_id)</span>
+<span class="c1">#</span>
+<span class="c1">#     # print(&quot;{0}: {1}&quot;.format(stat, growth_vector))</span>
+<span class="c1">#</span>
+<span class="c1">#     stat_increase += rarity_bonuses_for_3_stars(</span>
+<span class="c1">#         get_rarity_bonuses(convert_lv1_3star_stats_to_5star(stats.values())), rarity)[stat]</span>
+<span class="c1">#</span>
+<span class="c1">#     for i in range(level):</span>
+<span class="c1">#         stat_increase += int(growth_vector[i])</span>
+<span class="c1">#</span>
+<span class="c1">#     # stat_increase = sum(map(int, list(growth_vector)[:level]))</span>
+<span class="c1">#</span>
+<span class="c1">#     return stat_increase</span>
+
+<div class="viewcode-block" id="get_stat_increase_for_level"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.get_stat_increase_for_level">[docs]</a><span class="k">def</span> <span class="nf">get_stat_increase_for_level</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">char</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">get_stat_increase_for_level_abstract_fill</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="n">stat</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_all_stat_increases_for_level"><a class="viewcode-back" href="../StatGrowth.html#StatGrowth.get_all_stat_increases_for_level">[docs]</a><span class="k">def</span> <span class="nf">get_all_stat_increases_for_level</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">stat_increases</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">STAT_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()}</span>
+
+    <span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">STAT_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">stat_increases</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_stat_increase_for_level</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">char</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">stat_increases</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">Player</span><span class="p">:</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">char</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">rarity</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">asset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flaw</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rarity</span> <span class="o">=</span> <span class="n">rarity</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_stats</span> <span class="o">=</span> <span class="n">char</span><span class="p">[</span><span class="s2">&quot;base_stats&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">growth_rates</span> <span class="o">=</span> <span class="n">char</span><span class="p">[</span><span class="s2">&quot;growth_rates&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_vector_id</span> <span class="o">=</span> <span class="n">char</span><span class="p">[</span><span class="s2">&quot;base_vector_id&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">asset</span> <span class="o">=</span> <span class="n">asset</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flaw</span> <span class="o">=</span> <span class="n">flaw</span>
+
+
+    <span class="n">char</span> <span class="o">=</span> <span class="n">Player</span><span class="p">(</span><span class="n">players_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">get_character</span><span class="p">(</span><span class="s2">&quot;Halloween Myrrh&quot;</span><span class="p">,</span> <span class="n">players_data</span><span class="p">)],</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+
+    <span class="n">ups</span> <span class="o">=</span> <span class="n">get_all_stat_increases_for_level</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">char</span><span class="o">.</span><span class="n">base_stats</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="o">+</span> <span class="n">ups</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">char</span><span class="o">.</span><span class="n">base_stats</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Dania M.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
