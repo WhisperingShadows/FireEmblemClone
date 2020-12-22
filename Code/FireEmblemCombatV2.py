@@ -1216,7 +1216,6 @@ class Character(ArbitraryAttributeClass):
         stat_increases = StatGrowth.get_all_stat_increases_for_level(self)
         for stat in stat_increases:
             self.stats[stat] = self.base_stats[stat] + stat_increases[stat]
-        # should I put self.hp in here too? Or will that mess with levelling up?
 
     def damage_enemy(self, enemy: 'Character', damage: int):
         enemy.hp -= damage
@@ -1610,12 +1609,12 @@ def print_grid(input_grid: Graph):
         for ix in range(0, x):
             held = input_grid.nodes[iy * x + ix].holds
             if held is None:
-                row.append("  ")
+                row.append("- ")
             elif held.__class__ == Enemy:
                 row.append("X ")
             elif held.__class__ == Player:
                 row.append("O ")
-        print(row)
+        print(" ".join(row))
 
 
 def find_inconsistencies():
@@ -2490,18 +2489,14 @@ def program_instructions():
 
     testchar = Enemy.from_dict(players_data[0][get_character("Aversa", players_data)], pos=(1, 1),
                                rarity=5, level=40, weapon="SID_ノスフェラート")
-    print()
-    print("STATS:", players_data[0][get_character("Alphonse", players_data)]["base_stats"])
-    print()
+
     testchar2 = Player.from_dict(players_data[0][get_character("Alphonse", players_data)], pos=(2, 1), rarity=5,
                                  level=40,
                                  weapon="SID_銀の剣")
-    print()
+
     testchar3 = Player.from_dict(players_data[0][get_character("Alphonse", players_data)], pos=(3, 1), rarity=5,
                                  level=40,
                                  weapon="SID_銀の剣")
-    print()
-    print("STATS", players_data[0][get_character("Alphonse", players_data)]["base_stats"])
 
     # print("STATS:", players_data[0]["PID_Ophelia"]["base_stats"])
     # print()

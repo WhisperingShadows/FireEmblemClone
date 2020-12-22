@@ -19,7 +19,7 @@ import sys
 # sys.path.insert(0, r"C:\Users\admin\PycharmProjects\FireEmblemClone\HertzDevil_JSON_assets\Common\SRPG")
 sys.path.insert(0, os.path.abspath('../../'))
 sys.path.insert(0, os.path.abspath('../../Code'))
-sys.path.insert(0, os.path.abspath('../../Code/ZanyLuaOpShenanigans'))
+sys.path.insert(0, os.path.abspath('../../Old_Code/ZanyLuaOpShenanigans'))
 sys.path.insert(0, r"C:\Users\admin\AppData\Local\Programs\Python\Python36")
 sys.path.insert(0, r"C:\Users\admin\AppData\Local\Programs\Python\Python36\Lib\site-packages")
 # sys.path.insert(0, os.path.abspath('.'))

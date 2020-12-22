@@ -288,7 +288,7 @@ if __name__ == '__main__':
             self.flaw = flaw
 
 
-    char = Player(players_data[0][get_character("Fae", players_data)], 4, 40, "hp", "atk")
+    char = Player(players_data[0][get_character("Halloween Myrrh", players_data)], 5, 40)
 
     ups = get_all_stat_increases_for_level(char)
 
