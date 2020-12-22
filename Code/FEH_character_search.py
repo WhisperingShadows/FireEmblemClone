@@ -1,11 +1,10 @@
 from typing import Iterable
 import difflib
-if __name__ == '__main__':
-    from Code.FireEmblemCombatV2 import players_data
+from Code.ThreadedLoad_JSON_Data import load_files
 import logging
 
 FORMAT = "%(asctime)-15s| %(message)s"
-logging.basicConfig(format=FORMAT, level="DEBUG")
+logging.basicConfig(format=FORMAT, level=40)
 
 
 def remove_prefix(text: str, prefixes: Iterable) -> str:
@@ -105,8 +104,14 @@ extra_specs = [
 extra_specs = {*flatten([i.split(" ") for i in extra_specs])}
 
 if __name__ == '__main__':
+    _, players_data, *_ = load_files(get_simple_names=True)
+
     name_set = players_data[2]
     parted_name_set = flatten([i.split(" ") for i in name_set])
+
+    words = [remove_prefix(i, ["PID_", "EID_"]) for i in players_data[0].keys()]
+    print(len(words))
+    print(words[1])
 
 
 class DoesNotContainNameError(Exception):
@@ -172,7 +177,7 @@ def filter_tokens(token_string, filter_set):
     return '_'.join([i for i in token_list if i not in filter_set])
 
 
-def split_and_correct(name: str):
+def split_and_correct(name: str, parted_name_set, name_set):
     corrected_name = ""
     corrected_prefixes = []
     corrected_suffixes = []
@@ -246,12 +251,13 @@ def split_and_correct(name: str):
     return corrected_name.strip(), ' '.join(corrected_prefixes).title(), ' '.join(corrected_suffixes).title()
 
 
-if __name__ == '__main__':
+def get_character(name: str, players_data):
+    name_set = players_data[2]
+    parted_name_set = flatten([i.split(" ") for i in name_set])
+
     words = [remove_prefix(i, ["PID_", "EID_"]) for i in players_data[0].keys()]
 
-
-def get_character(name: str):
-    name_token, prefixes, suffixes = split_and_correct(name)
+    name_token, prefixes, suffixes = split_and_correct(name, parted_name_set, name_set)
     # print("From split&correct:", name_token, prefixes, suffixes)
     # name_token = name_token.replace(" ", "_")
 
@@ -259,13 +265,6 @@ def get_character(name: str):
 
     containing = [i for i in words if all(
         name_part in [j for j in i.split("_") if len(j) == len(name_part)] for name_part in name_token.split(" "))]
-    # if not containing:
-    #     print(name_token)
-    #     print([word for word in words if "Knight" in word])
-    #     print([filter_tokens(i, token_filter) for i in containing])
-    # print("Filtered containing:", [filter_tokens(i, token_filter) for i in containing])
-
-    # tokens = name.split(" ")
 
     if not containing:
         raise NoSuchNameError(name_token)
@@ -308,7 +307,7 @@ def get_character(name: str):
 
     logging.info("Close matches: %s \nMost probable: %s", output, output[0])
 
-    return output
+    return output[0]
 
 
 if __name__ == '__main__':
@@ -319,8 +318,8 @@ if __name__ == '__main__':
         for name in name_set:
             try:
                 get_character(name)
-            except (DoesNotContainNameError, AltDoesNotExistError, InvalidTokenError, DuplicateTermsError,
-                    MultipleNamesError, NoSuchNameError) as e:
+            except (DoesNotContainNameError, AltDoesNotExistError, InvalidTokenError,
+                    DuplicateTermsError, MultipleNamesError, NoSuchNameError) as e:
                 logging.error(e.message)
 
     elif version.lower() == "t":

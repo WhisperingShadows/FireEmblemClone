@@ -88,7 +88,7 @@ def map_i(f: FuncOrLamb, t: LuaList) -> LuaList:
         for i in range(1, len(t) + 1):
             z[i] = f(t[i], i)
     else:
-        print("Too many arguements")
+        print("Too many arguments")
         raise Exception
     z = LuaList(z)
     # print("Map out:", z)
@@ -144,7 +144,7 @@ def generate(n: int, f: FuncOrLamb) -> LuaList:
         z.append(f(i))
     z = LuaList(z)
     # print("Generate out:")
-    pprint(z)
+    # pprint(z)
     return z
 
 

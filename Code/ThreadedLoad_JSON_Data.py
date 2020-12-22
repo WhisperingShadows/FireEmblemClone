@@ -340,6 +340,7 @@ def get_jap_and_eng_name_dicts(list_of_dicts: List[Dict], output_category: str,
     return to_return
 
 
+# TODO: Thread each get (to not have to wait for each directory to load before starting the next)
 def load_files(get_english_data=True, get_skills=True, get_characters=True, get_weapons=True,
                get_growth=True, get_move=True, get_stage_encount=True, get_terrain=True,
                check_for_update=False, get_simple_names=False):
@@ -347,7 +348,7 @@ def load_files(get_english_data=True, get_skills=True, get_characters=True, get_
 
     english_data = {}
 
-    if get_english_data:
+    def get_english_data_func():
         os.chdir(os.path.join(hold_path, "HertzDevil_JSON_assets/USEN/Message/Data"))
 
         english_data = ThreadedLoad().run(os.listdir())
@@ -356,7 +357,10 @@ def load_files(get_english_data=True, get_skills=True, get_characters=True, get_
         for english_data_entry in english_data:
             my_list.extend(english_data[english_data_entry])
 
-        english_data = merge_english_dicts(my_list)
+        return merge_english_dicts(my_list)
+
+    if get_english_data:
+        english_data = get_english_data_func()
 
     def process_data(data_loc, output, output_type):
         try:

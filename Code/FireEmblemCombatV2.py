@@ -3,7 +3,7 @@ Contains the updated combat logic for FireEmblemClone
 """
 
 from Code.FEH_DijkstraAlgorithm import *
-from Code import FEH_StatGrowth
+from Code import StatGrowth
 from Code.ThreadedLoad_JSON_Data import *
 from math import trunc, floor
 
@@ -148,6 +148,8 @@ class ArbitraryAttributeClass:
     Intended for use as a base class to inherit from. Initializes class with attributes
     given by keyword arguments or a supplied dictionary.
     """
+
+    # TODO: Maybe make values be copies? Might be references that cause problems otherwise
 
     def __init__(self, **kwargs):
         # print(kwargs)
@@ -459,14 +461,14 @@ class Skill(ArbitraryAttributeClass):
             limit1 = getattr(eval(f"stid{self.timing_id}"), f"slid{self.limit1_id}")
         else:
             # if the limit id is 0, there is no limit
-            limit1 = True
+            limit1 = lambda **kwargs: True
 
         # gets second limit function
         if self.limit2_id != 0:
             limit2 = getattr(eval(f"stid{self.timing_id}"), f"slid{self.limit2_id}")
         else:
             # if the limit id is 0, there is no limit
-            limit2 = True
+            limit2 = lambda **kwargs: True
 
         # print(self.limit1_id, self.limit2_id)
 
@@ -812,12 +814,18 @@ class Character(ArbitraryAttributeClass):
         #: has unit acted already; boolean
         self.has_acted = None
         self.has_acted: bool
+        #: Unit's asset stat
+        self.asset = None
+        self.asset: Union[None, str]
+        #: Unit's flaw stat
+        self.flaw = None
+        self.flaw: Union[None, str]
 
         super().__init__(**kwargs)
-        scope = self.__dict__.copy()
-
-        # print("Self scope:", scope)
-        self_properties(self, scope)
+        # scope = self.__dict__.copy()
+        #
+        # # print("Self scope:", scope)
+        # self_properties(self, scope)
 
         self.set_attribute_values()
 
@@ -884,7 +892,9 @@ class Character(ArbitraryAttributeClass):
         # sets stats to base stats for current level
         # TODO: Add support for IVs
         if not self.stats:
-            self.stats = self.base_stats
+            print(self)
+            # self.stats = self.base_stats
+            self.stats = {}
             self.set_stats_to_stats_for_level()
         # sets current buffs to 0
         if not self.buffs:
@@ -1203,10 +1213,14 @@ class Character(ArbitraryAttributeClass):
 
         :return: None
         """
-        stat_increases = FEH_StatGrowth.get_all_stat_increases_for_level(self)
+        stat_increases = StatGrowth.get_all_stat_increases_for_level(self)
         for stat in stat_increases:
             self.stats[stat] = self.base_stats[stat] + stat_increases[stat]
         # should I put self.hp in here too? Or will that mess with levelling up?
+
+    def damage_enemy(self, enemy: 'Character', damage: int):
+        enemy.hp -= damage
+        # add on_damage effects here
 
     def attack_enemy(self, enemy: "Character"):
         """
@@ -1229,37 +1243,39 @@ class Character(ArbitraryAttributeClass):
                 atk = self.stats["atk"] + self.buffs["atk"] + self.combat_boosts["atk"]
 
                 # TODO: Add support for adaptive damage
-                mit_stat = "def" if self.weapon.tome_class == 0 else "res"
+                # self.weapon.tome_class
+                mit_stat = "def" if self.tome_class == 0 else "res"
                 mitigation = enemy.stats[mit_stat] + enemy.buffs[mit_stat] + enemy.combat_boosts[mit_stat]
 
                 damage = pos(floor(atk * self.calc_effectiveness(enemy)) + trunc(
                     floor(atk * self.calc_effectiveness(enemy)) * (self.calc_weapon_triangle(enemy) * (
                             self.affinity + 20) / 20)) + self.calc_boosted_damage(enemy) - mitigation)
-                enemy.hp = enemy.hp - damage
+
+                self.damage_enemy(enemy, damage)
 
                 if enemy.hp > 0:
                     print(self.name, "dealt", damage, "damage,", enemy.name, "has", enemy.hp, "HP remaining")
                 else:
                     print(self.name, "dealt", damage, "damage,", enemy.name, "has been defeated")
-                    enemy.die()
+                    # enemy.die()
 
                 return None
             print("Enemy not in range")
         else:
             print("Enemy has already been defeated")
 
-    def attack_node(self, node: Node):
+    def attack_node(self, pos: Tuple[int, int]):
         """
         Attacks a designated node using :meth:`attack_enemy`
 
         :param node:
         :return: None
         """
-        enemy = GRID.nodes[GRID.get_index_from_xy(node)].holds
+        enemy = GRID.nodes[GRID.get_index_from_xy(pos)].holds
         if enemy is not None:
             self.attack_enemy(enemy)
         else:
-            print("There is no enemy at position", node)
+            print("There is no enemy at position", pos)
 
     def move(self, new_pos: tuple):
         """
@@ -1529,7 +1545,11 @@ def in_bitmask(nums: Union[int, Iterable[int]], bitmask: int) -> Union[bool, Dic
     in_bitmask_dict = dict()
 
     if isinstance(nums, int):
-        if len(bitmask_list) < nums:
+        # print("Bitmask:", bitmask)
+        # print("Bitmask_list:", bitmask_list)
+        # print("Nums:", nums)
+        # if len(bitmask_list) < nums:
+        if len(bitmask_list) <= nums:
             return False
         return True if bitmask_list[nums] == 1 else False
 
@@ -2255,7 +2275,7 @@ def find(skill, slid_value):
 class GameLoop:
     def __init__(self):
         self.turn = 0  # 1?
-        self.phase = None
+        self.phase = "player"
         self.running = True
 
     @property
@@ -2272,13 +2292,13 @@ class GameLoop:
         # self.swap_phase()
 
         while self.running:
-            self.player_phase()
-            self.enemy_phase()
+            # self.player_phase()
+            # self.enemy_phase()
+            #
+            # instruction = input()
+            # self.process_instruction(instruction)
 
-            instruction = input()
-            self.process_instruction(instruction)
-
-        # self.battle_phase()
+            self.battle_phase()
 
     def process_instruction(self, instruction: str):
         tokens: List[str] = instruction.split(" ")
@@ -2333,28 +2353,55 @@ class GameLoop:
         players = get_players()
         self.start_of_turn(players)
 
+        print_grid(GRID)
+
+        print(*[f"{i}: {player.name} {player.pos};" for i, player in enumerate(players)])
+        # print(*[f"{enemy.name} {enemy.pos};" for enemy in get_enemies()])
+
+        index = int(input("Select unit: ").strip())
+        action = input("Select action move (m) or attack (a): ").strip()
+
+        if action == "a":
+            pos = input("Give enemy position: ").strip()
+            x, y = pos.split(",")[0], pos.split(",")[1]
+            x = int(x.strip())
+            y = int(y.strip())
+            players[index].attack_node((x, y))
+
+        if action == "m":
+            pos = input("Give position to move to: ").strip()
+            x, y = pos.split(",")[0], pos.split(",")[1]
+            x = int(x.strip())
+            y = int(y.strip())
+            players[index].move((x, y))
+
     def enemy_phase(self):
         print("Starting enemy phase")
         self.phase = "enemy"
         enemies = get_enemies()
         self.start_of_turn(enemies)
 
+    @staticmethod
+    def get_phase(self):
+        while True:
+            for ph in [self.player_phase, self.enemy_phase]:
+                yield ph
+
     def battle_phase(self):
         print("Starting battle phase")
 
         while not (get_players() == [] or get_enemies() == []):
-            self.player_phase()
-
-            self.enemy_phase()
+            next(self.get_phase(self))()
 
         if self.phase == "player":
             print("Victory")
         elif self.phase == "enemy":
             print("Defeat")
-        pass
 
-    def evaluate_skill(self, characters: Union[Character, Iterable[Character]],
-                       timing_contexts: Iterable[int]):
+        self.running = False
+
+    def evaluate_skills(self, characters: Union[Character, Iterable[Character]],
+                        timing_contexts: Iterable[int]):
         if not isinstance(characters, Iterable):
             characters = [characters]
 
@@ -2380,52 +2427,52 @@ class GameLoop:
     def start_of_turn(self, characters):
         print("Starting turn")
 
-        self.evaluate_skill(characters, [8, 12, 13, 22, 25, 27])
+        self.evaluate_skills(characters, [8, 12, 13, 22, 25, 27])
 
     def upon_movement(self, unit: Character):
 
-        self.evaluate_skill(unit, [9, 24, 26])
+        self.evaluate_skills(unit, [9, 24, 26])
 
         pass
 
     def after_movement(self, unit: Character):
 
-        self.evaluate_skill(unit, [19])
+        self.evaluate_skills(unit, [19])
         pass
 
     def before_combat(self, unit: Character, foe: Character):
 
-        self.evaluate_skill([unit, foe], [1, 5, 12, 15, 21, 23, 28])
+        self.evaluate_skills([unit, foe], [1, 5, 12, 15, 21, 23, 28])
         pass
 
     def during_combat(self, unit: Character, foe: Character):
 
-        self.evaluate_skill([unit, foe], [1, 2, 12, 15, 20, 21, 23, 24, 28])
+        self.evaluate_skills([unit, foe], [1, 2, 12, 15, 20, 21, 23, 24, 28])
         pass
 
     def after_combat(self, unit: Character, foe: Character):
 
-        self.evaluate_skill([unit, foe], [1, 3, 6, 15, 21, 26, 27])
+        self.evaluate_skills([unit, foe], [1, 3, 6, 15, 21, 26, 27])
         pass
 
     def attack(self, unit: Character, foe: Character):
 
-        self.evaluate_skill([unit, foe], [3, 4, 10, 11, 12, 13, 21, 28])
+        self.evaluate_skills([unit, foe], [3, 4, 10, 11, 12, 13, 21, 28])
         pass
 
     def use_assist(self, unit: Character, target: Character):
 
-        self.evaluate_skill([unit, target], [0, 7, 14, 16, 17, 22, 23])
+        self.evaluate_skills([unit, target], [0, 7, 14, 16, 17, 22, 23])
         pass
 
     def use_duo_skill(self, unit: Character):
 
-        self.evaluate_skill([unit], [0])
+        self.evaluate_skills([unit], [0])
         pass
 
     def calc_arena_score(self, characters):
 
-        self.evaluate_skill(characters, [18])
+        self.evaluate_skills(characters, [18])
         pass
 
 
@@ -2439,15 +2486,32 @@ def program_instructions():
     #
     # gl = GameLoop()
     # gl.main()
+    from Code.FEH_character_search import get_character
 
-    testchar = Enemy.from_dict(players_data[0]["PID_Death_Knight"], pos=(1, 1))
+    testchar = Enemy.from_dict(players_data[0][get_character("Aversa", players_data)], pos=(1, 1),
+                               rarity=5, level=40, weapon="SID_ノスフェラート")
+    print()
+    print("STATS:", players_data[0][get_character("Alphonse", players_data)]["base_stats"])
+    print()
+    testchar2 = Player.from_dict(players_data[0][get_character("Alphonse", players_data)], pos=(2, 1), rarity=5,
+                                 level=40,
+                                 weapon="SID_銀の剣")
+    print()
+    testchar3 = Player.from_dict(players_data[0][get_character("Alphonse", players_data)], pos=(3, 1), rarity=5,
+                                 level=40,
+                                 weapon="SID_銀の剣")
+    print()
+    print("STATS", players_data[0][get_character("Alphonse", players_data)]["base_stats"])
 
-    testchar2 = Player.from_dict(players_data[0]["PID_Ophelia"], pos=(2, 1), rarity=5, level=40,
-                                 weapon="SID_魔書ミステルトィン", special_cd=4, max_special_cd=4)
-
-    testchar3 = Player.from_dict(players_data[0]["PID_Ophelia"], pos=(3, 1), rarity=5, level=40,
-                                 weapon="SID_魔書ミステルトィン", special_cd=4, max_special_cd=4)
-
+    # print("STATS:", players_data[0]["PID_Ophelia"]["base_stats"])
+    # print()
+    # testchar2 = Player.from_dict(players_data[0]["PID_Ophelia"], pos=(2, 1), rarity=5, level=40,
+    #                              weapon="SID_魔書ミステルトィン", special_cd=4, max_special_cd=4)
+    # print()
+    # testchar3 = Player.from_dict(players_data[0]["PID_Ophelia"], pos=(3, 1), rarity=5, level=40,
+    #                              weapon="SID_魔書ミステルトィン", special_cd=4, max_special_cd=4)
+    # print()
+    # print("STATS", players_data[0]["PID_Ophelia"]["base_stats"])
 
     loop = GameLoop()
     loop.main()

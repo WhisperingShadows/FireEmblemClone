@@ -30,6 +30,7 @@ def said17(skill: Skill, unit: Character, target: Character):
     """
     Shove/smite assist
 
+    :param skill
     :param unit:
     :param target:
     :return:
@@ -43,6 +44,7 @@ def said18(skill: Skill, unit: Character, target: Character):
     """
     Swap assist
 
+    :param skill
     :param unit:
     :param target:
     :return:
@@ -60,6 +62,7 @@ def said19(skill: Skill, unit: Character, target: Character):
     """
     Drawback assist
 
+    :param skill
     :param unit:
     :param target:
     :return:
@@ -73,6 +76,7 @@ def said20(skill: Skill, unit: Character, target: Character):
     """
     Reposition / To Change Fate (Chrom) assist
 
+    :param skill
     :param unit:
     :param target:
     :return:
@@ -89,6 +93,7 @@ def said21(skill: Skill, unit: Character, target: Character):
     """
     Pivot assist
 
+    :param skill
     :param unit:
     :param target:
     :return:
@@ -97,6 +102,14 @@ def said21(skill: Skill, unit: Character, target: Character):
 
 
 def said22(skill: Skill, unit: Character, target: Character):
+    """
+
+
+    :param skill:
+    :param unit:
+    :param target:
+    :return:
+    """
     # CHECK: is this section supposed to be executed always or only when spd param == 0?
     hp_add = max(skill.skill_params["def"] / 100 * unit.stats["atk"] + skill.skill_params["res"],
                  skill.skill_params["hp"])
@@ -115,12 +128,28 @@ def said22(skill: Skill, unit: Character, target: Character):
 
 
 def said23(skill: Skill, unit: Character, target: Character):
+    """
+
+
+    :param skill:
+    :param unit:
+    :param target:
+    :return:
+    """
     to_buff = neighborhood(target, skill)
     to_buff.remove(unit)
     buff(skill, to_buff)
 
 
 def said27(skill: Skill, unit: Character, target: Character):
+    """
+
+
+    :param skill:
+    :param unit:
+    :param target:
+    :return:
+    """
     if skill.skill_params["hp"] > 0:
         map_add_hp(skill.skill_params["hp"], target)
         # CHECK: Check whether the above can donate the full hp amount and if not, give less in below
@@ -133,18 +162,40 @@ def said27(skill: Skill, unit: Character, target: Character):
 
 
 def said28(unit: Character, target: Character):
+    """
+
+
+    :param unit:
+    :param target:
+    :return:
+    """
     temp = unit.hp
     unit.hp = min(target.hp, unit.stats["hp"])
     target.hp = min(temp, target.stats["hp"])
 
 
 def said29(skill: Skill, target: Character):
+    """
+
+
+    :param skill:
+    :param target:
+    :return:
+    """
     convert_penalties_to_bonuses(target)
     if skill.skill_params["hp"] == 1:
         neutralize_penalties(target)
 
 
 def said30(skill: Skill, unit: Character, target: Character):
+    """
+
+
+    :param skill:
+    :param unit:
+    :param target:
+    :return:
+    """
     # CHECK: Check if target is a refresher here or put that in the give_action func?
     give_action(target)
 
@@ -178,6 +229,13 @@ def said56(self):
 
 
 def said67(skill: Skill, unit: Character):
+    """
+
+
+    :param skill:
+    :param unit:
+    :return:
+    """
     # cooldown(skill.skill_params["hp"], unit)
 
     for character in skill.targeted(allies(within_range_ex_abstract(unit, skill), unit)):
@@ -185,8 +243,14 @@ def said67(skill: Skill, unit: Character):
 
 
 def said88(skill: Skill, unit: Character):
-    """BUFF(unit and TARGETED(allies WITHIN_RANGE_EX(unit))).
-    ADD_STATUS(STATUS(skill_params.hp); unit and TARGETED(allies WITHIN_RANGE_EX(unit)))"""
+    """
+    BUFF(unit and TARGETED(allies WITHIN_RANGE_EX(unit))).
+    ADD_STATUS(STATUS(skill_params.hp); unit and TARGETED(allies WITHIN_RANGE_EX(unit)))
+
+    :param skill:
+    :param unit:
+    :return:
+    """
 
     for character in skill.targeted(allies(within_range_ex_abstract(unit, skill), unit)):
         buff(skill, character)
@@ -194,8 +258,14 @@ def said88(skill: Skill, unit: Character):
 
 
 def said92(skill: Skill, unit: Character):
-    """MAP_ADD_HP(skill_params.hp; foes WITHIN_RANGE_EX(unit)).
-    ADD_STATUS(STATUS(skill_params.atk); foes WITHIN_RANGE_EX(unit))"""
+    """
+    MAP_ADD_HP(skill_params.hp; foes WITHIN_RANGE_EX(unit)).
+    ADD_STATUS(STATUS(skill_params.atk); foes WITHIN_RANGE_EX(unit))
+
+    :param skill:
+    :param unit:
+    :return:
+    """
 
     for character in foes(within_range_ex_abstract(unit, skill), unit):
         map_add_hp(skill.skill_params["hp"], character)
@@ -203,9 +273,15 @@ def said92(skill: Skill, unit: Character):
 
 
 def said192(skill: Skill, unit: Character):
-    """MAP_ADD_HP(skill_params.hp; NEIGHBORHOOD_EX(unit)).
+    """
+    MAP_ADD_HP(skill_params.hp; NEIGHBORHOOD_EX(unit)).
     Neutralizes【Penalty】on NEIGHBORHOOD_EX(unit).
-    BUFF(NEIGHBORHOOD_EX(unit))"""
+    BUFF(NEIGHBORHOOD_EX(unit))
+
+    :param skill:
+    :param unit:
+    :return:
+    """
 
     for character in neighborhood_ex(unit, skill):
         map_add_hp(skill.skill_params["hp"], character)
@@ -214,9 +290,15 @@ def said192(skill: Skill, unit: Character):
 
 
 def said200(skill: Skill, unit: Character):
-    """BUFF(NEIGHBORHOOD_EX(unit)).
+    """
+    BUFF(NEIGHBORHOOD_EX(unit)).
     ADD_STATUS(STATUS(skill_params.hp); NEIGHBORHOOD_EX(unit)).
-    ADD_STATUS(STATUS(skill_params2.hp); NEIGHBORHOOD_EX(unit))"""
+    ADD_STATUS(STATUS(skill_params2.hp); NEIGHBORHOOD_EX(unit))
+
+    :param skill:
+    :param unit:
+    :return:
+    """
 
     for character in neighborhood_ex(unit, skill):
         buff(skill, character)
@@ -225,9 +307,15 @@ def said200(skill: Skill, unit: Character):
 
 
 def said214(skill: Skill, unit: Character):
-    """ADD_STATUS(STATUS(skill_params.hp); NEIGHBORHOOD_EX(unit)).
+    """
+    ADD_STATUS(STATUS(skill_params.hp); NEIGHBORHOOD_EX(unit)).
     ADD_STATUS(STATUS(skill_params2.hp); foes WITHIN_RANGE_EX(unit)).
-    BUFF2(foes WITHIN_RANGE_EX(unit))."""
+    BUFF2(foes WITHIN_RANGE_EX(unit)).
+
+    :param skill:
+    :param unit:
+    :return:
+    """
 
     for character in foes(within_range_ex_abstract(unit, skill), unit):
         add_status(status(skill.skill_params2["hp"]), character)
@@ -238,8 +326,14 @@ def said214(skill: Skill, unit: Character):
 
 
 def said217(skill: Skill, unit: Character):
-    """ADD_STATUS(STATUS(skill_params.hp);
-    unit and allies from the same titles WITHIN_RANGE_EX(unit))"""
+    """
+    ADD_STATUS(STATUS(skill_params.hp);
+    unit and allies from the same titles WITHIN_RANGE_EX(unit))
+
+    :param skill:
+    :param unit:
+    :return:
+    """
 
     # TODO
 
